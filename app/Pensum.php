@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pensum extends Model
 {
-    $protected = ('pemsum');
+    protected $table = 'pensum';
+
+    protected $fillable = ['descripcion'];
+
+    public function asignatura(){
+
+    	return $this->hasMany('App\Asignatura','id_pensum');
+    }
     
 }

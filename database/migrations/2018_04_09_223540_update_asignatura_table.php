@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePensumTable extends Migration
+class UpdateAsignaturaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreatePensumTable extends Migration
      */
     public function up()
     {
-        Schema::create('pensum', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('descripcion');
-            $table->timestamps();
+        Schema::table('asignatura', function (Blueprint $table) {
+            $table->unsignedInteger('id_pensum');
         });
     }
 
@@ -27,6 +25,8 @@ class CreatePensumTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pensum');
+        Schema::table('asignatura', function (Blueprint $table) {
+           $table->dropColumnInteger('id_pensum');
+        });
     }
 }

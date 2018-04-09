@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('asignatura','AsignaturaController'); 
+Route::resource('pensum','PensumController');

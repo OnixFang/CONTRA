@@ -14,7 +14,8 @@ class PensumController extends Controller
      */
     public function index()
     {
-        //
+       $pensumes = Pensum::all();
+       return view('pensum.pensumDashboard')->withPensumes($pensumes);
     }
 
     /**
@@ -24,7 +25,7 @@ class PensumController extends Controller
      */
     public function create()
     {
-        //
+        return view('Pensum.CreatePensum');
     }
 
     /**
@@ -35,11 +36,11 @@ class PensumController extends Controller
      */
     public function store(Request $request)
     {
-        $request({
-            'descripcion' => 'descripcion'
-        });
-        Pensum::create($request->all());
-        return view('Pensum.pensum')->withMessage('El pensum fue creado exitosamente');
+        
+        Pensum::create([
+                        'descripcion'=> $request->descripcion
+                    ]);
+        return redirect()->route('pensum.index')->withMessage("El pensum fue creado exitosamente");
     }
 
     /**
@@ -61,7 +62,8 @@ class PensumController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pensum = Pensum::find($id);
+        return view('pensum.updatepensum')->withPensum($pensum);
     }
 
     /**
@@ -73,7 +75,9 @@ class PensumController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       Pensum::find($id)->update($request->all());
+
+       return redirect()->route('pensum.index')->withMessage("Pensum Editado");
     }
 
     /**
@@ -84,6 +88,9 @@ class PensumController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Pensum::destroy($id);
+        return redirect()->route('pensum.index')->withMessage('El pensum ha sido borrado correctamente');
+
+
     }
 }
