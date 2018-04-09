@@ -40,7 +40,8 @@
       <td>{{ $pensum->descripcion}}</td>
      {{ Form::open(array('route'=>['pensum.destroy',$pensum->id], 'method'=>'DELETE')) }}
      <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
-     {{ link_to_route('pensum.edit', 'Editar', [$pensum->id],['class'=>'btn btn-success']) }} </td>
+     {{ link_to_route('pensum.edit', 'Editar', [$pensum->id],['class'=>'btn btn-success']) }} 
+     {{ link_to_route('asignatura.index', 'Añadir asignaturas', [$pensum->id],['class'=>'btn btn-info']) }}</td>
     </tr>
     {{ Form::close() }}
    @endforeach
