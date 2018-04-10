@@ -18,5 +18,6 @@ Route::get('/', function () {
 Route::get('asignatura.create/{id}', ['as' => 'asignatura.create', 'uses' => 'AsignaturaController@create']);//para poder recibir el id en el create() 
 Route::resource('asignatura','AsignaturaController',['except'=>['create']]); 
 Route::resource('pensum','PensumController');
-
+Route::resource('facilitador','FacilitadorController');
+Route::resource('grupo','GrupoController');
 

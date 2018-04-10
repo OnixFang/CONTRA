@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Grupo;
+use App\Facilitador;
 use App\Asignatura;
-use App\Pensum;
-use App\Http\Requests\AsignaturaRequest;
 
-class AsignaturaController extends Controller
+class GrupoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,10 @@ class AsignaturaController extends Controller
      */
     public function index()
     {
-        
+        $grupos = Grupo::all();
+        $facilitadores = Facilitador::pluck('nombre','id');
+        $asignaturas = Asignatura::pluck('descripcion','id');
+        return view('grupos.addGrupos',compact('grupos','facilitadores','asignaturas'));
     }
 
     /**
@@ -24,9 +28,9 @@ class AsignaturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        return view('asignaturas.addsubject')->withPensum($id);
+        //
     }
 
     /**
@@ -35,13 +39,9 @@ class AsignaturaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AsignaturaRequest $request)
+    public function store(Request $request)
     {
-        $id_pensum=$request->id_pensum;
-        Asignatura::create($request->all());
-        return redirect()->route('asignatura.show',['id'=>$id_pensum])->withId($id_pensum)->withMessage('La asignatura fue guardada exitosamente');
-
-        
+        //
     }
 
     /**
@@ -52,12 +52,7 @@ class AsignaturaController extends Controller
      */
     public function show($id)
     {
-        $asignaturas = Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');
-        $collection = $asignaturas;
-        $id_pensum=$id;
-        
-        //dd($asignaturas);
-        return view('pensum.pensumshow',compact('asignaturas', 'collection','id_pensum'));
+        //
     }
 
     /**
@@ -68,8 +63,7 @@ class AsignaturaController extends Controller
      */
     public function edit($id)
     {
-        $asignatura= Asignatura::find($id);
-        return view('asignaturas.updateSubject')->withAsignatura($asignatura);
+        //
     }
 
     /**
@@ -81,8 +75,7 @@ class AsignaturaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Asignatura::find($id)->update($request->all());
-        return redirect()->route('pensum.index')->withMessage("la Asignatura fue editada");
+        //
     }
 
     /**
@@ -93,7 +86,6 @@ class AsignaturaController extends Controller
      */
     public function destroy($id)
     {
-        Asignatura::destroy($id);
-        return back()->withMessage("la asignatura fue borrada exitosamente");
+        //
     }
 }

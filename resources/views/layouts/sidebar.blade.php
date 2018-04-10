@@ -18,49 +18,26 @@
 		<ul class="nav menu">
 			<li class="active"><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
 			<li><a href="/pensum"><em class="fa fa-calendar">&nbsp;</em> Pensum</a></li>
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-1">
-				<em class="fa fa-navicon">&nbsp;</em> Asignaturas <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-				</a>
-				<ul class="children collapse" id="sub-item-1">
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Ver todas
-					</a></li>
-					<li><a class="" href="/asignatura">
-						<span class="fa fa-arrow-right">&nbsp;</span> Añadir Asignaturas
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-					</a></li>
-				</ul>
-			</li>
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-2">
-				<em class="fa fa-navicon">&nbsp;</em> Facilitadores <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
-				</a>
-				<ul class="children collapse" id="sub-item-2">
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Ver todos
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Añadir nuevos 
-					</a></li>
-					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Sub Item 3
-					</a></li>
-				</ul>
-			</li>
+			<li> <a href="/facilitador"><em class="fas fa-users">&nbsp;</em> Facilitadores</a></li>
 			<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
-				<em class="fa fa-navicon">&nbsp;</em> Ciclos <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
+				<em class="fab fa-cloudscale">&nbsp;</em> Ciclos <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-3">
 					<li><a class="" href="#">
-						<span class="fa fa-arrow-right">&nbsp;</span> Historial
-					</a></li>
-					<li><a class="" href="#">
 						<span class="fa fa-arrow-right">&nbsp;</span> Inscribir Nuevo
 					</a></li>
+					<li><a class="" href="/grupo">
+						<span class="fa fa-arrow-right">&nbsp;</span> Crear Grupos
+					</a></li>
+					<li><a class="" href="#">
+						<span class="fa fa-arrow-right">&nbsp;</span> Historial
+					</a></li>
+					
+					
 					<li><a class="" href="#">
 						<span class="fa fa-arrow-right">&nbsp;</span> Pendiente
 					</a></li>
+
 				</ul>
 			</li>
 			<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>

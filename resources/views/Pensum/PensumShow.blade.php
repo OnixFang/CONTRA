@@ -16,37 +16,47 @@
 @endif
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Pensum</h1>
+		<h1 class="page-header">Pensum {{ $id_pensum }}</h1>
 	</div>
 </div><!--/.row-->
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
-			<div class="panel-heading">Añadir</div>
+			<div class="panel-heading"></div>
 			<div class="panel-body">
-				<table class="table table-bordered table-dark">
+				
+    @if(count($collection) > 0)
+    @foreach($collection as $cuatrimestre => $asignaturas)
+     <h4>{{"Cuatrimestre ". $cuatrimestre}}</h4>
+     <table class="table table-bordered table-dark">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Pensum</th>
+      <th scope="col">Clave</th>
+      <th scope="col">Asignatura</th>
       <th scope="col">Acciones</th>
-
     </tr>
   </thead>
+     @foreach($asignaturas as $asignatura)
+
   <tbody>
-    @foreach($asignaturas as $asignatura)
-    <tr>
-      <th scope="row">{{$asignatura->id}}</th>
-      <td>{{ $asignatura->descripcion }}</td>
-     {{ Form::open(array('route'=>['pensum.destroy',$asignatura->id], 'method'=>'DELETE')) }}
+     <tr>
+      <td scope="col">{{$asignatura->clave}}</td>
+      <td scope="col"> {{ $asignatura->descripcion }}</td>
+
+{{ Form::open(array('route'=>['asignatura.destroy',$asignatura->id], 'method'=>'DELETE')) }}
      <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
-     {{ link_to_route('asignatura.edit', 'Editar', [$asignatura->id],['class'=>'btn btn-success']) }} 
-    </tr>
-    {{ Form::close() }}
+     {{ link_to_route('asignatura.edit', 'Editar', [$asignatura->id],['class'=>'btn btn-success']) }} </td>
+{{ Form::close() }}
+      </tr>
    @endforeach
-  </tbody>
+   
+    
+     </tbody>
 </table>
-{{ link_to_route('pensum.create', $title='Añadir', $parameters =array(),$attributes=array('class'=>'btn btn-primary')) }}
+   @endforeach
+@endif
+
+{{ link_to_route('asignatura.create','Añadir',[$id_pensum],['class'=>'btn btn-primary']) }}
 			</div>
 		</div>
 	</div><!-- /.panel-->
