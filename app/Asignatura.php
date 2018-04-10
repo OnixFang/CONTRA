@@ -6,5 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asignatura extends Model
 {
-    protected $table ="asignatura"
+    protected $table ="asignatura";
+
+    protected $fillable =['descripcion','clave','hp','ht','cr','cuatrimestre','id_pensum'];
+
+    public function pensum(){
+
+    	return $this->belongsTo('App\Pensum','id_pensum');
+    }
 }

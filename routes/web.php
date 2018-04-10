@@ -15,5 +15,8 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::resource('asignatura','AsignaturaController'); 
+Route::get('asignatura.create/{id}', ['as' => 'asignatura.create', 'uses' => 'AsignaturaController@create']);//para poder recibir el id en el create() 
+Route::resource('asignatura','AsignaturaController',['except'=>['create']]); 
 Route::resource('pensum','PensumController');
+
+

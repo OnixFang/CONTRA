@@ -24,16 +24,15 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Añadir</div>
 			<div class="panel-body">
-				{!! Form::open(array('route' => 'asignatura.store', 'class'=> 'form')) !!}
+				{{ Form::model($asignatura,['route'=>['asignatura.update',$asignatura->id],'method'=>'PUT']) }}
+								
 				<div class="col-md-6">
-				{{ Form::hidden('id_pensum',$pensum) }}
 					<div class="form-group">
 						<label>Nombre Asignatura</label>
-						<input class="form-control" placeholder="Placeholder" name="descripcion">
-					</div>
+						{{Form::text('descripcion',null,['class'=>'form-control'])}}					</div>
 					<div class="form-group">
 						<label>Pre-requisito</label>
-						<input class="form-control" placeholder="Placeholder" name="">
+						{{Form::text('prerequisito',null,['class'=>'form-control'])}}
 					</div>
 					<div class="form-group checkbox">
 						<label>
@@ -44,32 +43,28 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Créditos</label>
-						<input class="form-control" placeholder="Cr" name="cr">
+						{{Form::text('cr',null,['class'=>'form-control'])}}
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Horas prácticas</label>
-						<input class="form-control" placeholder="HP" name="hp">
-					</div>
+						{{Form::text('hp',null,['class'=>'form-control'])}}					</div>
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Horas Teóricas</label>
-						<input class="form-control" placeholder="HT" name="ht">
-					</div>
+					{{Form::text('ht',null,['class'=>'form-control'])}}					</div>
 				</div>	
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>cuatrimestre</label>
-						<input class="form-control" placeholder="Cuatrimestre" name="cuatrimestre">
-					</div>
+{{Form::text('cuatrimestre',null,['class'=>'form-control'])}}					</div>
 				</div>	
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Clave </label>
-						<input class="form-control" placeholder="Clave" name="clave">
-					</div>
+{{Form::text('clave',null,['class'=>'form-control'])}}					</div>
 				</div>	
 				<div class="col-md-12">
 					<button type="submit" class="btn btn-primary">Añadir</button>

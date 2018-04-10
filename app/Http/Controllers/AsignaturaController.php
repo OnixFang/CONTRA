@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Asignatura;
+use App\Asignatura;
+use App\Pensum;
+use App\Http\Requests\AsignaturaRequest;
 
 class AsignaturaController extends Controller
 {
@@ -14,7 +16,7 @@ class AsignaturaController extends Controller
      */
     public function index()
     {
-        return view('asignaturas.addsubject');
+        
     }
 
     /**
@@ -22,9 +24,9 @@ class AsignaturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view('asignaturas.addsubject')->withPensum($id);
     }
 
     /**
@@ -33,11 +35,11 @@ class AsignaturaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AsignaturaRequest $request)
     {
-        dd('guardar datos');
+        
         Asignatura::create($request->all());
-        return back()->withMenssaje('La asignatura fue guardada exitosamente');
+        return redirect()->route('pensum.index')->withMenssaje('La asignatura fue guardada exitosamente');
 
         
     }
@@ -50,7 +52,8 @@ class AsignaturaController extends Controller
      */
     public function show($id)
     {
-        //
+        $asignaturas = Asignatura::all()->where('id_pensum',$id);
+        return view('pensum.pensumshow')->withAsignaturas($asignaturas);
     }
 
     /**
@@ -61,7 +64,8 @@ class AsignaturaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $asignatura= Asignatura::find($id);
+        return view('asignaturas.updateSubject')->withAsignatura($asignatura);
     }
 
     /**
@@ -73,7 +77,8 @@ class AsignaturaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Asignatura::update($id);
+        return redirect()->route('asignatura.show');
     }
 
     /**
