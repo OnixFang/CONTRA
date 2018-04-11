@@ -1,99 +1,92 @@
-@extends('layouts.layout');
+@extends('layouts.layout'); @section('content')
 
-@section('content')
-@if(Session::has('message'))
-<div class="alert alert-success">   
-	{{ Session::get('message') }}
-</div>
-@endif
-<div class="row">
-	<ol class="breadcrumb">
-		<li><a href="#">
-			<em class="fa fa-home"></em>
-		</a></li>
-		<li class="active">Añadir Grupos</li>
-	</ol>
-</div><!--/.row-->
-<div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">Añadir Grupos</h1>
+<div ng-controller="cicloController">
+	@if(Session::has('message'))
+	<div class="alert alert-success">
+		{{ Session::get('message') }}
 	</div>
-</div><!--/.row-->
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Añadir</div>
-			<div class="panel-body">
-				{!! Form::open(array('route' => 'facilitador.store', 'class'=> 'form')) !!}
-				<div class="col-md-6">
-					<div class="form-group">
-						<label>descripcion</label>
-						{{  Form::text('descripcion',null,['class'=>'form-control','placeholder'=>'escriba nombre del facilitador']) }}
-
+	@endif
+	<div class="row">
+		<ol class="breadcrumb">
+			<li>
+				<a href="#">
+					<em class="fa fa-home"></em>
+				</a>
+			</li>
+			<li class="active">Añadir Grupos</li>
+		</ol>
+	</div>
+	<!--/.row-->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">Inscribir Ciclo</h1>
+		</div>
+	</div>
+	<!--/.row-->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">Ciclo</div>
+				<div class="panel-body">
+					{!! Form::open(array('route' => 'facilitador.store', 'class'=> 'form')) !!}
+					<div class="col-md">
+						<div class="form-group col-md-9">
+							<label>Clave</label>
+							{{ Form::text('clave',null,['class'=>'form-control', 'ng-model'=>'ciclo.clave']) }}
 						</div>
-<div class="form-group">
-						<label>Clave</label>
-						{{  Form::text('clave',null,['class'=>'form-control','placeholder'=>'escriba ciudad donde vice']) }}
-						<div class="form-group">
-
-<label>Horario</label>
-						{{  Form::text('clave',null,['class'=>'form-control','placeholder'=>'escriba ciudad donde vice']) }}
-</div>
+						<div class="form-group col-md-3">
+							<label>Fecha</label>
+							{{ Form::text('fecha',null,['class'=>'form-control','ng-model'=>'ciclo.fecha']) }}
 						</div>
-						<div class="form-group">
-						{{Form::label('id_cliclo','Seleccione un Profesor')}}
-						{{ Form::select('id_ciclo',$facilitadores,1,['class'=>'form-control']) }}
 					</div>
-
-
-					<div class="form-group">
-						{{Form::label('id_asignatura','Seleccione una Asignatura')}}
-						{{ Form::select('id_asignatura',$asignaturas,1,['class'=>'form-control']) }}
+					<div class="col-md-12">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Grupos</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="grupo in grupos">
+									<td class="col-md-11" ng-bind="grupo"></td>
+									<td class="col-md-1"><button class="btn btn-danger" ng-click="removerGrupo(grupo, $index)">Remover</button></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-
-					<div class="form-group col-md-6">
-						{{Form::label('bimestre','Seleccione un bimestre')}}
-						{{ Form::select('bimestre', ['1'=>'1','2'=>'2'],['class'=>'form-control']) }}
-					</div>
-				<div class="col-md-12">
+				</div>
+				<div class="panel-footer">
 					<button type="submit" class="btn btn-primary">Añadir</button>
 					<button type="reset" class="btn btn-default">Cancelar</button>
 				</div>
 				{!! Form::close() !!}
 			</div>
+			<!-- /.panel-->
 		</div>
-	</div><!-- /.panel-->
-</div>
+	</div>
 
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">grupos Creados</div>
-			<div class="panel-body">
-<table class="table table-striped table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    @if(count($grupos) > 0) 
-@foreach($grupos as $grupo)
-<tr>
-      <th scope="row">{{$grupo->nombre}}</th>
-      <td></td>
-
-    </tr>
-    @endforeach
-@endif
-  </tbody>
-</table>
-
-
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">Asignaturas</div>
+				<div class="panel-body">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="asignatura in asignaturas | orderBy">
+								<td class="col-md-11" ng-bind="asignatura"></td>
+								<td class="col-md-1"><button class="btn btn-primary" ng-click="agregarGrupo(asignatura, $index)">Agregar</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
-	</div><!-- /.panel-->
+		<!-- /.panel-->
+	</div>
 </div>
-
 @endsection
