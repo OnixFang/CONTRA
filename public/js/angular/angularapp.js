@@ -1,3 +1,3 @@
 (function () {
-    const app = angular.module('mainApp', []);
+    const app = angular.module('angularApp', []);
 }());
