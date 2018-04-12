@@ -1,6 +1,6 @@
 @extends('layouts.layout'); @section('content')
 
-<div ng-controller="cicloController">
+<div ng-controller="cicloController" ng-cloak>
 	@if(Session::has('message'))
 	<div class="alert alert-success">
 		{{ Session::get('message') }}

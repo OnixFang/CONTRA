@@ -27,7 +27,7 @@
 	<script src="js/angular/controllers/ciclocontroller.js"></script>
 </head>
 
-<body ng-controller="mainController" ng-cloak>
+<body ng-controller="mainController">
 	@include('layouts.nav') @include('layouts.sidebar')
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
