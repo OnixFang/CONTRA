@@ -1,12 +1,19 @@
 (function (params) {
     const app = angular.module('angularApp');
 
-    function cicloController($scope) {
+    function cicloController($scope, contraData, $http) {
         $scope.ciclo = {};
 
         $scope.grupos = [];
 
-        $scope.asignaturas = ['Asignatura 1', 'Asignatura 2', 'Asignatura 3', 'Asignatura 4', 'Asignatura 5', 'Asignatura 6'];
+        contraData.getAsignaturas().then(function (response) {
+            $scope.asignaturas = response;
+        });
+
+        // $scope.asignaturas = $http.get('api/asignatura_api').then(function (response) {
+        //     console.log(response.data);
+        //     return response.data;
+        // });
 
         $scope.agregarGrupo = function agregarGrupo(asignatura, index) {
             $scope.grupos.push(asignatura);
@@ -16,6 +23,10 @@
         $scope.removerGrupo = function removerGrupo(grupo, index) {
             $scope.asignaturas.push(grupo);
             $scope.grupos.splice(index, 1);
+        }
+
+        $scope.test = function test() {
+            console.log($scope.asignaturas);
         }
     }
 

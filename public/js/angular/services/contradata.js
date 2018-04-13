@@ -7,15 +7,7 @@
         }
 
         function getAsignaturas() {
-            $http.get('').then(returnData);
-        }
-
-        function getFacilitadores() {
-            $http.get('').then(returnData);
-        }
-
-        function getGrupos() {
-            $http.get('').then(returnData);
+            return $http.get('api/asignatura_api').then(returnData);
         }
 
         return {

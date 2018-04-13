@@ -49,7 +49,9 @@
 							<tbody>
 								<tr ng-repeat="grupo in grupos">
 									<td class="col-md-11" ng-bind="grupo"></td>
-									<td class="col-md-1"><button class="btn btn-danger" ng-click="removerGrupo(grupo, $index)">Remover</button></td>
+									<td class="col-md-1">
+										<button class="btn btn-danger" ng-click="removerGrupo(grupo, $index)">Remover</button>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -58,6 +60,7 @@
 				<div class="panel-footer">
 					<button type="submit" class="btn btn-primary">Añadir</button>
 					<button type="reset" class="btn btn-default">Cancelar</button>
+					<button type="button" class="btn btn-danger" ng-click="test()">Test</button>
 				</div>
 				{!! Form::close() !!}
 			</div>
@@ -77,9 +80,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="asignatura in asignaturas | orderBy">
-								<td class="col-md-11" ng-bind="asignatura"></td>
-								<td class="col-md-1"><button class="btn btn-primary" ng-click="agregarGrupo(asignatura, $index)">Agregar</button></td>
+							<tr ng-repeat="asignatura in asignaturas">
+								<td class="col-md-11" ng-bind="asignatura.descripcion"></td>
+								<td class="col-md-1">
+									<button class="btn btn-primary" ng-click="agregarGrupo(asignatura, $index)">Agregar</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>

@@ -21,10 +21,11 @@
 	<![endif]-->
 
 	<!-- Angular Scripts -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+	<script src="js/angular/angular.js"></script>
 	<script src="js/angular/angularapp.js"></script>
 	<script src="js/angular/controllers/maincontroller.js"></script>
 	<script src="js/angular/controllers/ciclocontroller.js"></script>
+	<script src="js/angular/services/contradata.js"></script>
 </head>
 
 <body ng-controller="mainController">

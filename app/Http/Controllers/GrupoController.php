@@ -23,6 +23,13 @@ class GrupoController extends Controller
         return view('grupos.addGrupos',compact('grupos','facilitadores','asignaturas'));
     }
 
+    public function asignatura_api()
+    {
+        $asignatura = Asignatura::all();
+        //->json($asignatura)
+        return $asignatura;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
