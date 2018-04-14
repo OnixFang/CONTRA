@@ -56,21 +56,21 @@
 								<tbody>
 									<tr ng-repeat="asignatura in seleccionadas">
 										<td class="col-md">
-											<input class="form-control" ng-model="asignatura.descripcion" readonly>
+											<input class="form-control" ng-model="asignatura.grupo">
 										</td>
 										<td class="col-md-1">
 											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
 										</td>
 										<td class="col-md">
-											<select>
+											<select ng-change="asignarFacilitador(facilitador.id, asignatura)" ng-model="facilitador.id">
 												<option ng-repeat="facilitador in facilitadores" ng-value="facilitador.id" ng-bind="facilitador.nombre"></option>
 											</select>
 										</td>
 										<td class="col-md-1">
-											<input class="form-control" type="number" min="1" max="2" ng-model="bimestre">
+											<input class="form-control" type="number" min="1" max="2" ng-model="asignatura.bimestre">
 										</td>
 										<td class="col-md-2 text-right">
-											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura, $index, asignatura.descripcion)">Remover</button>
+											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura, $index)">Remover</button>
 										</td>
 									</tr>
 								</tbody>
@@ -78,7 +78,7 @@
 						</div>
 					</div>
 					<div class="panel-footer">
-						<button class="btn btn-primary" ng-click="test()">Añadir</button>
+						<button class="btn btn-primary" ng-click="fillGrupos()">Inscribir Ciclo</button>
 					</div>
 				</form>
 			</div>
