@@ -26,8 +26,13 @@ class GrupoController extends Controller
     public function asignatura_api()
     {
         $asignatura = Asignatura::all();
-        //->json($asignatura)
         return $asignatura;
+    }
+
+    public function facilitador_api()
+    {
+        $facilitador = Facilitador::all();
+        return $facilitador;
     }
 
     /**

@@ -27,42 +27,60 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">Ciclo</div>
-				<div class="panel-body">
-					{!! Form::open(array('route' => 'facilitador.store', 'class'=> 'form')) !!}
-					<div class="col-md">
-						<div class="form-group col-md-9">
-							<label>Clave</label>
-							{{ Form::text('clave',null,['class'=>'form-control', 'ng-model'=>'ciclo.clave']) }}
+				<form>
+					<div class="panel-body">
+						<div class="col-md">
+							<div class="form-group col-md-9">
+								<label>Clave</label>
+								<input type="text" name="clave" id="clave" class="form-control" ng-model="ciclo.clave">
+							</div>
+							<div class="form-group col-md-3">
+								<label>Fecha</label>
+								<input type="date" name="fecha" id="fecha" class="form-control" ng-model="ciclo.fecha">
+							</div>
 						</div>
-						<div class="form-group col-md-3">
-							<label>Fecha</label>
-							{{ Form::text('fecha',null,['class'=>'form-control','ng-model'=>'ciclo.fecha']) }}
+						<div class="col-md-12">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>Grupos</th>
+									</tr>
+									<tr>
+										<th>Clave</th>
+										<th>Horario</th>
+										<th>Facilitador</th>
+										<th>Bimestre</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="asignatura in seleccionadas">
+										<td class="col-md">
+											<input class="form-control" ng-model="asignatura.descripcion" readonly>
+										</td>
+										<td class="col-md-1">
+											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
+										</td>
+										<td class="col-md">
+											<select>
+												<option ng-repeat="facilitador in facilitadores" ng-value="facilitador.id" ng-bind="facilitador.nombre"></option>
+											</select>
+										</td>
+										<td class="col-md-1">
+											<input class="form-control" type="number" min="1" max="2" ng-model="bimestre">
+										</td>
+										<td class="col-md-2 text-right">
+											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura, $index, asignatura.descripcion)">Remover</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<div class="col-md-12">
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th>Grupos</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="grupo in grupos">
-									<td class="col-md-11" ng-bind="grupo"></td>
-									<td class="col-md-1">
-										<button class="btn btn-danger" ng-click="removerGrupo(grupo, $index)">Remover</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+					<div class="panel-footer">
+						<button class="btn btn-primary" ng-click="test()">Añadir</button>
 					</div>
-				</div>
-				<div class="panel-footer">
-					<button type="submit" class="btn btn-primary">Añadir</button>
-					<button type="reset" class="btn btn-default">Cancelar</button>
-					<button type="button" class="btn btn-danger" ng-click="test()">Test</button>
-				</div>
-				{!! Form::close() !!}
+				</form>
 			</div>
 			<!-- /.panel-->
 		</div>
@@ -76,14 +94,22 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Nombre</th>
+								<th>Descripción</th>
+								<th>Clave</th>
+								<th>HP</th>
+								<th>HT</th>
+								<th>CR</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="asignatura in asignaturas">
-								<td class="col-md-11" ng-bind="asignatura.descripcion"></td>
-								<td class="col-md-1">
-									<button class="btn btn-primary" ng-click="agregarGrupo(asignatura, $index)">Agregar</button>
+								<td ng-bind="asignatura.descripcion"></td>
+								<td ng-bind="asignatura.clave"></td>
+								<td ng-bind="asignatura.hp"></td>
+								<td ng-bind="asignatura.ht"></td>
+								<td ng-bind="asignatura.cr"></td>
+								<td class="text-right">
+									<button class="btn btn-primary" ng-click="agregarAsignatura(asignatura, $index)">Agregar</button>
 								</td>
 							</tr>
 						</tbody>

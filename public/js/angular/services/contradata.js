@@ -10,8 +10,13 @@
             return $http.get('api/asignatura_api').then(returnData);
         }
 
+        function getFacilitadores() {
+            return $http.get('api/facilitador_api').then(returnData);
+        }
+
         return {
             getAsignaturas: getAsignaturas,
+            getFacilitadores: getFacilitadores,
         }
     }
 
