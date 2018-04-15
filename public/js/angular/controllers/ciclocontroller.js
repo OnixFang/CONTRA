@@ -17,12 +17,9 @@
                 grupo.asignatura = asignatura.id;
                 $scope.ciclo.grupos.push(grupo);
             });
-            // logGrupos();
+            
+            // Mandar el request para guardar el ciclo en la base de datos
             contraData.saveCiclo($scope.ciclo);
-        }
-
-        function logGrupos() {
-            console.log($scope.ciclo);
         }
 
         // Obtiene un array de objetos asignaturas y las asigna a la variable asignaturas

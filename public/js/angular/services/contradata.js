@@ -16,7 +16,8 @@
 
         function saveCiclo(ciclo) {
             $http.post('api/ciclo_api', ciclo).then(function (data, status) {
-                console.log(data);
+                // console.log(data.data);
+                window.location.href = data.data;
             });
         }
 

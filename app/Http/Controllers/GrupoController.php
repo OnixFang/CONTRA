@@ -59,13 +59,12 @@ public function return_view(){
      */
     public function store(Request $request)
     {
-       
-       $ciclo = Ciclo::create($request->all());
-       $ciclo_id = $ciclo->id;
+        $ciclo = Ciclo::create($request->all());
+        $ciclo_id = $ciclo->id;
         $grupos = $request->grupos;
         //return response (count($grupos));
-       //return response($grupos[0]['clave']);
-       foreach($grupos as $grupo)
+        //return response($grupos[0]['clave']);
+        foreach ($grupos as $grupo)
         {
             Grupo::create([
                 'clave' => $grupo['clave'],
@@ -75,10 +74,8 @@ public function return_view(){
                 'horario' => $grupo['horario'],
                 'id_ciclo' => $ciclo_id
                 ]);
-         }
-        return Response (200);
-        //return response view(200);
-
+        }
+        return Response (route('ciclo.index'), 200);
     }
 
     /**
