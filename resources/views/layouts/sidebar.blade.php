@@ -23,13 +23,10 @@
 				<em class="fab fa-cloudscale">&nbsp;</em> Ciclos <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-3">
-					<li><a class="" href="#">
+					<li><a class="" href="/grupo">
 						<span class="fa fa-arrow-right">&nbsp;</span> Inscribir Nuevo
 					</a></li>
-					<li><a class="" href="/grupo">
-						<span class="fa fa-arrow-right">&nbsp;</span> Crear Grupos
-					</a></li>
-					<li><a class="" href="#">
+					<li><a class="" href="/ciclo">
 						<span class="fa fa-arrow-right">&nbsp;</span> Historial
 					</a></li>
 					

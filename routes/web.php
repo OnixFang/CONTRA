@@ -20,4 +20,5 @@ Route::resource('asignatura','AsignaturaController',['except'=>['create']]);
 Route::resource('pensum','PensumController');
 Route::resource('facilitador','FacilitadorController');
 Route::resource('grupo','GrupoController');
+Route::resource('ciclo','CicloController');
 

@@ -36,7 +36,7 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label>Fecha</label>
-								<input type="date" name="fecha" id="fecha" class="form-control" ng-model="ciclo.fecha">
+								<input type="text" name="fecha" id="fecha" class="form-control" ng-model="ciclo.fecha">
 							</div>
 						</div>
 						<div class="col-md-12">
@@ -59,7 +59,7 @@
 											<input class="form-control" ng-model="asignatura.grupo">
 										</td>
 										<td class="col-md-1">
-											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
+											<input class="form-control" type="text" ng-model="asignatura.horario">
 										</td>
 										<td class="col-md">
 											<select ng-change="asignarFacilitador(facilitador.id, asignatura)" ng-model="facilitador.id">

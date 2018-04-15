@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Grupo;
 use App\Facilitador;
 use App\Asignatura;
+use App\Ciclo;
 
 class GrupoController extends Controller
 {
@@ -45,6 +47,10 @@ class GrupoController extends Controller
         //
     }
 
+public function return_view(){
+            
+
+}
     /**
      * Store a newly created resource in storage.
      *
@@ -53,7 +59,26 @@ class GrupoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+       $ciclo = Ciclo::create($request->all());
+       $ciclo_id = $ciclo->id;
+        $grupos = $request->grupos;
+        //return response (count($grupos));
+       //return response($grupos[0]['clave']);
+       foreach($grupos as $grupo)
+        {
+            Grupo::create([
+                'clave' => $grupo['clave'],
+                'id_asignatura' => $grupo['asignatura'],
+                'bimestre' => $grupo['bimestre'],
+                'id_facilitador' => $grupo['facilitador'],
+                'horario' => $grupo['horario'],
+                'id_ciclo' => $ciclo_id
+                ]);
+         }
+        return Response (200);
+        //return response view(200);
+
     }
 
     /**

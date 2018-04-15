@@ -14,9 +14,16 @@
             return $http.get('api/facilitador_api').then(returnData);
         }
 
+        function saveCiclo(ciclo) {
+            $http.post('api/ciclo_api', ciclo).then(function (data, status) {
+                console.log(data);
+            });
+        }
+
         return {
             getAsignaturas: getAsignaturas,
             getFacilitadores: getFacilitadores,
+            saveCiclo: saveCiclo,
         }
     }
 

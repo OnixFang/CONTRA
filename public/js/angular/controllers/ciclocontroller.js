@@ -17,7 +17,8 @@
                 grupo.asignatura = asignatura.id;
                 $scope.ciclo.grupos.push(grupo);
             });
-            logGrupos();
+            // logGrupos();
+            contraData.saveCiclo($scope.ciclo);
         }
 
         function logGrupos() {

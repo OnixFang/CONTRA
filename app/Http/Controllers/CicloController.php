@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Facilitador;
+use App\Ciclo;
 
-class FacilitadorController extends Controller
+class CicloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,8 @@ class FacilitadorController extends Controller
      */
     public function index()
     {
-        $facilitadores = Facilitador::all();
-        return view('facilitadores.addFacilitadores',compact('facilitadores'));
+        $ciclos = Ciclo::all();
+        return view('ciclos.CiclosDashboard',compact('ciclos'));
     }
 
     /**
@@ -37,9 +36,7 @@ class FacilitadorController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        Facilitador::create($request->all());
-        return redirect()->route('facilitador.index')->withMessage('El facilitador fue creado satisfactoriamente');
+        //
     }
 
     /**
