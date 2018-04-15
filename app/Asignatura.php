@@ -14,4 +14,9 @@ class Asignatura extends Model
 
     	return $this->belongsTo('App\Pensum','id_pensum');
     }
+
+    public function grupos(){
+
+    	return $this->belongsTo('App\Grupo','id_asignatura');
+    }
 }
