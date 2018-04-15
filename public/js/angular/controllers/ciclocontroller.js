@@ -1,7 +1,7 @@
 (function (params) {
     const app = angular.module('angularApp');
 
-    function cicloController($scope, contraData, $http) {
+    function cicloController($scope, contraData, $filter) {
         $scope.ciclo = { "clave": '', "fecha": '', "grupos": [], };
 
         $scope.seleccionadas = [];
@@ -11,13 +11,15 @@
             angular.forEach($scope.seleccionadas, function (asignatura) {
                 let grupo = {};
                 grupo.clave = asignatura.grupo;
-                grupo.horario = asignatura.horario;
+                grupo.horario = $filter('date')(asignatura.horario, "yyyy-MM-dd HH:mm:ss");
                 grupo.facilitador = asignatura.facilitador;
                 grupo.bimestre = asignatura.bimestre;
                 grupo.asignatura = asignatura.id;
                 $scope.ciclo.grupos.push(grupo);
             });
-            
+
+            $scope.ciclo.fecha = $filter('date')($scope.ciclo.fecha, "yyyy-MM-dd");
+
             // Mandar el request para guardar el ciclo en la base de datos
             contraData.saveCiclo($scope.ciclo);
         }
