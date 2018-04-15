@@ -48,13 +48,13 @@
       <td scope="col"> {{$grupociclo->bimestre}}</td>
       <td scope="col"> {{$grupociclo->horario}}</td>
 
-@endforeach
-{{ Form::open(array('route'=>['asignatura.destroy',$ciclo->id], 'method'=>'DELETE')) }}
-     <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
-     {{ link_to_route('ciclo.edit', 'Editar', [$ciclo->id],['class'=>'btn btn-success']) }} </td>
-{{ Form::close() }}
-      </tr>
-   
+<!-- {{ Form::open(array('route'=>['asignatura.destroy',$ciclo->id], 'method'=>'DELETE')) }}
+           <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
+           {{ link_to_route('ciclo.edit', 'Editar', [$ciclo->id],['class'=>'btn btn-success']) }} </td>
+      {{ Form::close() }}
+       -->      </tr>
+   @endforeach
+
     
      </tbody>
 </table>
