@@ -14,7 +14,8 @@ class ModifyColumIdPemsumToNullableTableCiclo extends Migration
     public function up()
     {
         Schema::table('ciclo', function (Blueprint $table) {
-            //
+            $table->integer('id_pensum')->nullable()->change();
+
         });
     }
 
