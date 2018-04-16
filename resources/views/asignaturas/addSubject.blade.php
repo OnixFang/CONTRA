@@ -32,8 +32,12 @@
 						<input class="form-control" placeholder="Placeholder" name="descripcion">
 					</div>
 					<div class="form-group">
-						<label>Pre-requisito</label>
-						<input class="form-control" placeholder="Placeholder" name="">
+						<label>Pre-requisito 1</label>
+						{{Form::select( 'pre_requisito1',$prereq,null,['class' => 'form-control', 'placeholder' => 'Seleccionar'])}}
+					</div>
+					<div class="form-group">
+						<label>Pre-requisito 2</label>
+						{{Form::select( 'pre_requisito2',$prereq,null,['class' => 'form-control', 'placeholder' => 'Seleccionar'])}}
 					</div>
 					<div class="form-group checkbox">
 						<label>

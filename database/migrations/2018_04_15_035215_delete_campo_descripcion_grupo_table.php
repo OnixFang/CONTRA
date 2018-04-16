@@ -26,7 +26,7 @@ class DeleteCampoDescripcionGrupoTable extends Migration
     public function down()
     {
         Schema::table('grupo', function (Blueprint $table) {
-            //
+            $table->string('descripcion');
         });
     }
 }

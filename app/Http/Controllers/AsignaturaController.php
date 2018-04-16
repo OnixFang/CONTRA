@@ -25,8 +25,10 @@ class AsignaturaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create($id)
-    {
-        return view('asignaturas.addsubject')->withPensum($id);
+    {        
+        $pensum = $id;
+        $prereq = Asignatura::pluck('descripcion','id');
+        return view('asignaturas.addsubject',compact('pensum','prereq'));
     }
 
     /**
@@ -54,8 +56,7 @@ class AsignaturaController extends Controller
     {
         $asignaturas = Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');
         $collection = $asignaturas;
-        $id_pensum=$id;
-        
+        $id_pensum=$id;       
         //dd($asignaturas);
         return view('pensum.pensumshow',compact('asignaturas', 'collection','id_pensum'));
     }
@@ -69,7 +70,8 @@ class AsignaturaController extends Controller
     public function edit($id)
     {
         $asignatura= Asignatura::find($id);
-        return view('asignaturas.updateSubject')->withAsignatura($asignatura);
+        $prereq = Asignatura::pluck('descripcion','id');
+        return view('asignaturas.updateSubject',compact('asignatura','prereq'));
     }
 
     /**
