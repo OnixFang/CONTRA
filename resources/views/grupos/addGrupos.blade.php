@@ -110,7 +110,13 @@
 								<td ng-bind="asignatura.ht"></td>
 								<td ng-bind="asignatura.cr"></td>
 								<td class="text-right">
-									<button class="btn btn-primary" ng-click="agregarAsignatura(asignatura, $index)">Agregar</button>
+									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura, $index)">Agregar</button>
+								</td>
+								<td>
+									<button class="btn btn-info" ng-click="test(asignatura)"></button>
+								</td>
+								<td>
+									<button class="btn btn-info" ng-click="test2()"></button>
 								</td>
 							</tr>
 						</tbody>
