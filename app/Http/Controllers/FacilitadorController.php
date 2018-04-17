@@ -37,7 +37,7 @@ class FacilitadorController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         Facilitador::create($request->all());
         return redirect()->route('facilitador.index')->withMessage('El facilitador fue creado satisfactoriamente');
     }
@@ -61,7 +61,8 @@ class FacilitadorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $facilitador = Facilitador::find($id);
+        return view('Facilitadores.updateFacilitador',compact('facilitador'));
     }
 
     /**
@@ -73,7 +74,8 @@ class FacilitadorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Facilitador::find($id)->update($request->all());
+        return redirect()->route('facilitador.index')->withMessage("El facilitador ".$request->nombre." se ha actualizado satisfactoriamente");
     }
 
     /**
@@ -84,6 +86,7 @@ class FacilitadorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Facilitador::destroy($id);
+        return back()->withMessage("El facilitador ha sido eliminado");
     }
 }
