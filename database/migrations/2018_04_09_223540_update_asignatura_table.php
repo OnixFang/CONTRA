@@ -26,7 +26,7 @@ class UpdateAsignaturaTable extends Migration
     public function down()
     {
         Schema::table('asignatura', function (Blueprint $table) {
-           $table->dropColumn('id_pensum');
+           $table->dropColumnInteger('id_pensum');
         });
     }
 }
