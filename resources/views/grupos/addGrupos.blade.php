@@ -32,7 +32,7 @@
 						<div class="col-md">
 							<div class="form-group col-md-9">
 								<label>Clave</label>
-								<input type="text" name="clave" id="clave" class="form-control" ng-model="ciclo.clave">
+								<input type="text" name="clave" id="clave" class="form-control" ng-model="ciclo.clave" ng-change="actualizarGrupoClaveAll()">
 							</div>
 							<div class="form-group col-md-3">
 								<label>Fecha</label>
@@ -57,7 +57,7 @@
 								<tbody>
 									<tr ng-repeat="asignatura in seleccionadas">
 										<td>
-											<input class="form-control" ng-model="asignatura.grupo" readonly>
+											<input class="form-control" id="claveGrupo" ng-change="actualizarGrupoClave(asignatura)" ng-model="asignatura.grupo" ng-value="ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre" readonly>
 										</td>
 										<td>
 											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
@@ -68,13 +68,13 @@
 											</select>
 										</td>
 										<td>
-											<input class="form-control" type="number" min="1" ng-model="asignatura.seccion">
+											<input class="form-control" type="number" min="1" ng-model="asignatura.seccion" ng-change="actualizarGrupoClave(asignatura)">
 										</td>
 										<td>
-											<input class="form-control" type="number" min="1" max="2" ng-model="asignatura.bimestre">
+											<input class="form-control" type="number" min="1" max="2" ng-model="asignatura.bimestre" ng-change="actualizarGrupoClave(asignatura)">
 										</td>
 										<td class="text-right">
-											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura, $index)">Remover</button>
+											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura)">Remover</button>
 										</td>
 									</tr>
 								</tbody>
@@ -114,7 +114,7 @@
 								<td ng-bind="asignatura.ht"></td>
 								<td ng-bind="asignatura.cr"></td>
 								<td class="text-right">
-									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura, $index)">Agregar</button>
+									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura)">Agregar</button>
 								</td>
 							</tr>
 						</tbody>

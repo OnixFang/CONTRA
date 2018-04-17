@@ -24,14 +24,14 @@
         });
 
         // Agrega la asignatura seleccionada para el grupo del ciclo
-        function agregarAsignatura(asignatura, index) {
-            asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-10-1';
+        function agregarAsignatura(asignatura) {
+            // asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-10-1';
             $scope.seleccionadas.push(asignatura);
             asignatura.hidden = true; // Esconde la asignatura (hide element)
         }
 
         // Remueve la asignatura seleccionada para el grupo del ciclo
-        $scope.removerAsignatura = function removerAsignatura(asignatura, index) {
+        $scope.removerAsignatura = function removerAsignatura(asignatura) {
             // Busca la asignatura a remover de las seleccionadas para mostrarla (remove hidden)
             for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                 if (asignatura.id === $scope.asignaturas[i].id) {
@@ -45,6 +45,18 @@
         // Asigna el ID del facilitador a la asignatura seleccionada para el grupo del ciclo
         $scope.asignarFacilitador = function asignarFacilitador(id, asignatura) {
             asignatura.facilitador = id;
+        }
+
+        // Actualiza la clave del grupo cuando hay un cambio en la clave del ciclo
+        $scope.actualizarGrupoClaveAll = function actualizarGrupoClaveAll() {
+            angular.forEach($scope.seleccionadas, function (asignatura) {
+                asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre;
+            })
+        }
+
+        // Actualiza la clave del grupo cuando hay un cambio en la seccion y el bimestre
+        $scope.actualizarGrupoClave = function actualizarGrupoClave(asignatura) {
+            asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre;
         }
 
         // Lógica exaustiva para confirmar si la asignatura puede ser cursada sin restricciones o prerrequisitos pendiendes
