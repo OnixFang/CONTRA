@@ -31,8 +31,12 @@
 						<label>Nombre Asignatura</label>
 						{{Form::text('descripcion',null,['class'=>'form-control'])}}					</div>
 					<div class="form-group">
-						<label>Pre-requisito</label>
-						{{Form::text('prerequisito',null,['class'=>'form-control'])}}
+						<label>Pre-requisito 1</label>
+						{{Form::select( 'pre_requisito1',$prereq,null,['class' => 'form-control', 'placeholder' => 'Seleccionar'])}}
+					</div>
+					<div class="form-group">
+						<label>Pre-requisito 2</label>
+						{{Form::select( 'pre_requisito2',$prereq,null,['class' => 'form-control', 'placeholder' => 'Seleccionar'])}}
 					</div>
 					<div class="form-group checkbox">
 						<label>

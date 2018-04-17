@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('asignatura_api','GrupoController@asignatura_api');
+Route::get('facilitador_api','GrupoController@facilitador_api');
+Route::post('ciclo_api','GrupoController@store');
