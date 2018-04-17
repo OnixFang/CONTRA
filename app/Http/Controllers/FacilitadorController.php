@@ -37,6 +37,7 @@ class FacilitadorController extends Controller
      */
     public function store(Request $request)
     {
+
         //dd($request->all());
         Facilitador::create($request->all());
         return redirect()->route('facilitador.index')->withMessage('El facilitador fue creado satisfactoriamente');

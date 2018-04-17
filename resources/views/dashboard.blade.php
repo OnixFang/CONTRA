@@ -36,24 +36,20 @@
 					</div>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<a href="/ciclo" style="text-decoration:none;">
 					<div class="panel panel-orange panel-widget border-right">
 						<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-							<div class="large">{{ count($ciclos) }}</div>
+							<div class="large">7</div>
 							<div class="text-muted">Ciclos cursados</div>
 						</div>
 					</div>
-					</a>
 				</div>
 				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<a href="/pensum" style="text-decoration:none;">
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
-							<div class="large">{{ count($asignaturas) }}</div>
-							<div class="text-muted">total de asignaturas</div>
+							<div class="large">25.2k</div>
+							<div class="text-muted">Page Views</div>
 						</div>
 					</div>
-					</a>
 				</div>
 			</div><!--/.row-->
 		</div>
