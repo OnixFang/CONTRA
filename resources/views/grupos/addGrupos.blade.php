@@ -103,7 +103,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="asignatura in asignaturas">
+							<tr ng-repeat="asignatura in asignaturas" ng-hide="asignatura.hidden">
 								<td ng-bind="asignatura.descripcion"></td>
 								<td ng-bind="asignatura.clave"></td>
 								<td ng-bind="asignatura.hp"></td>
@@ -111,12 +111,6 @@
 								<td ng-bind="asignatura.cr"></td>
 								<td class="text-right">
 									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura, $index)">Agregar</button>
-								</td>
-								<td>
-									<button class="btn btn-info" ng-click="test(asignatura)"></button>
-								</td>
-								<td>
-									<button class="btn btn-info" ng-click="test2()"></button>
 								</td>
 							</tr>
 						</tbody>
