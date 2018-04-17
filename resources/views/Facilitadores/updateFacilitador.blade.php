@@ -24,7 +24,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Añadir</div>
 			<div class="panel-body">
-				{!! Form::open(array('route' => 'facilitador.store', 'class'=> 'form')) !!}
+				{!! Form::model($facilitador,['route' => ['facilitador.update',$facilitador->id],'method'=>'PUT','class'=> 'form']) !!}
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Nombre</label>
@@ -46,40 +46,4 @@
 		</div>
 	</div><!-- /.panel-->
 </div>
-
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Facilitadores Creados</div>
-			<div class="panel-body">
-<table class="table table-striped table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    @if(count($facilitadores) > 0) 
-@foreach($facilitadores as $facilitador)
-<tr>
-      <th scope="row">{{$facilitador->nombre}}</th>
-      {{ Form::open(['route'=>['facilitador.destroy',$facilitador->id],'method'=>'Delete']) }}
-      <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
-	{{ link_to_route('facilitador.edit','Editar',$facilitador->id,['class'=>'btn btn-primary']) }}
-      </td>
-      {{ Form::close() }}
-
-    </tr>
-    @endforeach
-@endif
-  </tbody>
-</table>
-
-
-			</div>
-		</div>
-	</div><!-- /.panel-->
-</div>
-
 @endsection
