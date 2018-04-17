@@ -50,7 +50,7 @@
 										<th>Horario</th>
 										<th>Facilitador</th>
 										<th>Bimestre</th>
-										<th></th>
+										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -99,17 +99,18 @@
 								<th>HP</th>
 								<th>HT</th>
 								<th>CR</th>
+								<th class="text-center">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="asignatura in asignaturas">
+							<tr ng-repeat="asignatura in asignaturas" ng-hide="asignatura.hidden">
 								<td ng-bind="asignatura.descripcion"></td>
 								<td ng-bind="asignatura.clave"></td>
 								<td ng-bind="asignatura.hp"></td>
 								<td ng-bind="asignatura.ht"></td>
 								<td ng-bind="asignatura.cr"></td>
 								<td class="text-right">
-									<button class="btn btn-primary" ng-click="agregarAsignatura(asignatura, $index)">Agregar</button>
+									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura, $index)">Agregar</button>
 								</td>
 							</tr>
 						</tbody>
