@@ -51,25 +51,23 @@
 
         $scope.validarAsignatura = function validarAsignatura(asignatura, index) {
             if (!asignatura.propedeutico) {
-                console.log('No Propedeutico');
                 var noPropedeutico = 0;
-                console.log(noPropedeutico);
 
-                angular.forEach($scope.seleccionadas, function (seleccionada) {
+                $scope.seleccionadas.forEach(function (seleccionada) {
                     if (!seleccionada.propedeutico) {
                         noPropedeutico += 1;
-                        console.log('No Propedeuticos: ' + noPropedeutico);
                     }
                 });
 
-                // if (noPropedeutico >= 5) {
-                //     console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
-                // } else {
-                //     agregarAsignatura(asignatura, index);
-                // }
+                if (noPropedeutico >= 5) {
+                    console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
+                } else {
+                    agregarAsignatura(asignatura, index);
+                    console.log('Asignatura no propedeutico agregado.');                    
+                }
             } else {
-                console.log('Propedeutico');
-                // agregarAsignatura(asignatura, index);
+                agregarAsignatura(asignatura, index);
+                console.log('Asignatura propedeutico agregado.');
             }
         }
 
