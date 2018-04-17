@@ -61,6 +61,8 @@
 
                 if (noPropedeutico >= 5) {
                     console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
+                } else if (asignatura.aprovado) {
+                    console.log('Esta asignatura ya fue aprovada.');
                 } else {
                     agregarAsignatura(asignatura, index);
                     console.log('Asignatura no propedeutico agregado.');                    
