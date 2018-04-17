@@ -24,7 +24,7 @@
     <div class="panel panel-default">
       <div class="panel-heading"></div>
       <div class="panel-body">
-        
+      @if(count($ciclos)>0)
     @foreach($ciclos as $ciclo)
      <h4>Ciclo {{ $ciclo->clave }}</h4>
      <table class="table table-bordered table-dark">
@@ -61,7 +61,10 @@
    @endforeach
 
 {{ link_to_route('ciclo.create','Añadir',[$ciclo],['class'=>'btn btn-primary']) }}
-      </div>
+    @else
+<div class="text-center">{{ "No hay ningún ciclo en el historial" }}</div>
+    @endif
+     </div>
     </div>
   </div><!-- /.panel-->
 </div>
