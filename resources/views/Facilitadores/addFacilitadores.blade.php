@@ -64,12 +64,11 @@
 @foreach($facilitadores as $facilitador)
 <tr>
       <th scope="row">{{$facilitador->nombre}}</th>
-      {{ Form::open(['route'=>['facilitador.destroy',$facilitador->id],'method'=>'Delete']) }}
-      <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
+      
+      <td>
 	{{ link_to_route('facilitador.edit','Editar',$facilitador->id,['class'=>'btn btn-primary']) }}
       </td>
-      {{ Form::close() }}
-
+      
     </tr>
     @endforeach
 @endif

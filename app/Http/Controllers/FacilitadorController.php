@@ -86,7 +86,7 @@ class FacilitadorController extends Controller
      */
     public function destroy($id)
     {
-        Facilitador::destroy($id);
-        return back()->withMessage("El facilitador ha sido eliminado");
+        /*Facilitador::destroy($id);
+        return back()->withMessage("El facilitador ha sido eliminado");*/
     }
 }
