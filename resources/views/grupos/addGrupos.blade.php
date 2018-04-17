@@ -50,7 +50,7 @@
 										<th>Horario</th>
 										<th>Facilitador</th>
 										<th>Bimestre</th>
-										<th></th>
+										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -99,6 +99,7 @@
 								<th>HP</th>
 								<th>HT</th>
 								<th>CR</th>
+								<th class="text-center">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
