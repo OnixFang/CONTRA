@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="angularApp">
+<html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,7 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body ng-controller="mainController">
+<body>
 	@include('layouts.nav')
 	@include('layouts.sidebar')
 
@@ -51,9 +51,6 @@
 		});
 	};
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-<script src="js/angular/angularapp.js"></script>
-<script src="js/angular/controllers/maincontroller.js"></script>
 
 </body>
 </html>
