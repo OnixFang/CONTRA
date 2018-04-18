@@ -19,4 +19,5 @@ Route::resource('pensum','PensumController');
 Route::resource('facilitador','FacilitadorController');
 Route::resource('grupo','GrupoController');
 Route::resource('ciclo','CicloController');
+Route::resource('calificacion','CalificacionController');
 
