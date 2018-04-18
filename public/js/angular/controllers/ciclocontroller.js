@@ -76,6 +76,8 @@
 
                     // Confirmar si se ha llegado al limite de asignaturas por ciclo
                     if (noPropedeutico >= 5) {
+                        $scope.modalMessage = 'Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos. Por favor, reorganise las asignaturas.';
+                        $('#cicloModal').modal('show');
                         console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
                     }
                     // Confirmar si la asignatura contiene prerrequisitos
@@ -140,7 +142,6 @@
                             }
 
                             $scope.modalMessage = 'La asignatura no pudo ser agregada. Las siguientes asignaturas deben ser aprovadas como prerrequisito:';
-                            console.log($scope.prerrequisitos);
                             $('#cicloModal').modal('show');
                         }
                         // En caso de que ambos prerrequisitos estén aprovados
@@ -204,6 +205,11 @@
                 // Mandar el request para guardar el ciclo en la base de datos
                 contraData.saveCiclo($scope.ciclo);
             }
+        }
+
+        $scope.clearModalMessage = function clearModalMessage() {
+            $scope.modalMessage = '';
+            $scope.prerrequisitos = [];
         }
     }
 
