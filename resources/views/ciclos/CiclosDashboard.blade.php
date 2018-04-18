@@ -1,4 +1,13 @@
  @extends('layouts.layout');
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      
+    </div>
+    
+  </div>
+</div>
 
 @section('content')
 <div class="row">
@@ -52,7 +61,9 @@
            @if(count($grupociclo->calificacion) > 0)
           <td>{{ $grupociclo->calificacion->calificacion }}
            @else
-           <td>{{link_to_route('calificacion.show','Calificar',[$grupociclo->id],['class'=>'btn btn-warning']) }}
+           <td><!-- Button trigger modal -->
+
+{{link_to_route('calificacion.show','Calificar',[$grupociclo->id],['class'=>'btn btn-warning',"data-toggle"=>"modal", "data-target"=>"#exampleModalCenter","type"=>"button" ]) }}
            @endif
            <!-- {{ link_to_route('ciclo.edit', 'Editar', [$ciclo->id],['class'=>'btn btn-success']) }} --> </td>
             </tr>
@@ -71,4 +82,5 @@
     </div>
   </div><!-- /.panel-->
 </div>
+
 @endsection
