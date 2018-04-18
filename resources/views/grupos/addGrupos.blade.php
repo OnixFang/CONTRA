@@ -32,7 +32,7 @@
 						<div class="col-md">
 							<div class="form-group col-md-9">
 								<label>Clave</label>
-								<input type="text" name="clave" id="clave" class="form-control" ng-model="ciclo.clave">
+								<input type="text" name="clave" id="clave" class="form-control" ng-model="ciclo.clave" ng-change="actualizarGrupoClaveAll()">
 							</div>
 							<div class="form-group col-md-3">
 								<label>Fecha</label>
@@ -46,31 +46,35 @@
 										<th>Grupos</th>
 									</tr>
 									<tr>
-										<th>Clave</th>
-										<th>Horario</th>
-										<th>Facilitador</th>
-										<th>Bimestre</th>
-										<th></th>
+										<th class="col-md-6">Clave</th>
+										<th class="col-md">Horario</th>
+										<th class="col-md">Facilitador</th>
+										<th class="col-md">Sección</th>
+										<th class="col-md">Bimestre</th>
+										<th class="col-md">Acciones</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr ng-repeat="asignatura in seleccionadas">
-										<td class="col-md-5">
-											<input class="form-control" ng-model="asignatura.grupo">
+										<td>
+											<input class="form-control" id="claveGrupo" ng-change="actualizarGrupoClave(asignatura)" ng-model="asignatura.grupo" ng-value="ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre" readonly>
 										</td>
-										<td class="col-md-3">
+										<td>
 											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
 										</td>
-										<td class="col-md-2">
+										<td>
 											<select ng-change="asignarFacilitador(facilitador.id, asignatura)" ng-model="facilitador.id">
 												<option ng-repeat="facilitador in facilitadores" ng-value="facilitador.id" ng-bind="facilitador.nombre"></option>
 											</select>
 										</td>
-										<td class="col-md-1">
-											<input class="form-control" type="number" min="1" max="2" ng-model="asignatura.bimestre">
+										<td>
+											<input class="form-control" type="number" min="1" ng-model="asignatura.seccion" ng-change="actualizarGrupoClave(asignatura)">
 										</td>
-										<td class="col-md-1 text-right">
-											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura, $index)">Remover</button>
+										<td>
+											<input class="form-control" type="number" min="1" max="2" ng-model="asignatura.bimestre" ng-change="actualizarGrupoClave(asignatura)">
+										</td>
+										<td class="text-right">
+											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura)">Remover</button>
 										</td>
 									</tr>
 								</tbody>
@@ -99,17 +103,18 @@
 								<th>HP</th>
 								<th>HT</th>
 								<th>CR</th>
+								<th class="text-center">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="asignatura in asignaturas">
+							<tr ng-repeat="asignatura in asignaturas" ng-hide="asignatura.hidden">
 								<td ng-bind="asignatura.descripcion"></td>
 								<td ng-bind="asignatura.clave"></td>
 								<td ng-bind="asignatura.hp"></td>
 								<td ng-bind="asignatura.ht"></td>
 								<td ng-bind="asignatura.cr"></td>
 								<td class="text-right">
-									<button class="btn btn-primary" ng-click="agregarAsignatura(asignatura, $index)">Agregar</button>
+									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura)">Agregar</button>
 								</td>
 							</tr>
 						</tbody>
