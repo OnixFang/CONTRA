@@ -57,7 +57,8 @@
 								<tbody>
 									<tr ng-repeat="asignatura in seleccionadas">
 										<td>
-											<input class="form-control" id="claveGrupo" ng-change="actualizarGrupoClave(asignatura)" ng-model="asignatura.grupo" ng-value="ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre" readonly>
+											<input class="form-control" id="claveGrupo" ng-change="actualizarGrupoClave(asignatura)" ng-model="asignatura.grupo" ng-value="ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre"
+											 readonly>
 										</td>
 										<td>
 											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
@@ -123,6 +124,22 @@
 			</div>
 		</div>
 		<!-- /.panel-->
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="cicloModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Advertencia</h5>
+				</div>
+				<div class="modal-body">
+					<p ng-bind="modalMessage"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 @endsection
