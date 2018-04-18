@@ -162,21 +162,35 @@
 
         // Llena el array de grupos del siclo con todas las asignaturas seleccionadas y sus respectivos horarios, bimestres, etc.
         $scope.fillGrupos = function fillGrupos() {
+            let bimestre1 = 0;
+            let bimestre2 = 0;
             angular.forEach($scope.seleccionadas, function (asignatura) {
-                let grupo = {};
-                grupo.clave = asignatura.grupo;
-                grupo.horario = $filter('date')(asignatura.horario, "yyyy-MM-dd HH:mm:ss"); // Dar formato apropiado al horario del grupo
-                grupo.facilitador = asignatura.facilitador;
-                grupo.bimestre = asignatura.bimestre;
-                grupo.asignatura = asignatura.id;
-                $scope.ciclo.grupos.push(grupo);
+                if (asignatura.bimestre === 1) {
+                    bimestre1 += 1;
+                } else {
+                    bimestre2 += 1;
+                }
             });
+            if (bimestre1 > 3 || bimestre2 > 3) {
+                $scope.modalMessage = "Sólo se permiten 3 asignaturas por bimestre. Por favor, reorganice sus asignaturas e intente de nuevo."
+                $('#cicloModal').modal('show');
+            } else {
+                angular.forEach($scope.seleccionadas, function (asignatura) {
+                    let grupo = {};
+                    grupo.clave = asignatura.grupo;
+                    grupo.horario = $filter('date')(asignatura.horario, "yyyy-MM-dd HH:mm:ss"); // Dar formato apropiado al horario del grupo
+                    grupo.facilitador = asignatura.facilitador;
+                    grupo.bimestre = asignatura.bimestre;
+                    grupo.asignatura = asignatura.id;
+                    $scope.ciclo.grupos.push(grupo);
+                });
 
-            // Dar formato apropiado a la fecha del ciclo
-            $scope.ciclo.fecha = $filter('date')($scope.ciclo.fecha, "yyyy-MM-dd");
+                // Dar formato apropiado a la fecha del ciclo
+                $scope.ciclo.fecha = $filter('date')($scope.ciclo.fecha, "yyyy-MM-dd");
 
-            // Mandar el request para guardar el ciclo en la base de datos
-            contraData.saveCiclo($scope.ciclo);
+                // Mandar el request para guardar el ciclo en la base de datos
+                contraData.saveCiclo($scope.ciclo);
+            }
         }
     }
 
