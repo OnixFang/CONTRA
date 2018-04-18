@@ -4,6 +4,7 @@
     function cicloController($scope, contraData, $filter) {
         $scope.ciclo = { "clave": '', "fecha": '', "grupos": [], };
         $scope.seleccionadas = [];
+        $scope.prerrequisitos = [];
 
         let aprovadas = []; // Arreglo de asignaturas aprovadas
 
@@ -122,6 +123,7 @@
                                 for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                                     if (asignatura.pre_requisito1 === $scope.asignaturas[i].id) {
                                         console.log('Prerrequisito 1 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
                                         break;
                                     }
                                 }
@@ -131,10 +133,15 @@
                                 for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                                     if (asignatura.pre_requisito2 === $scope.asignaturas[i].id) {
                                         console.log('Prerrequisito 2 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
                                         break;
                                     }
                                 }
                             }
+
+                            $scope.modalMessage = 'La asignatura no pudo ser agregada. Las siguientes asignaturas deben ser aprovadas como prerrequisito:';
+                            console.log($scope.prerrequisitos);
+                            $('#cicloModal').modal('show');
                         }
                         // En caso de que ambos prerrequisitos estén aprovados
                         else {
@@ -160,6 +167,8 @@
 
             // En caso de que la asignatura ya esté aprovada
             else {
+                $scope.modalMessage = 'Esta asignatura ya fue aprovada.';
+                $('#cicloModal').modal('show');
                 console.log('Esta asignatura ya fue aprovada.');
             }
         } // Fin de la validación
