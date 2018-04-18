@@ -1,4 +1,11 @@
  @extends('layouts.layout');
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    </div>    
+  </div>
+</div>
 
 @section('content')
 <div class="row">
@@ -35,7 +42,7 @@
       <th scope="col">Facilitador</th>
       <th scope="col">Bimestre</th>
       <th scope="col">Horario</th>
-      <th scope="col">Acciones</th>
+      <th scope="col">Calificaciones</th>
     </tr>
   </thead>
      
@@ -48,11 +55,16 @@
       <td scope="col"> {{$grupociclo->bimestre}}</td>
       <td scope="col"> {{$grupociclo->horario}}</td>
 
-<!-- {{ Form::open(array('route'=>['asignatura.destroy',$ciclo->id], 'method'=>'DELETE')) }}
-           <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
-           {{ link_to_route('ciclo.edit', 'Editar', [$ciclo->id],['class'=>'btn btn-success']) }} </td>
-      {{ Form::close() }}
-       -->      </tr>
+
+           @if(count($grupociclo->calificacion) > 0)
+          <td>{{ $grupociclo->calificacion->calificacion }}
+           @else
+           <td><!-- Button trigger modal -->
+
+{{link_to_route('calificacion.show','Calificar',[$grupociclo->id],['class'=>'btn btn-warning',"data-toggle"=>"modal", "data-target"=>"#exampleModalCenter","type"=>"button" ]) }}
+           @endif
+           <!-- {{ link_to_route('ciclo.edit', 'Editar', [$ciclo->id],['class'=>'btn btn-success']) }} --> </td>
+            </tr>
    @endforeach
 
     
@@ -60,7 +72,7 @@
 </table>
    @endforeach
 
-{{ link_to_route('ciclo.create','Añadir',[$ciclo],['class'=>'btn btn-primary']) }}
+{{ link_to_route('grupo.index','Añadir',null,['class'=>'btn btn-primary']) }}
     @else
 <div class="text-center">{{ "No hay ningún ciclo en el historial" }}</div>
     @endif
@@ -68,4 +80,5 @@
     </div>
   </div><!-- /.panel-->
 </div>
+
 @endsection
