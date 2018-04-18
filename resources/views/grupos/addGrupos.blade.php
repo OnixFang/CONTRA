@@ -75,7 +75,7 @@
 											<input class="form-control" type="number" min="1" max="2" ng-model="asignatura.bimestre" ng-change="actualizarGrupoClave(asignatura)">
 										</td>
 										<td class="text-right">
-											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura)">Remover</button>
+											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura, $index)">Remover</button>
 										</td>
 									</tr>
 								</tbody>
