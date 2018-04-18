@@ -31,7 +31,7 @@
         }
 
         // Remueve la asignatura seleccionada para el grupo del ciclo
-        $scope.removerAsignatura = function removerAsignatura(asignatura) {
+        $scope.removerAsignatura = function removerAsignatura(asignatura, index) {
             // Busca la asignatura a remover de las seleccionadas para mostrarla (remove hidden)
             for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                 if (asignatura.id === $scope.asignaturas[i].id) {
@@ -62,101 +62,105 @@
         // Lógica exaustiva para confirmar si la asignatura puede ser cursada sin restricciones o prerrequisitos pendiendes
         $scope.validarAsignatura = function validarAsignatura(asignatura, index) {
             // Confirmar si la asignatura es propedéutico
-            if (!asignatura.propedeutico) {
-                var noPropedeutico = 0; // Inicializacion de numero de asignaturas seleccionadas
+            if (!asignatura.aprovado) {
+                if (!asignatura.propedeutico) {
+                    var noPropedeutico = 0; // Inicializacion de numero de asignaturas seleccionadas
 
-                // Verificar numero actual de asignaturas seleccionadas
-                angular.forEach($scope.seleccionadas, function (seleccionada) {
-                    if (!seleccionada.propedeutico) {
-                        noPropedeutico += 1;
-                    }
-                });
-
-                // Confirmar si se ha llegado al limite de asignaturas por ciclo
-                if (noPropedeutico >= 5) {
-                    console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
-                }
-                // Confirmar si la asignatura ya está aprovada
-                else if (asignatura.aprovado) {
-                    console.log('Esta asignatura ya fue aprovada.');
-                }
-                // Confirmar si la asignatura contiene prerrequisitos
-                else if (asignatura.pre_requisito1 !== null || asignatura.pre_requisito2 !== null) {
-                    // Utilizando for loops - Angular JS no tiene soporte para breaks en su forEach
-                    let prerrequisito1 = false;
-                    let prerrequisito2 = false;
-
-                    // Confirmar si el prerrequisito 1 ya se ha cumplido
-                    if (asignatura.pre_requisito1 !== null) {
-                        for (let i = 0; i < aprovadas.length; i += 1) {
-                            if (asignatura.pre_requisito1 === aprovadas[i].id) {
-                                console.log('Prerrequisito 1 aprovado! ' + aprovadas[i].descripcion);
-                                prerrequisito1 = true;
-                                break;
-                            } else {
-                                console.log('Prerrequisito 1 no coincide: ' + aprovadas[i].descripcion);
-                            }
+                    // Verificar numero actual de asignaturas seleccionadas
+                    angular.forEach($scope.seleccionadas, function (seleccionada) {
+                        if (!seleccionada.propedeutico) {
+                            noPropedeutico += 1;
                         }
-                    } else {
-                        prerrequisito1 = true;
+                    });
+
+                    // Confirmar si se ha llegado al limite de asignaturas por ciclo
+                    if (noPropedeutico >= 5) {
+                        console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
                     }
+                    // Confirmar si la asignatura contiene prerrequisitos
+                    else if (asignatura.pre_requisito1 !== null || asignatura.pre_requisito2 !== null) {
+                        // Utilizando for loops - Angular JS no tiene soporte para breaks en su forEach
+                        let prerrequisito1 = false;
+                        let prerrequisito2 = false;
 
-                    // Confirmar si el prerrequisito 2 ya se ha cumplido
-                    if (asignatura.pre_requisito2 !== null) {
-                        for (let i = 0; i < aprovadas.length; i += 1) {
-                            if (asignatura.pre_requisito2 === aprovadas[i].id) {
-                                console.log('Prerrequisito 2 aprovado! ' + aprovadas[i].descripcion);
-                                prerrequisito2 = true;
-                                break;
-                            } else {
-                                console.log('Prerrequisito 2 no coincide: ' + aprovadas[i].descripcion);
-                            }
-                        }
-                    } else {
-                        prerrequisito2 = true;
-                    }
-
-                    console.log('Prerrequisito1: ' + prerrequisito1);
-                    console.log('Prerrequisito2: ' + prerrequisito2);
-
-                    // Confirmar cual prerrequisito no está cumplido
-                    if (!prerrequisito1 || !prerrequisito2) {
-                        if (!prerrequisito1) {
-                            for (let i = 0; i < $scope.asignaturas.length; i += 1) {
-                                if (asignatura.pre_requisito1 === $scope.asignaturas[i].id) {
-                                    console.log('Prerrequisito 1 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                        // Confirmar si el prerrequisito 1 ya se ha cumplido
+                        if (asignatura.pre_requisito1 !== null) {
+                            for (let i = 0; i < aprovadas.length; i += 1) {
+                                if (asignatura.pre_requisito1 === aprovadas[i].id) {
+                                    console.log('Prerrequisito 1 aprovado! ' + aprovadas[i].descripcion);
+                                    prerrequisito1 = true;
                                     break;
+                                } else {
+                                    console.log('Prerrequisito 1 no coincide: ' + aprovadas[i].descripcion);
+                                }
+                            }
+                        } else {
+                            prerrequisito1 = true;
+                        }
+
+                        // Confirmar si el prerrequisito 2 ya se ha cumplido
+                        if (asignatura.pre_requisito2 !== null) {
+                            for (let i = 0; i < aprovadas.length; i += 1) {
+                                if (asignatura.pre_requisito2 === aprovadas[i].id) {
+                                    console.log('Prerrequisito 2 aprovado! ' + aprovadas[i].descripcion);
+                                    prerrequisito2 = true;
+                                    break;
+                                } else {
+                                    console.log('Prerrequisito 2 no coincide: ' + aprovadas[i].descripcion);
+                                }
+                            }
+                        } else {
+                            prerrequisito2 = true;
+                        }
+
+                        console.log('Prerrequisito1: ' + prerrequisito1);
+                        console.log('Prerrequisito2: ' + prerrequisito2);
+
+                        // Confirmar cual prerrequisito no está cumplido
+                        if (!prerrequisito1 || !prerrequisito2) {
+                            if (!prerrequisito1) {
+                                for (let i = 0; i < $scope.asignaturas.length; i += 1) {
+                                    if (asignatura.pre_requisito1 === $scope.asignaturas[i].id) {
+                                        console.log('Prerrequisito 1 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (!prerrequisito2) {
+                                for (let i = 0; i < $scope.asignaturas.length; i += 1) {
+                                    if (asignatura.pre_requisito2 === $scope.asignaturas[i].id) {
+                                        console.log('Prerrequisito 2 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        break;
+                                    }
                                 }
                             }
                         }
-
-                        if (!prerrequisito2) {
-                            for (let i = 0; i < $scope.asignaturas.length; i += 1) {
-                                if (asignatura.pre_requisito2 === $scope.asignaturas[i].id) {
-                                    console.log('Prerrequisito 2 no aprovado: ' + $scope.asignaturas[i].descripcion);
-                                    break;
-                                }
-                            }
+                        // En caso de que ambos prerrequisitos estén aprovados
+                        else {
+                            console.log('Prerrequisitos aprovados');
+                            agregarAsignatura(asignatura, index);
+                            console.log('Asignatura no propedeutico agregado.');
                         }
                     }
-                    // En caso de que ambos prerrequisitos estén aprovados
+                    // En caso de que ambos prerrequisitos sean nulos
                     else {
-                        console.log('Prerrequisitos aprovados');
+                        console.log('Prerrequisitos nulos');
                         agregarAsignatura(asignatura, index);
                         console.log('Asignatura no propedeutico agregado.');
                     }
                 }
-                // En caso de que ambos prerrequisitos sean nulos
+
+                // En caso de que la asignatura sea propedéutico
                 else {
-                    console.log('Prerrequisitos nulos');
                     agregarAsignatura(asignatura, index);
-                    console.log('Asignatura no propedeutico agregado.');
+                    console.log('Asignatura propedeutico agregado.');
                 }
             }
-            // En caso de que la asignatura sea propedéutico
+
+            // En caso de que la asignatura ya esté aprovada
             else {
-                agregarAsignatura(asignatura, index);
-                console.log('Asignatura propedeutico agregado.');
+                console.log('Esta asignatura ya fue aprovada.');
             }
         } // Fin de la validación
 
