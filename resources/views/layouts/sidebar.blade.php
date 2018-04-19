@@ -16,10 +16,10 @@
 			</div>
 		</form>
 		<ul class="nav menu">
-			<li class="active"><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
-			<li><a href="/pensum"><em class="fa fa-calendar">&nbsp;</em> Pensum</a></li>
-			<li> <a href="/facilitador"><em class="fas fa-users">&nbsp;</em> Facilitadores</a></li>
-			<li class="parent "><a data-toggle="collapse" href="#sub-item-3">
+			<li class="{{ request()->is('/') ? 'active' : '' }}"><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a></li>
+			<li class="{{ request()->is('pensum') ? 'active' : '' }}"><a href="/pensum"><em class="fa fa-calendar ">&nbsp;</em> Pensum</a></li>
+			<li class="{{ request()->is('facilitador') ? 'active' : '' }}"> <a href="/facilitador"><em class="fas fa-users">&nbsp;</em> Facilitadores</a></li>
+			<li class="{{ request()->is('grupo') ? 'active' : '' }} {{ request()->is('ciclo') ? 'active' : '' }} parent "><a data-toggle="collapse" href="#sub-item-3">
 				<em class="fab fa-cloudscale">&nbsp;</em> Ciclos <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="fa fa-plus"></em></span>
 				</a>
 				<ul class="children collapse" id="sub-item-3">
