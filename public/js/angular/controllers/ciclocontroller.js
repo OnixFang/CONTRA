@@ -5,6 +5,8 @@
         $scope.ciclo = { "clave": '', "fecha": '', "grupos": [], };
         $scope.seleccionadas = [];
         $scope.prerrequisitos = [];
+        $scope.tempAsignatura = null;
+        $scope.showAgregar = false;
 
         let aprovadas = []; // Arreglo de asignaturas aprovadas
 
@@ -24,9 +26,15 @@
             });
         });
 
+        // Funcion para agregar asignatura desde el modal
+        $scope.agregarTempAsignatura = function agregarTempAsignatura(tempAsignatura) {
+            agregarAsignatura(tempAsignatura);
+            $('#cicloModal').modal('hide');
+            $scope.clearModalMessage();
+        }
+        
         // Agrega la asignatura seleccionada para el grupo del ciclo
         function agregarAsignatura(asignatura) {
-            // asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-10-1';
             $scope.seleccionadas.push(asignatura);
             asignatura.hidden = true; // Esconde la asignatura (hide element)
         }
@@ -61,7 +69,9 @@
         }
 
         // Lógica exaustiva para confirmar si la asignatura puede ser cursada sin restricciones o prerrequisitos pendiendes
-        $scope.validarAsignatura = function validarAsignatura(asignatura, index) {
+        $scope.validarAsignatura = function validarAsignatura(asignatura) {
+            // Agregar la asignatura a una variable temporal
+            $scope.tempAsignatura = asignatura;
             // Confirmar si la asignatura es propedéutico
             if (!asignatura.aprovado) {
                 if (!asignatura.propedeutico) {
@@ -76,7 +86,7 @@
 
                     // Confirmar si se ha llegado al limite de asignaturas por ciclo
                     if (noPropedeutico >= 5) {
-                        $scope.modalMessage = 'Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos. Por favor, reorganise las asignaturas.';
+                        $scope.modalMessage = 'Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos. Por favor, reorganice las asignaturas si es necesario.';
                         $('#cicloModal').modal('show');
                         console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
                     }
@@ -141,27 +151,28 @@
                                 }
                             }
 
-                            $scope.modalMessage = 'La asignatura no pudo ser agregada. Las siguientes asignaturas deben ser aprovadas como prerrequisito:';
+                            $scope.modalMessage = 'Usted aún no ha aprobado las asignaturas que esta asignatura tiene como prerrequisito:';
+                            $scope.showAgregar = true;
                             $('#cicloModal').modal('show');
                         }
                         // En caso de que ambos prerrequisitos estén aprovados
                         else {
                             console.log('Prerrequisitos aprovados');
-                            agregarAsignatura(asignatura, index);
+                            agregarAsignatura(asignatura);
                             console.log('Asignatura no propedeutico agregado.');
                         }
                     }
                     // En caso de que ambos prerrequisitos sean nulos
                     else {
                         console.log('Prerrequisitos nulos');
-                        agregarAsignatura(asignatura, index);
+                        agregarAsignatura(asignatura);
                         console.log('Asignatura no propedeutico agregado.');
                     }
                 }
 
                 // En caso de que la asignatura sea propedéutico
                 else {
-                    agregarAsignatura(asignatura, index);
+                    agregarAsignatura(asignatura);
                     console.log('Asignatura propedeutico agregado.');
                 }
             }
@@ -210,6 +221,8 @@
         $scope.clearModalMessage = function clearModalMessage() {
             $scope.modalMessage = '';
             $scope.prerrequisitos = [];
+            $scope.tempAsignatura = null;
+            $scope.showAgregar = false;
         }
     }
 

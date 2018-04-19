@@ -139,6 +139,7 @@
 					</ul>
 				</div>
 				<div class="modal-footer">
+                    <button type="button" class="btn btn-danger" ng-click="agregarTempAsignatura(tempAsignatura)" ng-show="showAgregar">Agregar de todos modos</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="clearModalMessage()">Cerrar</button>
 				</div>
 			</div>
