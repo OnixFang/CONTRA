@@ -41,7 +41,7 @@
 					</div>
 					<div class="form-group checkbox">
 						<label>
-							<input type="checkbox">Esta materia es propedéutico
+							{{ Form::checkbox('propedeutico', '1') }} Esta materia es propedéutico
 						</label>
 					</div>
 				</div>

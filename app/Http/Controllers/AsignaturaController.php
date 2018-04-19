@@ -84,7 +84,8 @@ class AsignaturaController extends Controller
     public function update(Request $request, $id)
     {
         Asignatura::find($id)->update($request->all());
-        return redirect()->route('pensum.index')->withMessage("la Asignatura fue editada");
+        $id_pensum = $request->id_pensum;
+        return redirect()->route('asignatura.show',['id'=>$id_pensum])->withMessage("la Asignatura ".$request->descripcion." fue editada");;
     }
 
     /**
