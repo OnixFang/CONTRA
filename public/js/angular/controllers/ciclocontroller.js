@@ -4,6 +4,7 @@
     function cicloController($scope, contraData, $filter) {
         $scope.ciclo = { "clave": '', "fecha": '', "grupos": [], };
         $scope.seleccionadas = [];
+        $scope.prerrequisitos = [];
 
         let aprovadas = []; // Arreglo de asignaturas aprovadas
 
@@ -75,6 +76,8 @@
 
                     // Confirmar si se ha llegado al limite de asignaturas por ciclo
                     if (noPropedeutico >= 5) {
+                        $scope.modalMessage = 'Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos. Por favor, reorganise las asignaturas.';
+                        $('#cicloModal').modal('show');
                         console.log('Solo pueden inscribirse 5 asignaturas como máximo por ciclo, excluyendo los propedéuticos.');
                     }
                     // Confirmar si la asignatura contiene prerrequisitos
@@ -122,6 +125,7 @@
                                 for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                                     if (asignatura.pre_requisito1 === $scope.asignaturas[i].id) {
                                         console.log('Prerrequisito 1 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
                                         break;
                                     }
                                 }
@@ -131,10 +135,14 @@
                                 for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                                     if (asignatura.pre_requisito2 === $scope.asignaturas[i].id) {
                                         console.log('Prerrequisito 2 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
                                         break;
                                     }
                                 }
                             }
+
+                            $scope.modalMessage = 'La asignatura no pudo ser agregada. Las siguientes asignaturas deben ser aprovadas como prerrequisito:';
+                            $('#cicloModal').modal('show');
                         }
                         // En caso de que ambos prerrequisitos estén aprovados
                         else {
@@ -160,6 +168,8 @@
 
             // En caso de que la asignatura ya esté aprovada
             else {
+                $scope.modalMessage = 'Esta asignatura ya fue aprovada.';
+                $('#cicloModal').modal('show');
                 console.log('Esta asignatura ya fue aprovada.');
             }
         } // Fin de la validación
@@ -195,6 +205,11 @@
                 // Mandar el request para guardar el ciclo en la base de datos
                 contraData.saveCiclo($scope.ciclo);
             }
+        }
+
+        $scope.clearModalMessage = function clearModalMessage() {
+            $scope.modalMessage = '';
+            $scope.prerrequisitos = [];
         }
     }
 
