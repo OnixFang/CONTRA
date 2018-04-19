@@ -108,7 +108,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="asignatura in asignaturas" ng-hide="asignatura.hidden">
+							<tr ng-repeat="asignatura in asignaturas | orderBy: 'cuatrimestre'" ng-hide="asignatura.hidden">
 								<td ng-bind="asignatura.descripcion"></td>
 								<td ng-bind="asignatura.clave"></td>
 								<td ng-bind="asignatura.hp"></td>
