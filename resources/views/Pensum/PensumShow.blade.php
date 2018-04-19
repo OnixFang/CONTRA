@@ -16,7 +16,7 @@
 @endif
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Pensum {{ $id_pensum }}</h1>
+		<h1 class="page-header">Pensum {{ $pensum->descripcion}}</h1>
 	</div>
 </div><!--/.row-->
 <div class="row">
@@ -31,18 +31,23 @@
      <table class="table table-bordered table-dark">
   <thead>
     <tr>
-      <th scope="col">Clave</th>
-      <th scope="col">Asignatura</th>
-      <th scope="col">Acciones</th>
+      <th class="col-md-1">Clave</th>
+      <th class="col-md-3">Asignatura</th>
+      <th class="col-md-1">HT</th>
+      <th class="col-md-1">Asignatura</th>
+      <th class="col-md-1">Asignatura</th>
+      <th class="col-md-2">Acciones</th>
     </tr>
   </thead>
      @foreach($asignaturas as $asignatura)
 
   <tbody>
      <tr>
-      <td scope="col">{{$asignatura->clave}}</td>
-      <td scope="col"> {{ $asignatura->descripcion }}</td>
-
+      <td >{{$asignatura->clave}}</td>
+      <td > {{ $asignatura->descripcion }}</td>
+      <td > {{ $asignatura->ht }}</td>
+      <td > {{ $asignatura->ht }}</td>
+      <td > {{ $asignatura->cr}}</td>
 {{ Form::open(array('route'=>['asignatura.destroy',$asignatura->id], 'method'=>'DELETE')) }}
      <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
      {{ link_to_route('asignatura.edit', 'Editar', [$asignatura->id],['class'=>'btn btn-success']) }} </td>
@@ -56,7 +61,7 @@
    @endforeach
 @endif
 
-{{ link_to_route('asignatura.create','Añadir',[$id_pensum],['class'=>'btn btn-primary']) }}
+{{ link_to_route('asignatura.create','Añadir',[$pensum->id],['class'=>'btn btn-primary']) }}
 			</div>
 		</div>
 	</div><!-- /.panel-->

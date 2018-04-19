@@ -12,7 +12,7 @@ class Asignatura extends Model
 
     public function pensum(){
 
-    	return $this->BelongsTo('App\Pensum','id_pensum');
+    	return $this->belongsTo('App\Pensum','id_pensum');
     }
 
     public function grupos(){
@@ -20,7 +20,7 @@ class Asignatura extends Model
     	return $this->belongsTo('App\Grupo','id_asignatura');
     }
 
-  
+    
 
 public static function asignaturas_pensum($id){
 return Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');

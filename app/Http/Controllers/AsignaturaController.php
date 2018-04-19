@@ -56,9 +56,9 @@ class AsignaturaController extends Controller
     {
         $asignaturas = Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');
         $collection = $asignaturas;
-        $id_pensum=$id;       
+        $pensum = Pensum::find($id);     
         //dd($asignaturas);
-        return view('pensum.pensumshow',compact('asignaturas', 'collection','id_pensum'));
+        return view('pensum.pensumshow',compact('asignaturas', 'collection','pensum'));
     }
 
     /**

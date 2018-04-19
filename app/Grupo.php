@@ -29,4 +29,6 @@ class Grupo extends Model
 
         return $this->hasOne('App\Calificacion','id_grupo');
     }
+
+    
 }
