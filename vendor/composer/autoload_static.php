@@ -344,6 +344,7 @@ class ComposerStaticInitfa859d4a5e52d766c8c95e6e987571ca
 
     public static $classMap = array (
         'App\\Asignatura' => __DIR__ . '/../..' . '/app/Asignatura.php',
+        'App\\Calificacion' => __DIR__ . '/../..' . '/app/Calificacion.php',
         'App\\Ciclo' => __DIR__ . '/../..' . '/app/Ciclo.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -354,6 +355,7 @@ class ComposerStaticInitfa859d4a5e52d766c8c95e6e987571ca
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\CalificacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/CalificacionController.php',
         'App\\Http\\Controllers\\CicloController' => __DIR__ . '/../..' . '/app/Http/Controllers/CicloController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',

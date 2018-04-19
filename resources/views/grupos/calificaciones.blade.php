@@ -2,6 +2,7 @@
 <div class="modal-header">
 	{{ Form::hidden('id_grupo',$grupo->id) }}
 	{{ Form::hidden('id_asignatura',$grupo->asignatura->id) }}
+	{{ Form::hidden('id_ciclo',$grupo->id_ciclo) }}
 	<h3 class="modal-title" id="exampleModalLongTitle">Calificar Asignatura</h3>
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		<span aria-hidden="true">&times;</span>

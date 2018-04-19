@@ -16,8 +16,8 @@ class AddColumnToAsignaturaTable extends Migration
         Schema::table('asignatura', function (Blueprint $table) {
             $table->integer('pre_requisito1')->nullable();
             $table->integer('pre_requisito2')->nullable();
-            $table->boolean('aprovado')->nullable();
-            $table->boolean('propedeutico')->nullable();
+            $table->boolean('aprovado')->default('0');
+            $table->boolean('propedeutico')->default('0');
 
         });
     }

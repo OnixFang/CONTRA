@@ -14,4 +14,11 @@ class Ciclo extends Model
 
     	return $this->hasMany('App\Grupo','id_ciclo');
     }
+
+    public function ciclosAbiertos(){
+
+    	return Ciclo::all()->where('cerrado',0);
+    }
+
+
 }

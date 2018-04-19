@@ -22,7 +22,7 @@ class Grupo extends Model
 
     public function ciclo(){
 
-    	return $this->belongsTo('App\ciclo','id_ciclo');
+    	return $this->belongsTo('App\Ciclo','id_ciclo');
     }
 
     public function calificacion(){
