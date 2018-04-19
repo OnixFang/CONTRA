@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
+
+Route::middleware(['auth'])->group(function () {
 Route::resource('/', 'DashboardController');
 
 Route::get('asignatura.create/{id}', ['as' => 'asignatura.create', 'uses' => 'AsignaturaController@create']);//para poder recibir el id en el create() 
@@ -21,4 +24,8 @@ Route::resource('grupo','GrupoController');
 Route::resource('ciclo','CicloController');
 Route::resource('calificacion','CalificacionController');
 Route::get('cicloactual','CicloController@actual');
+
+
+});
+
 
