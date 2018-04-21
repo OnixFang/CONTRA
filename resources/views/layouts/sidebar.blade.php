@@ -4,7 +4,7 @@
 			<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
 		</div>
 		<div class="profile-usertitle">
-			<div class="profile-usertitle-name">Username</div>
+			<div class="profile-usertitle-name"> {{ Auth::user()->name }}</div>
 			<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 		</div>
 		<div class="clear"></div>
@@ -34,6 +34,16 @@
 				<span class="fa fa-arrow-right">&nbsp;</span> Actual
 			</a></li>
 		</ul>
-		<li><a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		<li>
+
+ <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+		<a href="login.html"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
+		 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
 	</ul>
 </div><!--/.sidebar-->
