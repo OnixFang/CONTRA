@@ -34,8 +34,8 @@
       <th class="col-md-1">Clave</th>
       <th class="col-md-3">Asignatura</th>
       <th class="col-md-1">HT</th>
-      <th class="col-md-1">Asignatura</th>
-      <th class="col-md-1">Asignatura</th>
+      <th class="col-md-1">HP</th>
+      <th class="col-md-1">CR</th>
       <th class="col-md-2">Acciones</th>
     </tr>
   </thead>
@@ -46,10 +46,10 @@
       <td >{{$asignatura->clave}}</td>
       <td > {{ $asignatura->descripcion }}</td>
       <td > {{ $asignatura->ht }}</td>
-      <td > {{ $asignatura->ht }}</td>
+      <td > {{ $asignatura->hp }}</td>
       <td > {{ $asignatura->cr}}</td>
 {{ Form::open(array('route'=>['asignatura.destroy',$asignatura->id], 'method'=>'DELETE')) }}
-     <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
+     <td>{{-- {{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }} --}}
      {{ link_to_route('asignatura.edit', 'Editar', [$asignatura->id],['class'=>'btn btn-success']) }} </td>
 {{ Form::close() }}
       </tr>
