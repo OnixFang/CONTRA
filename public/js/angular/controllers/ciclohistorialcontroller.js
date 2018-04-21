@@ -3,14 +3,16 @@
 
     function cicloHistorialController($scope, contraData) {
         $scope.noCiclos = false;
+        $scope.noIndice = true;
         $scope.indices = [];
 
         // Obtiene toda la data de los ciclos y sus grupos
         contraData.getCiclosCerrados().then(function (response) {
             $scope.ciclos = response;
 
-            if ($scope.ciclos == null) {
+            if ($scope.ciclos.length < 1) {
                 $scope.noCiclos = true;
+                $scope.noIndice = true;
             }
         });
 
@@ -69,6 +71,7 @@
             });
 
             indiceAcumulado = indiceAcumulado / $scope.indices.length;
+            $scope.noIndice = false;
             return indiceAcumulado
         }
     }

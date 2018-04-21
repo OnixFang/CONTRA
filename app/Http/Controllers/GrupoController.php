@@ -75,7 +75,7 @@ public function return_view(){
                 'id_ciclo' => $ciclo_id
                 ]);
         }
-        return Response (route('ciclo.index'), 200);
+        return Response ('cicloactual', 200);
     }
 
     /**

@@ -72,7 +72,7 @@
         </table>
 
         @else
-        <div class="text-center">{{ "No hay ningún ciclo en el historial" }}</div>
+        <div class="text-center">{{ "No tiene ningún ciclo en curso" }}</div>
         @endif
       </div>
     </div>

@@ -80,7 +80,7 @@
                         </table>
                     </div>
                     <br>
-                    <h4><b>Índice acumulado: </b><span ng-bind="indiceAcumulado() | number:2"></span></h4>
+                    <h4 ng-hide="noIndice"><b>Índice acumulado: </b><span ng-bind="indiceAcumulado() | number:2"></span></h4>
                     <div ng-show="noCiclos" class="text-center">No hay ningún ciclo en el historial</div>
                 </div>
             </div>
