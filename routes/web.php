@@ -15,6 +15,7 @@ Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
 Route::resource('/', 'DashboardController');
+Route::resource('/home', 'DashboardController');
 
 Route::get('asignatura.create/{id}', ['as' => 'asignatura.create', 'uses' => 'AsignaturaController@create']);//para poder recibir el id en el create() 
 Route::resource('asignatura','AsignaturaController',['except'=>['create']]); 

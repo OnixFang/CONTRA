@@ -33,7 +33,7 @@
 						</div>
 <div class="form-group">
 						<label>ciudad</label>
-						{{  Form::text('ciudad',null,['class'=>'form-control','placeholder'=>'escriba ciudad donde vice']) }}
+						{{  Form::text('ciudad',null,['class'=>'form-control','placeholder'=>'escriba ciudad donde vive']) }}
 
 						</div>
 					
