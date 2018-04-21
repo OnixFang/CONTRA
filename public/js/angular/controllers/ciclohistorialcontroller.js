@@ -6,11 +6,8 @@
 
         contraData.getCiclosCerrados().then(function (response) {
             $scope.ciclos = response;
-        });
-
-        $scope.test = function test() {
             console.log($scope.ciclos);
-        }
+        });
     }
 
     app.controller('cicloHistorialController', cicloHistorialController);

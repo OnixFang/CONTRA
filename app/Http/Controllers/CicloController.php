@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ciclo;
 use App\Grupo;
-use App\Asignaturas;
+use App\Asignatura;
+use App\Facilitador;
+use App\Calificacion;
 
 class CicloController extends Controller
 {
@@ -31,6 +33,19 @@ class CicloController extends Controller
     public function ciclo_api()
     {
         $ciclos = Ciclo::all()->where('cerrado',1);
+
+        foreach($ciclos as $ciclo)
+        {
+            $ciclo->grupos = Grupo::all()->where('id_ciclo', $ciclo->id);
+
+            foreach($ciclo->grupos as $grupo)
+            {
+                $grupo->asignatura = Asignatura::where('id', $grupo->id_asignatura)->value('descripcion');
+                $grupo->calificacion = Calificacion::where('id_grupo', $grupo->id)->value('calificacion');
+                $grupo->facilitador = Facilitador::where('id', $grupo->id_facilitador)->value('nombre');
+            }
+        }
+
         return $ciclos;
     }
 
