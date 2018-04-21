@@ -155,7 +155,7 @@
 					</div>
 				</li>
 				@endforeach
-				else<li>{{   "No hay asignturas pendiente actualmente "}}</li>
+				@else<li>{{   "No hay asignturas pendiente actualmente "}}</li>
 				@endif
 			</ul>
 		</div>
@@ -200,7 +200,8 @@
 		<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 		<div class="panel-body timeline-container">
 			<ul class="timeline">
-				@if($actuales>0)
+				{{-- {{ count($actuales) }}
+				@if(count($actuales)>0  )								
 				@foreach($actuales as $actual)
 				<li>
 					<div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
@@ -216,8 +217,9 @@
 					</div>
 				</li>
 				@endforeach
-				else<li>{{   "no hay ningún ciclo inscrito actualmente "}}</li>
-				@endif
+				@else
+				<li>{{   "no hay ningún ciclo inscrito actualmente "}}</li>
+				@endif --}}
 			</ul>
 		</div>
 	</div>
