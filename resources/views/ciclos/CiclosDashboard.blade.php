@@ -44,28 +44,44 @@
                             <thead>
                                 <tr>
                                     <th class="col-md-2">Clave</th>
-                                    <th class="col-md-3">Asignatura</th>
+                                    <th class="col-md-2">Asignatura</th>
                                     <th class="col-md-2">Facilitador</th>
                                     <th class="col-md-1">Bimestre</th>
-                                    <th class="col-md-2">Horario</th>
-                                    <th class="col-md-1">Calificaciones</th>
-                                    <th class="col-md-1">Literal</th>
+                                    <!-- <th class="col-md-2">Horario</th> -->
+                                    <th class="col-md-1">Créditos</th>
+                                    <th class="col-md-2">Puntos</th>
+                                    <th class="col-md-1">Nota</th>
+                                    <th class="col-md-1">Calificación</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody ng-init="totalCreditos = 0; totalPuntos = 0">
                                 <tr ng-repeat="grupo in ciclo.grupos">
                                     <td ng-bind="grupo.clave"></td>
                                     <td ng-bind="grupo.asignatura"></td>
                                     <td ng-bind="grupo.facilitador"></td>
                                     <td ng-bind="grupo.bimestre"></td>
-                                    <td ng-bind="grupo.horario"></td>
+                                    <!-- <td ng-bind="grupo.horario"></td> -->
+                                    <td ng-bind="grupo.credito" ng-init="$parent.totalCreditos = $parent.totalCreditos + grupo.credito"></td>
+                                    <td ng-bind="calcularPuntos(calcularLiteral(grupo.calificacion), grupo.credito)" ng-init="$parent.totalPuntos = $parent.totalPuntos + calcularPuntos(calcularLiteral(grupo.calificacion), grupo.credito)"></td>
                                     <td ng-bind="grupo.calificacion"></td>
                                     <td ng-bind="calcularLiteral(grupo.calificacion)"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">Total del cuatrimestre</th>
+                                    <td ng-bind="totalCreditos"></td>
+                                    <td ng-bind="totalPuntos"></td>
+                                    <td rowspan="2" colspan="2"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">Índice del cuatrimestre</th>
+                                    <td class="text-center" colspan="2" ng-bind="calcularIndice(totalPuntos, totalCreditos) | number:2"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="text-center">No hay ningún ciclo en el historial</div>
+                    <br>
+                    <h4><b>Índice acumulado: </b><span ng-bind="indiceAcumulado() | number:2"></span></h4>
+                    <div ng-show="noCiclos" class="text-center">No hay ningún ciclo en el historial</div>
                 </div>
             </div>
         </div>

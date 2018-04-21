@@ -43,6 +43,7 @@ class CicloController extends Controller
                 $grupo->asignatura = Asignatura::where('id', $grupo->id_asignatura)->value('descripcion');
                 $grupo->calificacion = Calificacion::where('id_grupo', $grupo->id)->value('calificacion');
                 $grupo->facilitador = Facilitador::where('id', $grupo->id_facilitador)->value('nombre');
+                $grupo->credito = Asignatura::where('id', $grupo->id_asignatura)->value('cr');
             }
         }
 
