@@ -16,7 +16,10 @@ class DashboardController extends Controller
     	$ciclos = Ciclo::all();
     	$aprobadas = Asignatura::all()->where('aprovado',1);
     	$pendientes = Asignatura::all()->where('aprovado',0);
-    	return view('dashboard',compact('asignaturas','ciclos','aprobadas','pendientes'));
+    	$actuales = new Ciclo;
+    	$actuales = $actuales->ciclosAbiertos();
+    	$actualess= Grupo::where('id_ciclo',$actuales);
+    	return view('dashboard',compact('asignaturas','ciclos','aprobadas','pendientes','actuales'));
 
     }
 }

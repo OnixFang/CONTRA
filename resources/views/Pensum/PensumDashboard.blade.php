@@ -47,7 +47,9 @@
    @endforeach
   </tbody>
 </table>
+@if(count($pensumes)<1)
 {{ link_to_route('pensum.create', $title='Añadir', $parameters =array(),$attributes=array('class'=>'btn btn-primary')) }}
+@endif
 			</div>
 		</div>
 	</div><!-- /.panel-->
