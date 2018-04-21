@@ -25,6 +25,7 @@
 	<script src="js/angular/angularapp.js"></script>
 	<script src="js/angular/controllers/maincontroller.js"></script>
 	<script src="js/angular/controllers/ciclocontroller.js"></script>
+	<script src="js/angular/controllers/ciclohistorialcontroller.js"></script>
 	<script src="js/angular/services/contradata.js"></script>
 </head>
 

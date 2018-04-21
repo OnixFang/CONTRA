@@ -10,7 +10,7 @@
 @section('content')
 <div class="row">
   <ol class="breadcrumb">
-    <li><a href="/">
+    <li><a href="#">
       <em class="fa fa-home"></em>
     </a></li>
     <li class="active">Ciclos</li>
@@ -23,7 +23,7 @@
 @endif
 <div class="row">
   <div class="col-lg-12">
-    <h1 class="page-header">Ciclo en curso</h1>
+    <h1 class="page-header">Historial de Ciclos</h1>
   </div>
 </div><!--/.row-->
 <div class="row">
@@ -31,9 +31,9 @@
     <div class="panel panel-default">
       <div class="panel-heading"></div>
       <div class="panel-body">
-        @if(count($cicloactual)>0)
-        
-        <h4>Ciclo {{ $cicloactual->clave }}</h4>
+        @if(count($ciclos)>0)
+        @foreach($ciclos as $ciclo)
+        <h4>Ciclo {{ $ciclo->clave }}</h4>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -47,7 +47,7 @@
           </thead>
 
           <tbody>
-           @foreach($cicloactual->grupos as $grupociclo)
+           @foreach($ciclo->grupos as $grupociclo)
            <tr>
             <td>{{$grupociclo->clave}}</td>
             <td> {{$grupociclo->asignatura->descripcion}}</td>
@@ -63,16 +63,18 @@
 
               {{link_to_route('calificacion.show','Calificar',[$grupociclo->id],['class'=>'btn btn-warning',"data-toggle"=>"modal", "data-target"=>"#exampleModalCenter","type"=>"button" ]) }}
               @endif
-             </td>
+              <!-- {{ link_to_route('ciclo.edit', 'Editar', [$ciclo->id],['class'=>'btn btn-success']) }} --> </td>
             </tr>
             @endforeach
 
 
           </tbody>
         </table>
+        @endforeach
 
+        {{ link_to_route('grupo.index','Añadir',null,['class'=>'btn btn-primary']) }}
         @else
-        <div class="text-center">{{ "No tiene ningún ciclo en curso" }}</div>
+        <div class="text-center">{{ "No hay ningún ciclo en el historial" }}</div>
         @endif
       </div>
     </div>

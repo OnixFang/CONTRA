@@ -21,10 +21,15 @@
             });
         }
 
+        function getCiclosCerrados() {
+            return $http.get('api/ciclo_api').then(returnData);
+        }
+
         return {
             getAsignaturas: getAsignaturas,
             getFacilitadores: getFacilitadores,
             saveCiclo: saveCiclo,
+            getCiclosCerrados: getCiclosCerrados,
         }
     }
 
