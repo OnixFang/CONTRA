@@ -28,12 +28,12 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label>Nombre</label>
-						{{  Form::text('nombre',null,['class'=>'form-control','placeholder'=>'escriba nombre del facilitador']) }}
+						{{  Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Escriba nombre del facilitador','required']) }}
 
 						</div>
 <div class="form-group">
-						<label>ciudad</label>
-						{{  Form::text('ciudad',null,['class'=>'form-control','placeholder'=>'escriba ciudad donde vice']) }}
+						<label>Ciudad</label>
+						{{  Form::text('ciudad',null,['class'=>'form-control','placeholder'=>'Escriba ciudad donde vive'.'required']) }}
 
 						</div>
 					
