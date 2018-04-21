@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Ciclo;
+use App\Grupo;
 use App\Asignaturas;
 
 class CicloController extends Controller
@@ -21,12 +22,18 @@ class CicloController extends Controller
 
     public function actual()
     {
-
         $cicloactual = new Ciclo;
         $cicloactual = $cicloactual->ciclosabiertos()->last();
     //dd(Count($cicloactual));
         return view('ciclos.cicloactual', compact('cicloactual'));
     }
+
+    public function ciclo_api()
+    {
+        $ciclos = Ciclo::all()->where('cerrado',1);
+        return $ciclos;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
