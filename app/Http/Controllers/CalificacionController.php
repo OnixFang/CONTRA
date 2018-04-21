@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
+use App\Calificacion;
 use App\Grupo;
-use App\Facilitador;
 use App\Asignatura;
 use App\Ciclo;
 
-class GrupoController extends Controller
+class CalificacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,22 +17,7 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        $grupos = Grupo::all();
-        $facilitadores = Facilitador::pluck('nombre','id');
-        $asignaturas = Asignatura::pluck('descripcion','id');
-        return view('grupos.addGrupos',compact('grupos','facilitadores','asignaturas'));
-    }
 
-    public function asignatura_api()
-    {
-        $asignatura = Asignatura::all();
-        return $asignatura;
-    }
-
-    public function facilitador_api()
-    {
-        $facilitador = Facilitador::all();
-        return $facilitador;
     }
 
     /**
@@ -47,10 +30,6 @@ class GrupoController extends Controller
         //
     }
 
-public function return_view(){
-            
-
-}
     /**
      * Store a newly created resource in storage.
      *
@@ -59,23 +38,34 @@ public function return_view(){
      */
     public function store(Request $request)
     {
-        $ciclo = Ciclo::create($request->all());
-        $ciclo_id = $ciclo->id;
-        $grupos = $request->grupos;
-        //return response (count($grupos));
-        //return response($grupos[0]['clave']);
-        foreach ($grupos as $grupo)
-        {
-            Grupo::create([
-                'clave' => $grupo['clave'],
-                'id_asignatura' => $grupo['asignatura'],
-                'bimestre' => $grupo['bimestre'],
-                'id_facilitador' => $grupo['facilitador'],
-                'horario' => $grupo['horario'],
-                'id_ciclo' => $ciclo_id
-                ]);
+        $request->validate([
+            'calificacion'=> 'required'
+            ]);
+        Calificacion::create($request->all()); //guardar las calificaciones
+        
+        if($request->calificacion > 69) { //poner la asignatura en aprovado
+            Asignatura::where('id', $request->id_asignatura)->update(array('aprovado' => '1'));
         }
-        return Response ('cicloactual', 200);
+
+
+        $gruposdeCiclo = Grupo::all()->where('id_ciclo',$request->id_ciclo);
+        $gruposCalificados = Calificacion::all();
+        $gruposDeCicloCalificados=0;
+        foreach($gruposCalificados as $grupoCalificado){
+
+            foreach($gruposdeCiclo as $grupodeCiclo ) {
+                if ($grupoCalificado->id_grupo == $grupodeCiclo->id){
+                    ++$gruposDeCicloCalificados; 
+                }
+            }
+        }
+        if($gruposDeCicloCalificados == count($gruposdeCiclo)){
+
+            //dd($request->id_ciclo);
+            Ciclo::where('id',$request->id_ciclo)->update(array('cerrado'=>'1'));
+        }
+              return redirect()->action('CicloController@actual')->withMessage("La asignatura fue calificada exitosamente");
+   
     }
 
     /**
@@ -86,7 +76,8 @@ public function return_view(){
      */
     public function show($id)
     {
-        //
+        $grupo = Grupo::find($id);
+        return view('grupos.calificaciones',compact('grupo'));
     }
 
     /**

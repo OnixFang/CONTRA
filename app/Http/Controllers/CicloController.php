@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Ciclo;
+use App\Grupo;
+use App\Asignatura;
+use App\Facilitador;
+use App\Calificacion;
 
 class CicloController extends Controller
 {
@@ -14,8 +18,36 @@ class CicloController extends Controller
      */
     public function index()
     {
-        $ciclos = Ciclo::all();
+        $ciclos = Ciclo::all()->where('cerrado',1);
         return view('ciclos.CiclosDashboard',compact('ciclos'));
+    }
+
+    public function actual()
+    {
+        $cicloactual = new Ciclo;
+        $cicloactual = $cicloactual->ciclosabiertos()->last();
+    //dd(Count($cicloactual));
+        return view('ciclos.cicloactual', compact('cicloactual'));
+    }
+
+    public function ciclo_api()
+    {
+        $ciclos = Ciclo::all()->where('cerrado',1);
+
+        foreach($ciclos as $ciclo)
+        {
+            $ciclo->grupos = Grupo::all()->where('id_ciclo', $ciclo->id);
+
+            foreach($ciclo->grupos as $grupo)
+            {
+                $grupo->asignatura = Asignatura::where('id', $grupo->id_asignatura)->value('descripcion');
+                $grupo->calificacion = Calificacion::where('id_grupo', $grupo->id)->value('calificacion');
+                $grupo->facilitador = Facilitador::where('id', $grupo->id_facilitador)->value('nombre');
+                $grupo->credito = Asignatura::where('id', $grupo->id_asignatura)->value('cr');
+            }
+        }
+
+        return $ciclos;
     }
 
     /**

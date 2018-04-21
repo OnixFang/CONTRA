@@ -29,19 +29,19 @@
 				{{ Form::hidden('id_pensum',$pensum) }}
 					<div class="form-group">
 						<label>Nombre Asignatura</label>
-						<input class="form-control" placeholder="Placeholder" name="descripcion">
+						<input class="form-control" placeholder="Nombre de la asignatura" name="descripcion">
 					</div>
 					<div class="form-group">
-						<label>Pre-requisito 1</label>
+						<label>Prerrequisito 1</label>
 						{{Form::select( 'pre_requisito1',$prereq,null,['class' => 'form-control', 'placeholder' => 'Seleccionar'])}}
 					</div>
 					<div class="form-group">
-						<label>Pre-requisito 2</label>
+						<label>Prerrequisito 2</label>
 						{{Form::select( 'pre_requisito2',$prereq,null,['class' => 'form-control', 'placeholder' => 'Seleccionar'])}}
 					</div>
 					<div class="form-group checkbox">
 						<label>
-							<input type="checkbox">Esta materia es propedéutico
+							{{ Form::checkbox('propedeutico', '1') }} Esta materia es propedéutico
 						</label>
 					</div>
 				</div>
@@ -53,7 +53,7 @@
 				</div>
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>Horas prácticas</label>
+						<label>Horas Prácticas</label>
 						<input class="form-control" placeholder="HP" name="hp">
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 				</div>	
 				<div class="col-md-3">
 					<div class="form-group">
-						<label>cuatrimestre</label>
+						<label>Cuatrimestre</label>
 						<input class="form-control" placeholder="Cuatrimestre" name="cuatrimestre">
 					</div>
 				</div>	
@@ -74,11 +74,11 @@
 						<label>Clave </label>
 						<input class="form-control" placeholder="Clave" name="clave">
 					</div>
-				</div>	
-				<div class="col-md-12">
-					<button type="submit" class="btn btn-primary">Añadir</button>
-					<button type="reset" class="btn btn-default">Cancelar</button>
 				</div>
+			</div>
+			<div class="panel-footer">
+				<button type="submit" class="btn btn-primary">Añadir</button>
+				<button type="reset" class="btn btn-default">Cancelar</button>
 				{!! Form::close() !!}
 			</div>
 		</div>

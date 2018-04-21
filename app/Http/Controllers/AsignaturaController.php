@@ -56,9 +56,9 @@ class AsignaturaController extends Controller
     {
         $asignaturas = Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');
         $collection = $asignaturas;
-        $id_pensum=$id;       
+        $pensum = Pensum::find($id);     
         //dd($asignaturas);
-        return view('pensum.pensumshow',compact('asignaturas', 'collection','id_pensum'));
+        return view('pensum.pensumshow',compact('asignaturas', 'collection','pensum'));
     }
 
     /**
@@ -84,7 +84,8 @@ class AsignaturaController extends Controller
     public function update(Request $request, $id)
     {
         Asignatura::find($id)->update($request->all());
-        return redirect()->route('pensum.index')->withMessage("la Asignatura fue editada");
+        $id_pensum = $request->id_pensum;
+        return redirect()->route('asignatura.show',['id'=>$id_pensum])->withMessage("la Asignatura ".$request->descripcion." fue editada");;
     }
 
     /**

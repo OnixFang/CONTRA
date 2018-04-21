@@ -20,8 +20,15 @@ class Grupo extends Model
     	return $this->belongsTo('App\facilitador','id_facilitador');
     }
 
-    public function cilo(){
+    public function ciclo(){
 
-    	return $this->belongsTo('App\cilo','id_ciclo');
+    	return $this->belongsTo('App\Ciclo','id_ciclo');
     }
+
+    public function calificacion(){
+
+        return $this->hasOne('App\Calificacion','id_grupo');
+    }
+
+    
 }
