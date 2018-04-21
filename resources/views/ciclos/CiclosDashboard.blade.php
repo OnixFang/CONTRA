@@ -45,10 +45,11 @@
                                 <tr>
                                     <th class="col-md-2">Clave</th>
                                     <th class="col-md-3">Asignatura</th>
-                                    <th class="col-md-1">Facilitador</th>
+                                    <th class="col-md-2">Facilitador</th>
                                     <th class="col-md-1">Bimestre</th>
-                                    <th class="col-md-1">Horario</th>
+                                    <th class="col-md-2">Horario</th>
                                     <th class="col-md-1">Calificaciones</th>
+                                    <th class="col-md-1">Literal</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,6 +60,7 @@
                                     <td ng-bind="grupo.bimestre"></td>
                                     <td ng-bind="grupo.horario"></td>
                                     <td ng-bind="grupo.calificacion"></td>
+                                    <td ng-bind="calcularLiteral(grupo.calificacion)"></td>
                                 </tr>
                             </tbody>
                         </table>
