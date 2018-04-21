@@ -31,7 +31,7 @@
 			<div class="panel panel-blue panel-widget border-right">
 				<div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
 					<div class="large">{{ count($aprobadas)}}</div>
-					<div class="text-muted">Asinagutas aprobadas</div>
+					<div class="text-muted">Asignaturas aprobadas</div>
 				</div>
 			</div>
 		</div>
@@ -68,7 +68,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xs-6 col-md-3">
+	{{-- <div class="col-xs-6 col-md-3">
 		<div class="panel panel-default">
 			<div class="panel-body easypiechart-panel">
 				<h4>Comments</h4>
@@ -83,7 +83,7 @@
 				<div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span></div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 	<div class="col-xs-6 col-md-3">
 		<div class="panel panel-default">
 			<div class="panel-body easypiechart-panel">
@@ -169,12 +169,13 @@
 <div class="col-md-6">
 	<div class="panel panel-default ">
 		<div class="panel-heading">
-			Materias en curso
+			Asignaturas en curso
 			<ul class="pull-right panel-settings panel-button-tab-right">
 				<li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
 					<em class="fa fa-cogs"></em>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-right">
+					
 					<li>
 						<ul class="dropdown-settings">
 							<li><a href="#">
@@ -196,50 +197,21 @@
 		<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 		<div class="panel-body timeline-container">
 			<ul class="timeline">
+				@foreach($actuales as $actual)
 				<li>
 					<div class="timeline-badge"><em class="glyphicon glyphicon-pushpin"></em></div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
-							<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
+							<h4 class="timeline-title">{{ $actual->asignatura->descripcion }}</h4>
 						</div>
 						<div class="timeline-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.</p>
+							<p>{{ "profesor: ".$actual->facilitadores->nombre  }}</p>
+							<p>{{ "bimestre: ".$actual->bimestre }}</p>
+							<p>{{ "Horario: ".date('D - h:i A',strtotime($actual->horario)) }}</p>
 						</div>
 					</div>
 				</li>
-				<li>
-					<div class="timeline-badge primary"><em class="glyphicon glyphicon-link"></em></div>
-					<div class="timeline-panel">
-						<div class="timeline-heading">
-							<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
-						</div>
-						<div class="timeline-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="timeline-badge"><em class="glyphicon glyphicon-camera"></em></div>
-					<div class="timeline-panel">
-						<div class="timeline-heading">
-							<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
-						</div>
-						<div class="timeline-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at sodales nisl. Donec malesuada orci ornare risus finibus feugiat.</p>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="timeline-badge"><em class="glyphicon glyphicon-paperclip"></em></div>
-					<div class="timeline-panel">
-						<div class="timeline-heading">
-							<h4 class="timeline-title">Lorem ipsum dolor sit amet</h4>
-						</div>
-						<div class="timeline-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-					</div>
-				</li>
+				@endforeach
 			</ul>
 		</div>
 	</div>
