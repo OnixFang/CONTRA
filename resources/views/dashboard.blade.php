@@ -125,6 +125,7 @@
 			<span class="pull-right clickable panel-toggle panel-button-tab-left"><em class="fa fa-toggle-up"></em></span></div>
 			<div class="panel-body">
 				<ul>
+				@if(count($pendientes)>0)
 					@foreach($pendientes as $pendiente)
 					<li class="left clearfix"><span class="chat-img pull-left">
 						<img src="http://placehold.it/60/30a5ff/fff" alt="User Avatar" class="img-circle" />
@@ -154,6 +155,8 @@
 					</div>
 				</li>
 				@endforeach
+				else<li>{{   "no hay ningún ciclo inscrito actualmente "}}</li>
+				@endif
 			</ul>
 		</div>
 		<div class="panel-footer">
