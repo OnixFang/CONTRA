@@ -64,7 +64,7 @@
 		<div class="panel panel-default">
 			<div class="panel-body easypiechart-panel">
 				<h4>Pendiente</h4>
-				<div class="easypiechart" id="easypiechart-blue" data-percent="{{((count($pendientes) / count($asignaturas))*100 ) }}" ><span class="percent">{{ number_format((count($pendientes)/count($asignaturas))*100),0}}%</span></div>
+				<div class="easypiechart" id="easypiechart-blue" data-percent="{{ ($asignaturas->count() > 0) ? ((count($pendientes) / count($asignaturas))*100 ) : 0 }}" ><span class="percent">{{ ($asignaturas->count() > 0) ? number_format((count($pendientes)/count($asignaturas))*100) : 0}}%</span></div>
 			</div>
 		</div>
 	</div>
@@ -88,7 +88,7 @@
 		<div class="panel panel-default">
 			<div class="panel-body easypiechart-panel">
 				<h4>Completado</h4>
-				<div class="easypiechart" id="easypiechart-red" data-percent="{{  ((count($aprobadas) / count($asignaturas))*100 )}}%" ><span class="percent">{{  number_format((count($aprobadas) / count($asignaturas))*100),0}}%</span></div>
+				<div class="easypiechart" id="easypiechart-red" data-percent="{{ ($asignaturas->count() > 0) ? ((count($aprobadas) / count($asignaturas))*100) : 0}}%" ><span class="percent">{{ ($asignaturas->count() > 0) ?  number_format((count($aprobadas) / count($asignaturas))*100) : 0 }}%</span></div>
 			</div>
 		</div>
 	</div>
