@@ -12,13 +12,18 @@ class Ciclo extends Model
 
     public function grupos(){
 
-    	return $this->hasMany('App\Grupo','id_ciclo');
+        return $this->hasMany('App\Grupo','id_ciclo');
     }
 
-    public function ciclosAbiertos(){
-
-    	return Ciclo::all()->where('cerrado',0);
+    public function scopeCicloAbiertos($query)
+    {
+        return $query->where('cerrado', 0);
     }
+
+//    public function ciclosAbiertos(){
+//
+//    	return Ciclo::all()->where('cerrado',0);
+//    }
 
 
 }

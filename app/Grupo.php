@@ -17,7 +17,7 @@ class Grupo extends Model
 
     public function facilitadores(){
 
-    	return $this->belongsTo('App\facilitador','id_facilitador');
+    	return $this->belongsTo('App\Facilitador','id_facilitador');
     }
 
     public function ciclo(){

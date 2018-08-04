@@ -62,7 +62,7 @@ class FacilitadorController extends Controller
     public function edit($id)
     {
         $facilitador = Facilitador::find($id);
-        return view('Facilitadores.updateFacilitador',compact('facilitador'));
+        return view('facilitadores.updateFacilitador',compact('facilitador'));
     }
 
     /**

@@ -15,7 +15,7 @@ class PensumController extends Controller
     public function index()
     {
        $pensumes = Pensum::all();
-       return view('pensum.pensumDashboard')->withPensumes($pensumes);
+       return view('pensum.index')->withPensumes($pensumes);
     }
 
     /**
@@ -25,7 +25,7 @@ class PensumController extends Controller
      */
     public function create()
     {
-        return view('Pensum.CreatePensum');
+        return view('pensum.CreatePensum');
     }
 
     /**
@@ -77,7 +77,7 @@ class PensumController extends Controller
     {
        Pensum::find($id)->update($request->all());
 
-       return redirect()->route('pensum.index')->withMessage("Pensum Editado");
+       return redirect()->route('pensum.index')->withMessage("pensum Editado");
     }
 
     /**
