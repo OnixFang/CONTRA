@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use App\Asignatura;
 use App\Pensum;
 use App\Http\Requests\AsignaturaRequest;
+use App\Services\AsignaturaService;
 
 class AsignaturaController extends Controller
 {
+    //public $asignatura;
+
+   // public function __construct(AsignaturaService $asignatura){
+   //     $this->asignatura = $asignatura;
+   // }
     /**
      * Display a listing of the resource.
      *
@@ -54,7 +60,7 @@ class AsignaturaController extends Controller
      */
     public function show($id)
     {
-        $asignaturas = Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');
+        $asignaturas = $this->asignatura->asignaturas_pensum($id);
         $collection = $asignaturas;
         $pensum = Pensum::find($id);     
         //dd($asignaturas);

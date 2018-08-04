@@ -21,9 +21,4 @@ class Asignatura extends Model
     }
 
     
-
-public static function asignaturas_pensum($id){
-return Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');
-}
-
 }
