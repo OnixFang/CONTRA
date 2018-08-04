@@ -34,7 +34,7 @@ class AsignaturaController extends Controller
     {        
         $pensum = $id;
         $prereq = Asignatura::pluck('descripcion','id');
-        return view('asignaturas.addsubject',compact('pensum','prereq'));
+        return view('asignaturas.create',compact('pensum','prereq'));
     }
 
     /**
@@ -64,7 +64,7 @@ class AsignaturaController extends Controller
         $collection = $asignaturas;
         $pensum = Pensum::find($id);     
         //dd($asignaturas);
-        return view('pensum.pensumshow',compact('asignaturas', 'collection','pensum'));
+        return view('pensum.show',compact('asignaturas', 'collection','pensum'));
     }
 
     /**

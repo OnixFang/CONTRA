@@ -24,10 +24,12 @@ class CicloController extends Controller
 
     public function actual()
     {
-        $cicloactual = new Ciclo;
-        $cicloactual = $cicloactual->ciclosabiertos()->last();
-    //dd(Count($cicloactual));
-        return view('ciclos.cicloactual', compact('cicloactual'));
+//        $cicloactual = new Ciclo;
+//        $cicloactual = $cicloactual->ciclosabiertos()->last();
+
+        $cicloactual = Ciclo::cicloAbiertos()->first();
+
+        return view('ciclos.ciclo_actual', compact('cicloactual'));
     }
 
     public function ciclo_api()
