@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DeleteCampoDescripcionGrupoTable extends Migration
+class CreateCiclosTiposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class DeleteCampoDescripcionGrupoTable extends Migration
      */
     public function up()
     {
-        Schema::table('grupo', function (Blueprint $table) {
-            $table->dropColumn('descripcion');
+        Schema::create('ciclos_tipos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('descripcion');
+            $table->timestamps();
+            $table->softDeletes();
         });
+
     }
 
     /**
@@ -25,8 +29,6 @@ class DeleteCampoDescripcionGrupoTable extends Migration
      */
     public function down()
     {
-        Schema::table('grupo', function (Blueprint $table) {
-            $table->string('descripcion');
-        });
+        Schema::dropIfExists('ciclos_tipos');
     }
 }

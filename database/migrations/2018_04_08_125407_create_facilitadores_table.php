@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCalificacionTable extends Migration
+class CreateFacilitadoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCalificacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('calificacion', function (Blueprint $table) {
+        Schema::create('facilitadores', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_grupo');
-            $table->integer('calificacion');
+            $table->string('nombre');
+            $table->string('ciudad');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCalificacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calificacion');
+        Schema::dropIfExists('facilitadores');
     }
 }

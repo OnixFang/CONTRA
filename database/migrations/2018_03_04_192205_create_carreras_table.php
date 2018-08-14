@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTipoCiclo extends Migration
+class CreateCarrerasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateTipoCiclo extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_ciclo', function (Blueprint $table) {
-        $table->increments('id');
-        $table->string('descripcion');
-        $table->rememberToken();
-        $table->timestamps();
-        
+        Schema::create('carreras', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('descripcion');
+            $table->softDeletes();
+            $table->timestamps();
         });
-
     }
 
     /**
@@ -30,6 +28,6 @@ class CreateTipoCiclo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_ciclo');
+        Schema::dropIfExists('carreras');
     }
 }

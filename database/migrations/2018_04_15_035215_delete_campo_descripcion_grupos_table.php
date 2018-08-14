@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCicloTable extends Migration
+class DeleteCampoDescripcionGruposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateCicloTable extends Migration
      */
     public function up()
     {
-        Schema::create('ciclo', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('clave');
-            $table->date('fecha');
-            $table->unsignedInteger('id_pensum');
-            $table->timestamps();
+        Schema::table('grupos', function (Blueprint $table) {
+            $table->dropColumn('descripcion');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateCicloTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ciclo');
+        Schema::table('grupos', function (Blueprint $table) {
+            $table->string('descripcion');
+        });
     }
 }

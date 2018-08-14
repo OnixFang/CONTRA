@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePensumTable extends Migration
+class CreatePensumsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,14 @@ class CreatePensumTable extends Migration
      */
     public function up()
     {
-        Schema::create('pensum', function (Blueprint $table) {
+        Schema::create('pensums', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('carrera_id');
+            $table->foreign('carrera_id')->references('id')->on('carreras');
+
+            $table->unsignedInteger('ciclo_tipo_id');
+            $table->foreign('ciclo_tipo_id')->references('id')->on('ciclos_tipos');
+
             $table->string('descripcion');
             $table->timestamps();
         });
@@ -27,6 +33,6 @@ class CreatePensumTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pensum');
+        Schema::dropIfExists('pensums');
     }
 }

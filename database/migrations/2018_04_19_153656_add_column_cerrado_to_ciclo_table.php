@@ -13,7 +13,7 @@ class AddColumnCerradoToCicloTable extends Migration
      */
     public function up()
     {
-        Schema::table('ciclo', function (Blueprint $table) {
+        Schema::table('ciclos', function (Blueprint $table) {
             $table->boolean('cerrado')->default('0');
         });
     }
@@ -25,7 +25,7 @@ class AddColumnCerradoToCicloTable extends Migration
      */
     public function down()
     {
-        Schema::table('ciclo', function (Blueprint $table) {
+        Schema::table('ciclos', function (Blueprint $table) {
             $table->dropColumn('cerrado');
         });
     }

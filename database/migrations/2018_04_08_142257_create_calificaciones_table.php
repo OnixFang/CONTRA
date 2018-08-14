@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsignaturaTable extends Migration
+class CreateCalificacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateAsignaturaTable extends Migration
      */
     public function up()
     {
-        Schema::create('asignatura', function (Blueprint $table) {
+        Schema::create('calificaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion');
-            $table->string('clave');
-            $table->integer('hp');
-            $table->integer('ht');
-            $table->integer('cr');
-            $table->integer('cuatrimestre');
+            $table->unsignedInteger('grupo_id');
+            $table->foreign('grupo_id')->references('id')->on('grupos');
+            $table->integer('calificacion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -32,6 +30,6 @@ class CreateAsignaturaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('asignatura');
+        Schema::dropIfExists('calificaciones');
     }
 }

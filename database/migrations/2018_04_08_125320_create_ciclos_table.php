@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarreras extends Migration
+class CreateCiclosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateCarreras extends Migration
      */
     public function up()
     {
-        Schema::create('carreras', function (Blueprint $table) {
+        Schema::create('ciclos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('decripcion');
+            $table->string('clave');
+            $table->date('fecha');
+            $table->unsignedInteger('pensum_id');
+            $table->foreign('pensum_id')->references('id')->on('pensums');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +30,6 @@ class CreateCarreras extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carreras');
+        Schema::dropIfExists('ciclos');
     }
 }
