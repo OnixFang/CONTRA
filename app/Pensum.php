@@ -28,9 +28,9 @@ class Pensum extends Model
 
     protected $fillable = ['carrera_id', 'descripcion', 'ciclo_tipo_id'];
 
-    public function asignatura(){
-
-        return $this->hasMany('App\Asignatura','id_pensum');
+    public function asignaturas()
+    {
+        return $this->belongsToMany(Asignatura::class, 'asignaturas_pensums');
     }
 
 }

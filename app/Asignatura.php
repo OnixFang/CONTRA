@@ -41,19 +41,24 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Asignatura extends Model
 {
-    protected $table ="asignatura";
+    const KEY_LEN = 7;
+
+    protected $table ="asignaturas";
 
     protected $fillable =['descripcion','clave','hp','ht','cr','cuatrimestre','id_pensum','pre_requisito1','pre_requisito2','propedeutico'];
 
-    public function pensum(){
-
-    	return $this->belongsTo('App\Pensum','id_pensum');
+    public function pensums()
+    {
+        return $this->belongsToMany(Pensum::class, 'asignaturas_pensums');
     }
 
-    public function grupos(){
-
-    	return $this->belongsTo('App\Grupo','id_asignatura');
+    public function grupos()
+    {
+        return $this->belongsTo('App\Grupo','id_asignatura');
     }
 
-    
+    public function requisitos ()
+    {
+        return $this->belongsToMany(Asignatura::class, 'asignaturas_requisitos', 'asignatura_id', 'requisito_id');
+    }
 }

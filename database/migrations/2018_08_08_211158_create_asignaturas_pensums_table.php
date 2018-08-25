@@ -18,8 +18,8 @@ class CreateAsignaturasPensumsTable extends Migration
             $table->unsignedInteger('asignatura_id');
             $table->foreign('asignatura_id')->references('id')->on('asignaturas');
 
-            $table->unsignedInteger('pensums_id');
-            $table->foreign('pensums_id')->references('id')->on('pensums');
+            $table->unsignedInteger('pensum_id');
+            $table->foreign('pensum_id')->references('id')->on('pensums');
             $table->timestamps();
         });
     }

@@ -1,17 +1,16 @@
 <?php namespace App\Console\Commands;
 
+use App\Asignatura;
 use App\Carrera;
 use App\CicloTipo;
 use App\Pensum;
+use DB;
 use GuzzleHttp\Exception\RequestException;
-use function GuzzleHttp\Psr7\parse_header;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Exception;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
-use phpDocumentor\Reflection\Types\String_;
 
 class ParserPensum extends Command
 {
@@ -83,98 +82,110 @@ class ParserPensum extends Command
 
     private function collectPensums(Collection $pensums_url)
     {
-//        try{
+        try{
 
-        $client = new Client([
-            'allow_redirects' => true,
-            'timeout'  => 30,
-            'http_errors' => false
-        ]);
+            $client = new Client([
+                'allow_redirects' => true,
+                'timeout'  => 30,
+                'http_errors' => false,
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+                ]
+            ]);
 
-        $cicle_types = CicloTipo::all()->pluck('id', 'descripcion');
+            $cicle_types = CicloTipo::all()->pluck('id', 'descripcion');
 
-        $pensums_url->map(function ($element) use($client, $cicle_types)
-        {
-            $response = $client->request('get', $element['url']);
+            $pensums_url->map(function ($element) use($client, $cicle_types)
+            {
+                $response = $client->request('get', $element['url']);
 
-            if($response->getStatusCode() !== 200 and $response->getReasonPhrase() !== 'OK')
-                return $this->exception($element['url'] . " not found.");
+                if($response->getStatusCode() !== 200 and $response->getReasonPhrase() !== 'OK')
+                    return $this->exception($element['url'] . " not found.");
 
-            $this->info($element['url']);
+                $this->info($element['url']);
 
-            $dom = $response->getBody()->getContents();
+                $dom = $response->getBody()->getContents();
 
-            $pensum_description = '';
-            preg_match('/\Wpensum(.+)(\d{4})\W/i', $dom,$pensum_description);
-            $pensum_description = ucwords(str_replace(['>', '<', '/'], ['', '', ''], trim(collect($pensum_description)->first())));
-            $pensum_description = (empty($pensum_description)) ? 'Version inicial' : $pensum_description;
+                $pensum_description = '';
+                preg_match('/\Wpensum(.+)(\d{4})\W/i', $dom,$pensum_description);
+                $pensum_description = ucwords(str_replace(['>', '<', '/'], ['', '', ''], trim(collect($pensum_description)->first())));
+                $pensum_description = (empty($pensum_description)) ? 'Version inicial' : $pensum_description;
 
-            $cicle_type_id = 0;
-            foreach ($cicle_types as $key => $value)
-                if (stripos($dom, $key) !== false) {
-                    $cicle_type_id = $cicle_types[$key];
-                    break;
-                }
-
-            $pensum = Pensum::updateOrCreate(
-                ['carrera_id' => $element['carrera_id'], 'descripcion' => $pensum_description, 'ciclo_tipo_id' => $cicle_type_id],
-                ['carrera_id' => $element['carrera_id'], 'descripcion' => $pensum_description, 'ciclo_tipo_id' => $cicle_type_id]
-            );
-
-            $article = collect(parse_array($dom, '<article id="post-', '</article>'))->first();
-            if($article == null)
-                return $this->exception("Article not found. {$element['url']}");
-
-            $quarters = collect(parse_array($article, '<table', '</table>'));
-            if($quarters->count() == 0)
-                return $this->exception("Table for quarters not found. {$element['url']}");
-
-            $quarters->each(function ($quarter, $key) use($element, $pensum) {
-                $subjects = collect(parse_array($quarter, '<tr>', '</tr>'));
-                if($subjects->count() == 0)
-                    return false;
-
-                $subjects->each(function ($subject) use($key, $pensum) {
-                    $data = collect(parse_array($subject, '<td', '</td>'));
-
-                    if($data->count() == 8)
-                    {
-                        $data = $data->map(function ($element) {
-                            return (strip_tags(trim($element)));
-                        });
-
-                        $subject = [
-                            'descripcion' => $data[1],
-                            'clave' => $this->formatKey($data[0]),
-                            'hp' => $data[3],
-                            'ht' => $data[2],
-                            'cr' => $data[6],
-                            'cuatrimestre' => $key,
-                            'propedeutico' => (strpos($data[1],'Propedéutico') !== false) ? 1 : 0,
-                        ];
-
-                        var_dump($subject);
+                $cicle_type_id = 0;
+                foreach ($cicle_types as $key => $value)
+                    if (stripos($dom, $key) !== false) {
+                        $cicle_type_id = $cicle_types[$key];
+                        break;
                     }
+
+                $pensum = Pensum::updateOrCreate(
+                    ['carrera_id' => $element['carrera_id'], 'descripcion' => $pensum_description, 'ciclo_tipo_id' => $cicle_type_id],
+                    ['carrera_id' => $element['carrera_id'], 'descripcion' => $pensum_description, 'ciclo_tipo_id' => $cicle_type_id]
+                );
+
+                $article = collect(parse_array($dom, '<article id="post-', '</article>'))->first();
+                if($article == null)
+                    return $this->exception("Article not found. {$element['url']}");
+
+                $quarters = collect(parse_array($article, '<table', '</table>'));
+                if($quarters->count() == 0)
+                    return $this->exception("Table for quarters not found. {$element['url']}");
+
+                $quarters->each(function ($quarter, $key) use($element, $pensum) {
+                    $subjects = collect(parse_array($quarter, '<tr>', '</tr>'));
+                    if($subjects->count() == 0)
+                        return false;
+
+                    $subjects->each(function ($subject) use($key, $pensum) {
+                        $data = collect(parse_array($subject, '<td', '</td>'));
+
+                        if($data->count() == 8)
+                        {
+                            $data = $data->map(function ($element) {
+                                return trim(html_entity_decode(strip_tags(preg_replace(['/\s+/', '/\ /'], [' ', ''], $element))));
+                            });
+
+                            $clave = $this->formatKey($data[0]);
+                            if((empty($data[1]) == false or (bool)strlen($data[1]) == true) and strlen($data[0]) >= Asignatura::KEY_LEN)
+                            {
+                                $subject = Asignatura::updateOrCreate(['clave' => $this->formatKey($data[0])], [
+                                    'descripcion' => preg_replace('/\s+/', ' ', (trim($data[1]))),
+                                    'clave' => $clave,
+                                    'hp' => (integer)str_replace(['', '–', '-'], 0, (trim($data[3]))),
+                                    'ht' => (integer)str_replace(['', '–', '-'], 0, (trim($data[2]))),
+                                    'cr' => (integer)str_replace(['', '–', '-'], 0, (trim($data[6]))),
+                                    'cuatrimestre' => $key++,
+                                    'propedeutico' => (stripos($data[1], 'propedéutico') !== false) ? 1 : 0,
+                                ]);
+
+                                $pensum->asignaturas()->attach($subject->id);
+
+                                $requirements = collect(explode(',', html_entity_decode(trim($data[7]))))->map(function ($requirement) use ($subject) {
+                                    $clave = $this->formatKey($requirement);
+                                    $subject_requirement = Asignatura::where('clave', $clave)->first();
+                                    if ($subject_requirement !== null)
+                                        $subject->requisitos()->attach($subject_requirement->id);
+                                });
+                            }
+                        }
+                    });
                 });
             });
-            dd('Termine');
-        });
 
-//        } catch (RequestException $exception) {
-//            Log::error($exception->getMessage());
-//            $this->error($exception->getMessage());
-//        }catch (Exception $exception){
-//            Log::error($exception->getMessage());
-//            $this->error($exception->getMessage());
-//        }
+        } catch (RequestException $exception) {
+            Log::error($exception->getMessage());
+            $this->error($exception->getMessage());
+        }catch (Exception $exception){
+            Log::error($exception->getMessage());
+            $this->error($exception->getMessage());
+        }
     }
 
     private function formatKey($key)
     {
-        if(strpos($key,'-') == false)
-            $key = substr($key, 0, 3) . "-" . substr($key, 3, strlen($key));
-
-        return $key;
+        $key = preg_replace('/\W/', '', $key);
+        $key = substr($key, 0, 3) . "-" . substr($key, 3, strlen($key));
+        return trim($key);
     }
 
     private function exception($message)
