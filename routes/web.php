@@ -11,10 +11,12 @@
 |
 */
 Auth::routes();
+Route::get('users/{code}/activate', 'Auth\LoginController@activate')->name('login.activate');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'user.activate'])->group(function () {
     Route::resource('/', 'DashboardController');
     Route::resource('/home', 'DashboardController');
+    Route::resource('profiles', 'ProfilesController');
 
     Route::get('asignatura.create/{id}', ['as' => 'asignatura.create', 'uses' => 'AsignaturaController@create']);//para poder recibir el id en el create()
     Route::resource('asignatura','AsignaturaController',['except'=>['create']]);

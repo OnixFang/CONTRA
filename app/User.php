@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -28,6 +29,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read string $full_name
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
+ * @property string $username
+ * @property string $salt
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSalt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUsername($value)
+ * @property int $activate
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereActivate($value)
  */
 class User extends Authenticatable
 {
@@ -39,7 +46,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password',
+        'first_name', 'last_name', 'email', 'username', 'password', 'salt', 'activate', 'activate_code'
     ];
 
     /**
@@ -57,5 +64,15 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function setSaltAttribute($value)
+    {
+        $this->attributes['salt'] = encrypt($value);
+    }
+
+    public function getSaltAttribute($value)
+    {
+        return decrypt($value);
     }
 }

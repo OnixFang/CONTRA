@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $ciclo_tipo_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Pensum whereCarreraId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Pensum whereCicloTipoId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Asignatura[] $asignaturas
  */
 class Pensum extends Model
 {

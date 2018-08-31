@@ -38,6 +38,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura wherePropedeutico($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Pensum[] $pensums
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Asignatura[] $requisitos
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereDeletedAt($value)
  */
 class Asignatura extends Model
 {

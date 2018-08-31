@@ -9,7 +9,7 @@ use function GuzzleHttp\default_user_agent;
 use GuzzleHttp\Exception\RequestException;
 use Log;
 
-class HttpRequestService
+class HTTPRequestService
 {
 
     public function __construct()
@@ -17,19 +17,19 @@ class HttpRequestService
 
     }
 
-    public function login($username, $password)
-    {
-        $login_data = $this->extractLoginInformation();
+//    public function login($username, $password)
+//    {
+//        $login_data = $this->extractLoginInformation();
+//
+//        if((boolean)count($login_data) == false)
+//            return false;
+//
+//        $login_data = array_merge($login_data, ['txtUserName' => $username, 'txtUserPass' => $password]);
+//
+//        dd($this->sendLoginRequest($login_data));
+//    }
 
-        if((boolean)count($login_data) == false)
-            return false;
-
-        $login_data = array_merge($login_data, ['txtUserName' => $username, 'txtUserPass' => $password]);
-
-        dd($this->sendLoginRequest($login_data));
-    }
-
-    private function sendLoginRequest($login_data)
+    public function sendLoginRequest($login_data)
     {
         $status = false;
 
@@ -42,13 +42,12 @@ class HttpRequestService
 
         } catch (Exception $exception){
             Log::error($exception->getMessage());
-            dd($exception->getMessage());
         }
 
         return $status;
     }
 
-    private function extractLoginInformation()
+    public function extractLoginInformation()
     {
         $information = [];
         try{
@@ -81,7 +80,6 @@ class HttpRequestService
 
         } catch (Exception $exception){
             Log::error($exception->getMessage());
-            dd($exception->getMessage());
         }
 
         return $information;
