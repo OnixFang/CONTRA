@@ -1,11 +1,8 @@
 <?php namespace App\Services;
 
-use App\Mail\UserRegistered;
 use App\User;
 use Exception;
 use Hash;
-use Illuminate\Encryption\Encrypter;
-use Illuminate\Support\Facades\Mail;
 use Log;
 
 class UserService
@@ -60,11 +57,12 @@ class UserService
         try{
             $user_finded = $this->user->where($this->username(), $user->username)->where('password', Hash::make($user->password))->first();
 
-            if($user_finded == null)
+            if($user_finded == null) {
                 $user = $this->user->create([
                     $this->username() => $user->username, 'password' => Hash::make($user->password),
-                    'salt' => encrypt($user->password), 'activate_code' => substr(encrypt(config('app.key')), 0, 280)
+                    'salt' => $user->password, 'activate_code' => rand(100000, 999999)
                 ]);
+            }
 
             if($user_finded instanceof User)
                 $user_finded->update(['password' => Hash::make($user->password), 'salt' => encrypt($user->password)]);

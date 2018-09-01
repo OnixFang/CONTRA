@@ -1,8 +1,5 @@
-<?php
+<?php namespace App;
 
-namespace App;
-
-use Hash;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -10,31 +7,32 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * App\User
  *
  * @property int $id
- * @property string $first_name
- * @property string $last_name
- * @property string $email
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string|null $email
+ * @property string $username
  * @property string $password
+ * @property string $salt
+ * @property int $activate
+ * @property string $activate_code
  * @property string|null $remember_token
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read string $full_name
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereActivate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereActivateCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property-read string $full_name
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
- * @property string $username
- * @property string $salt
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereSalt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUsername($value)
- * @property int $activate
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereActivate($value)
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {
@@ -58,6 +56,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $guarded = [];
+
     /**
      * @return string
      */
@@ -72,6 +72,16 @@ class User extends Authenticatable
     }
 
     public function getSaltAttribute($value)
+    {
+        return decrypt($value);
+    }
+
+    public function setActivateCodeAttribute($value)
+    {
+        $this->attributes['activate_code'] = encrypt($value);
+    }
+
+    public function getActivateCodeAttribute($value)
     {
         return decrypt($value);
     }

@@ -13,19 +13,23 @@
 Auth::routes();
 Route::get('users/{code}/activate', 'Auth\LoginController@activate')->name('login.activate');
 
-Route::middleware(['auth', 'user.activate'])->group(function () {
-    Route::resource('/', 'DashboardController');
-    Route::resource('/home', 'DashboardController');
+Route::middleware(['auth'])->group(function ()
+{
     Route::resource('profiles', 'ProfilesController');
 
-    Route::get('asignatura.create/{id}', ['as' => 'asignatura.create', 'uses' => 'AsignaturaController@create']);//para poder recibir el id en el create()
-    Route::resource('asignatura','AsignaturaController',['except'=>['create']]);
-    Route::resource('pensum','PensumController');
-    Route::resource('facilitador','FacilitadorController');
-    Route::resource('grupo','GrupoController');
-    Route::resource('ciclo','CicloController');
-    Route::resource('calificacion','CalificacionController');
-    Route::get('cicloactual','CicloController@actual');
+    Route::middleware(['user.activate'])->group(function ()
+    {
+        Route::resource('/', 'DashboardController');
+
+        Route::get('asignatura.create/{id}', ['as' => 'asignatura.create', 'uses' => 'AsignaturaController@create']);//para poder recibir el id en el create()
+        Route::resource('asignatura','AsignaturaController',['except'=>['create']]);
+        Route::resource('pensum','PensumController');
+        Route::resource('facilitador','FacilitadorController');
+        Route::resource('grupo','GrupoController');
+        Route::resource('ciclo','CicloController');
+        Route::resource('calificacion','CalificacionController');
+        Route::get('cicloactual','CicloController@actual');
+    });
 });
 
 

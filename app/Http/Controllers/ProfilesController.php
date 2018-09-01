@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProfile;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -55,9 +56,9 @@ class ProfilesController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($user)
     {
-        //
+        return view('profiles.edit', ['user' => User::findOrFail($user)]);
     }
 
     /**
@@ -67,9 +68,9 @@ class ProfilesController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateProfile $request, $user)
     {
-        //
+        dd(User::findOrFail($user)->activate_code);
     }
 
     /**
