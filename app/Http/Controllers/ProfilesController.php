@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateProfile;
 use App\Mail\UserRegistered;
 use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use Mail;
 
@@ -72,11 +73,10 @@ class ProfilesController extends Controller
      */
     public function update(UpdateProfile $request, $user)
     {
-        //dd(User::findOrFail($user)->activate_code);
         $user = User::findOrFail($user);
         $user->update($request->all());
-        //dd($user);
         Mail::to($user)->send(new UserRegistered($user));
+        return redirect()->back()->withMessage('se le ha enviado un correo para activar su cuenta en la apliación');
     }
 
     /**
@@ -88,5 +88,17 @@ class ProfilesController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function activate($code)
+    {
+
+        $user = Auth::user();
+        if ((bool) $user->activate == false) {
+            $activationCode = decrypt($code);
+            $user->update(['activate' => 1, 'activate_code' => null]);
+        }
+
+        return redirect()->to('/');
     }
 }

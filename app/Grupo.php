@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Grupo extends Model
 {
-    protected $table = "grupo";
+    protected $table = "grupos";
 
     protected $fillable = ['descripcion','clave','horario','bimestre','id_ciclo','id_asignatura','id_facilitador'];
 

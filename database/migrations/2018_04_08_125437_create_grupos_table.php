@@ -17,7 +17,7 @@ class CreateGruposTable extends Migration
             $table->increments('id');
             $table->string('descripcion');
             $table->string('clave');
-            $table->datetime('horario');
+            $table->datetime('horario')->nullable();
             $table->integer('bimestre')->nullable();
 
             $table->unsignedInteger('ciclo_id');

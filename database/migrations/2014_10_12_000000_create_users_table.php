@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->index();
             $table->text('salt');
             $table->boolean('activate')->default(false);
-            $table->text('activate_code');
+            $table->text('activate_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

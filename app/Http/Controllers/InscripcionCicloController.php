@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Calificacion;
-use App\Grupo;
-use App\Asignatura;
-use App\Ciclo;
 
-class CalificacionController extends Controller
+class InscripcionCicloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +13,7 @@ class CalificacionController extends Controller
      */
     public function index()
     {
-
+        //
     }
 
     /**
@@ -38,34 +34,7 @@ class CalificacionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'calificacion'=> 'required'
-            ]);
-        Calificacion::create($request->all()); //guardar las calificaciones
-        
-        if($request->calificacion > 69) { //poner la asignatura en aprovado
-            Asignatura::where('id', $request->id_asignatura)->update(array('aprovado' => '1'));
-        }
-
-
-        $gruposdeCiclo = Grupo::all()->where('id_ciclo',$request->id_ciclo);
-        $gruposCalificados = Calificacion::all();
-        $gruposDeCicloCalificados=0;
-        foreach($gruposCalificados as $grupoCalificado){
-
-            foreach($gruposdeCiclo as $grupodeCiclo ) {
-                if ($grupoCalificado->id_grupo == $grupodeCiclo->id){
-                    ++$gruposDeCicloCalificados; 
-                }
-            }
-        }
-        if($gruposDeCicloCalificados == count($gruposdeCiclo)){
-
-            //dd($request->id_ciclo);
-            Ciclo::where('id',$request->id_ciclo)->update(array('cerrado'=>'1'));
-        }
-              return redirect()->action('CicloController@actual')->withMessage("La asignatura fue calificada exitosamente");
-   
+        //
     }
 
     /**
@@ -76,8 +45,7 @@ class CalificacionController extends Controller
      */
     public function show($id)
     {
-        $grupo = Grupo::find($id);
-        return view('grupos.calificaciones',compact('grupo'));
+        //
     }
 
     /**

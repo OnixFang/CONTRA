@@ -41,16 +41,11 @@
                             {{  Form::email('email', old('email', $user->email), ['class'=>'form-control']) }}
                         </div>
 
-                        @if($user->email !== null and $user->activate_code !== null)
-                            <div class="form-group">
-                                <label>Codigo de activacion</label>
-                                {{  Form::text('activate_code', null, ['class'=>'form-control']) }}
-                            </div>
-                        @endif
-
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-primary">Guardar</button>
+                            @if((bool)Auth::user()->activate == true) 
                             <button type="reset" class="btn btn-default">Cancelar</button>
+                            @endif
                         </div>
                         {!! Form::close() !!}
                     </div>
