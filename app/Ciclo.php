@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ciclo extends Model
 {
-    protected $table="ciclo";
+    protected $table="ciclos";
 
     protected $fillable =['clave','fecha'];
 

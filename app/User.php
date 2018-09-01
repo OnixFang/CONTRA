@@ -1,7 +1,7 @@
 <?php namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * App\User
@@ -44,7 +44,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'username', 'password', 'salt', 'activate', 'activate_code'
+        'first_name', 'last_name', 'email', 'username', 'password', 'salt', 'activate', 'activate_code',
     ];
 
     /**
@@ -55,8 +55,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    protected $guarded = [];
 
     /**
      * @return string
@@ -78,7 +76,9 @@ class User extends Authenticatable
 
     public function setActivateCodeAttribute($value)
     {
-        $this->attributes['activate_code'] = encrypt($value);
+
+        $this->attributes['activate_code'] = ($value !== null) ? encrypt($value) : $value;
+
     }
 
     public function getActivateCodeAttribute($value)
