@@ -27,6 +27,11 @@ class UserService
         return 'username';
     }
 
+    public function getUser($user_id)
+    {
+        return $this->user->find($user_id);
+    }
+
     /**
      * @param User $user
      * @return bool
