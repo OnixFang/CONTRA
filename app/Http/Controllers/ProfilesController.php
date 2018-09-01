@@ -75,6 +75,7 @@ class ProfilesController extends Controller
         //dd(User::findOrFail($user)->activate_code);
         $user = User::findOrFail($user);
         $user->update($request->all());
+        //dd($user);
         Mail::to($user)->send(new UserRegistered($user));
     }
 
