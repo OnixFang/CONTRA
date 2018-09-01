@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Services\UserService;
+use App\User;
 use DB;
 use Exception;
 use Illuminate\Console\Command;
@@ -48,7 +49,13 @@ class ParserRatingHistory extends Command
     {
         DB::beginTransaction();
         try{
-            var_dump($this->user->getUser($this->argument('user')));
+            $user = $this->user->getUser($this->argument('user'));
+
+            if($this->user->loginInPlatform(new User([$this->user->username() => $user->username, 'password' => $user->salt])) == true)
+            {
+
+            }
+
             DB::rollBack();
         } catch (Exception $exception) {
 

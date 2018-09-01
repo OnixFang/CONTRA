@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfile;
+use App\Mail\UserRegistered;
 use App\User;
 use Illuminate\Http\Request;
+use Mail;
 
 class ProfilesController extends Controller
 {
@@ -70,7 +72,9 @@ class ProfilesController extends Controller
      */
     public function update(UpdateProfile $request, $user)
     {
-        dd(User::findOrFail($user)->activate_code);
+        //dd(User::findOrFail($user)->activate_code);
+        $user = User::findOrFail();
+        Mail::to($user)->send(new UserRegistered($user));
     }
 
     /**
