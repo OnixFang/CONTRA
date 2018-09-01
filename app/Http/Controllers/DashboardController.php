@@ -17,7 +17,7 @@ class DashboardController extends Controller
     }
 
     public function index(){
-
+        
         $asignaturas = Asignatura::all();
         $ciclos = Ciclo::all();
         $aprobadas = Asignatura::all()->where('aprovado',1);

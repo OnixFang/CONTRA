@@ -3,8 +3,8 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => ''])
-Button Text
+@component('mail::button', ['url' => route('profiles')])
+Activar Cuenta
 @endcomponent
 
 Thanks,<br>
