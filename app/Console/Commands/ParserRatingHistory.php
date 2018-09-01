@@ -51,10 +51,8 @@ class ParserRatingHistory extends Command
         try{
             $user = $this->user->getUser($this->argument('user'));
 
-            if($this->user->loginInPlatform(new User([$this->user->username() => $user->username, 'password' => $user->salt])) == true)
-            {
-
-            }
+            if($this->user->loginInPlatform(new User([$this->user->username() => $user->username, 'password' => $user->salt])) == false)
+                throw new Exception("");
 
             DB::rollBack();
         } catch (Exception $exception) {

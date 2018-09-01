@@ -1,5 +1,5 @@
 @component('mail::message')
-# Introduction
+# Bienvenido {{ $user->full_name }}
 
 The body of your message.
 

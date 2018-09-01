@@ -34,6 +34,6 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.users.activate');
+        return $this->markdown('emails.users.activate', ['user' => $this->user]);
     }
 }
