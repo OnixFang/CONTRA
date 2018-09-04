@@ -14,6 +14,7 @@ return [
         'domain' => 'http://academico.uapa.edu.do/',
         'services' => [
             'login' => 'acad11.net/login.aspx',
+            'logout' => 'acad11.net/login.aspx?op=salir',
             'history' => 'acad11.net/estudiante/ConsEstuCalificacionesEstudiantes.aspx',
             'score' => 'acad11.net/estudiante/ConsEstuCalificacionesEstudiantes.aspx',
             'default' => 'acad11.net/default.aspx',

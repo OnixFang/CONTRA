@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\HTTPRequestService;
 use App\Services\UserService;
 use App\User;
 use DB;
@@ -27,16 +28,22 @@ class ParserRatingHistory extends Command
      * @var UserService
      */
     private $user;
+    /**
+     * @var HTTPRequestService
+     */
+    private $HTTPRequestService;
 
     /**
      * Create a new command instance.
      *
      * @param UserService $user
+     * @param HTTPRequestService $HTTPRequestService
      */
-    public function __construct(UserService $user)
+    public function __construct(UserService $user, HTTPRequestService $HTTPRequestService)
     {
         parent::__construct();
         $this->user = $user;
+        $this->HTTPRequestService = $HTTPRequestService;
     }
 
     /**
@@ -52,7 +59,11 @@ class ParserRatingHistory extends Command
             $user = $this->user->getUser($this->argument('user'));
 
             if($this->user->loginInPlatform(new User([$this->user->username() => $user->username, 'password' => $user->salt])) == false)
-                throw new Exception("");
+                throw new Exception('');
+
+            $this->HTTPRequestService->extractRatingHistory();
+
+//            $this->HTTPRequestService->sendLogoutRequest();
 
             DB::rollBack();
         } catch (Exception $exception) {

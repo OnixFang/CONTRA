@@ -1,34 +1,11 @@
 <?php namespace App\Services;
 
-use App\User;
 use Exception;
 use File;
-use GuzzleHttp\Client;
-use GuzzleHttp\Cookie\CookieJar;
-use function GuzzleHttp\default_user_agent;
-use GuzzleHttp\Exception\RequestException;
 use Log;
 
 class HTTPRequestService
 {
-
-    public function __construct()
-    {
-
-    }
-
-//    public function login($username, $password)
-//    {
-//        $login_data = $this->extractLoginInformation();
-//
-//        if((boolean)count($login_data) == false)
-//            return false;
-//
-//        $login_data = array_merge($login_data, ['txtUserName' => $username, 'txtUserPass' => $password]);
-//
-//        dd($this->sendLoginRequest($login_data));
-//    }
-
     public function sendLoginRequest($login_data)
     {
         $status = false;
@@ -45,6 +22,13 @@ class HTTPRequestService
         }
 
         return $status;
+    }
+
+    public function sendLogoutRequest()
+    {
+        $url = config('parsers.platform.domain') . config('parsers.platform.services.logout');
+        http_get($url, '');
+        $this->eraseCookie();
     }
 
     public function extractLoginInformation()
@@ -83,6 +67,48 @@ class HTTPRequestService
         }
 
         return $information;
+    }
+
+    public function extractRatingHistory()
+    {
+        $information = [];
+        try{
+            $url = config('parsers.platform.domain') . config('parsers.platform.services.history');
+            $url_default = config('parsers.platform.services.default');
+
+            $response = http_get($url, $url_default);
+
+            if($response['STATUS']['http_code'] !== 200)
+                throw new Exception(get_status_code($response['STATUS']['http_code']), $response['STATUS']['http_code']);
+
+            $dom = $response['FILE'];
+
+            $inputs = parse_array($dom, '<input', '>');
+            $data = $this->convertInputToArray($inputs);
+
+            $response = http_post_form($url, $url, $data);
+            dd($response['FILE']);
+
+        } catch (Exception $exception){
+
+        }
+    }
+
+    private function convertInputToArray($inputs, $except = [])
+    {
+        $data = [];
+
+        foreach ($inputs as $input)
+        {
+            $name = get_attribute($input, 'name');
+            if(in_array($name, $except) == false)
+            {
+                $value = (stripos($input, 'value') !== false) ? get_attribute($input, 'value') : '';
+                $data[$name] = $value;
+            }
+        }
+
+        return $data;
     }
 
     private function eraseCookie()

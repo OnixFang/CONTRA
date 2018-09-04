@@ -154,7 +154,7 @@ class ParserPensum extends Command
                                     'hp' => (integer)str_replace(['', '–', '-'], 0, (trim($data[3]))),
                                     'ht' => (integer)str_replace(['', '–', '-'], 0, (trim($data[2]))),
                                     'cr' => (integer)str_replace(['', '–', '-'], 0, (trim($data[6]))),
-                                    'cuatrimestre' => $key++,
+                                    'cuatrimestre' => ++$key,
                                     'propedeutico' => (stripos($data[1], 'propedéutico') !== false) ? 1 : 0,
                                 ]);
 
