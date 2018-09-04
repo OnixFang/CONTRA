@@ -16,7 +16,7 @@
 @endif
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Pensum {{ $pensum->descripcion}}</h1>
+		<h1 class="page-header">Pensum {{  $pensum->carrera->descripcion}}</h1>
 	</div>
 </div><!--/.row-->
 <div class="row">
@@ -27,7 +27,7 @@
 				
     @if(count($collection) > 0)
     @foreach($collection as $cuatrimestre => $asignaturas)
-     <h4>{{"Cuatrimestre ". $cuatrimestre}}</h4>
+     <h4>{{"Cuatrimestre ". ($cuatrimestre+1)}}</h4>
      <table class="table table-bordered table-dark">
   <thead>
     <tr>
@@ -36,22 +36,17 @@
       <th class="col-md-1">HT</th>
       <th class="col-md-1">HP</th>
       <th class="col-md-1">CR</th>
-      <th class="col-md-2">Acciones</th>
     </tr>
   </thead>
      @foreach($asignaturas as $asignatura)
 
   <tbody>
      <tr>
-      <td >{{$asignatura->clave}}</td>
+      <td >{{  $asignatura->clave}}</td>
       <td > {{ $asignatura->descripcion }}</td>
       <td > {{ $asignatura->ht }}</td>
       <td > {{ $asignatura->hp }}</td>
       <td > {{ $asignatura->cr}}</td>
-{{ Form::open(array('route'=>['asignatura.destroy',$asignatura->id], 'method'=>'DELETE')) }}
-     <td>{{-- {{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }} --}}
-     {{ link_to_route('asignatura.edit', 'Editar', [$asignatura->id],['class'=>'btn btn-success']) }} </td>
-{{ Form::close() }}
       </tr>
    @endforeach
    
@@ -60,8 +55,6 @@
 </table>
    @endforeach
 @endif
-
-{{ link_to_route('asignatura.create','Añadir',[$pensum->id],['class'=>'btn btn-primary']) }}
 			</div>
 		</div>
 	</div><!-- /.panel-->

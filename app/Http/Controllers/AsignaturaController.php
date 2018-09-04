@@ -60,10 +60,9 @@ class AsignaturaController extends Controller
      */
     public function show($id)
     {
-        $asignaturas = $this->asignatura->asignaturas_pensum($id);
-        $collection = $asignaturas;
         $pensum = Pensum::find($id);     
-        //dd($asignaturas);
+        $asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
+        $collection = $asignaturas;
         return view('pensum.show',compact('asignaturas', 'collection','pensum'));
     }
 
