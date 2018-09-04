@@ -29,27 +29,17 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Pensum</th>
-      <th scope="col">Acciones</th>
-
     </tr>
   </thead>
   <tbody>
     @foreach($pensumes as $pensum)
     <tr>
       <th scope="row">{{$pensum->id}}</th>
-      <td>{{ link_to_route('asignatura.show',$pensum->descripcion,[$pensum->id]) }}</td>
-     {{ Form::open(array('route'=>['pensum.destroy',$pensum->id], 'method'=>'DELETE')) }}
-     <td>{{ Form::button('Borrar',['class'=>'btn btn-danger','type'=>'submit']) }}
-     {{ link_to_route('pensum.edit', 'Editar', [$pensum->id],['class'=>'btn btn-success']) }} 
-     {{ link_to_route('asignatura.create','Añadir asignaturas',[$pensum->id],['class'=>'btn btn-info']) }}</td>
-    </tr>
-    {{ Form::close() }}
-   @endforeach
+      <td>{{ link_to_route('asignatura.show',$pensum->carrera->descripcion,[$pensum->id]) }}</td>
+      </tr>
+     @endforeach
   </tbody>
 </table>
-@if(count($pensumes)<1)
-{{ link_to_route('pensum.create', $title='Añadir', $parameters =array(),$attributes=array('class'=>'btn btn-primary')) }}
-@endif
 			</div>
 		</div>
 	</div><!-- /.panel-->

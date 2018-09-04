@@ -65,4 +65,5 @@ class Asignatura extends Model
     {
         return $this->belongsToMany(Asignatura::class, 'asignaturas_requisitos', 'asignatura_id', 'requisito_id');
     }
+
 }
