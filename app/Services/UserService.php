@@ -1,5 +1,7 @@
 <?php namespace App\Services;
 
+use App\Carrera;
+use App\InscripcionCiclo;
 use App\User;
 use Exception;
 use Hash;
@@ -29,7 +31,7 @@ class UserService
 
     public function getUser($user_id)
     {
-        return $this->user->find($user_id);
+        return $this->user->findOrFail($user_id);
     }
 
     /**
@@ -78,5 +80,12 @@ class UserService
             $status = false;
         }
         return $status;
+    }
+
+    public function registerInscription(User $user, Carrera $carrera)
+    {
+        $pensum = $carrera->pensums;//()->orderBy('id', 'desc')->first();
+        var_dump($pensum);
+        $user->inscripciones()->save(new InscripcionCiclo(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]));
     }
 }

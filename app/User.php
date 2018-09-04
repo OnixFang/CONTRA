@@ -76,13 +76,16 @@ class User extends Authenticatable
 
     public function setActivateCodeAttribute($value)
     {
-
         $this->attributes['activate_code'] = ($value !== null) ? encrypt($value) : $value;
-
     }
 
     public function getActivateCodeAttribute($value)
     {
         return decrypt($value);
+    }
+
+    public function inscripciones()
+    {
+        return $this->hasMany(Inscripcion::class);
     }
 }

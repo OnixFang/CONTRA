@@ -1,7 +1,11 @@
 <?php namespace App\Services;
 
+use App\Carrera;
+use App\Inscripcion;
+use DB;
 use Exception;
 use File;
+use Illuminate\Support\Collection;
 use Log;
 
 class HTTPRequestService
@@ -69,29 +73,60 @@ class HTTPRequestService
         return $information;
     }
 
+    /**
+     * @param User $user
+     * @return Collection
+     */
     public function extractRatingHistory()
     {
-        $information = [];
+        $params = ['__EVENTARGUMENT' => '', '__EVENTTARGET' => 'ConHist'];
+        $results = Collection::make(['carrera' => null, 'ciclos' => null]);
         try{
-            $url = config('parsers.platform.domain') . config('parsers.platform.services.history');
-            $url_default = config('parsers.platform.services.default');
+            $url_default = config('parsers.platform.domain') . config('parsers.platform.services.default');
 
-            $response = http_get($url, $url_default);
+            $response = http_get($url_default, null);
 
             if($response['STATUS']['http_code'] !== 200)
                 throw new Exception(get_status_code($response['STATUS']['http_code']), $response['STATUS']['http_code']);
 
-            $dom = $response['FILE'];
+            $inputs = parse_array($response['FILE'], '<input', '>');
 
-            $inputs = parse_array($dom, '<input', '>');
-            $data = $this->convertInputToArray($inputs);
+            $params += $this->convertInputToArray($inputs);
 
-            $response = http_post_form($url, $url, $data);
-            dd($response['FILE']);
+            $response = http_post_form($url_default, $url_default, $params);
+
+            if($response['STATUS']['http_code'] !== 200)
+                throw new Exception(get_status_code($response['STATUS']['http_code']), $response['STATUS']['http_code']);
+
+            $html = $response['FILE'];
+
+            $career = strip_tags(trim(Collection::make(parse_array($html, '<td class="ColNormal" colspan="8">', '</td>'))->first()));
+
+            $results->put('carrera', $career);
+
+            Collection::make(parse_array($response['FILE'], '<tr>(\W+)<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<td class="ColHead">'))->each(function ($block) use($results) {
+                $data = ['clave' => null, 'asignaturas' => []];
+                $data['clave'] = strip_tags(trim(Collection::make(parse_array($block, '<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<'))->first()));
+
+                $data['asignaturas'] = Collection::make(parse_array($block, '<tr', '</tr>'))->map(function ($tr) {
+                    $tds = Collection::make(parse_array($tr, '<td', '</td>'));
+                    if($tds->count() == 9)
+                        return $tds->map(function ($td, $key) {
+                            if($key > 0)
+                                return trim(strip_tags($td));
+                        });
+                });
+
+                $results->push($data);
+            });
 
         } catch (Exception $exception){
-
+            Log::error($exception->getMessage());
+            $this->error($exception->getMessage());
+            DB::rollBack();
         }
+
+        return $results;
     }
 
     private function convertInputToArray($inputs, $except = [])

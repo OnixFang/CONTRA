@@ -2,12 +2,15 @@
 
 namespace App\Console\Commands;
 
+use App\Carrera;
 use App\Services\HTTPRequestService;
 use App\Services\UserService;
 use App\User;
 use DB;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Log;
 
 class ParserRatingHistory extends Command
 {
@@ -32,18 +35,24 @@ class ParserRatingHistory extends Command
      * @var HTTPRequestService
      */
     private $HTTPRequestService;
+    /**
+     * @var Carrera
+     */
+    private $carrera;
 
     /**
      * Create a new command instance.
      *
      * @param UserService $user
      * @param HTTPRequestService $HTTPRequestService
+     * @param Carrera $carrera
      */
-    public function __construct(UserService $user, HTTPRequestService $HTTPRequestService)
+    public function __construct(UserService $user, HTTPRequestService $HTTPRequestService, Carrera $carrera)
     {
         parent::__construct();
         $this->user = $user;
         $this->HTTPRequestService = $HTTPRequestService;
+        $this->carrera = $carrera;
     }
 
     /**
@@ -59,15 +68,23 @@ class ParserRatingHistory extends Command
             $user = $this->user->getUser($this->argument('user'));
 
             if($this->user->loginInPlatform(new User([$this->user->username() => $user->username, 'password' => $user->salt])) == false)
-                throw new Exception('');
+                throw new Exception("");
 
-            $this->HTTPRequestService->extractRatingHistory();
+            $results = $this->HTTPRequestService->extractRatingHistory();
 
-//            $this->HTTPRequestService->sendLogoutRequest();
+            $carrera = $this->carrera->where('descripcion', 'like', "%{$results['carrera']}%")->first();
+            var_dump($carrera);
+            if($carrera !== null)
+                $this->user->registerInscription($user, $carrera);
 
             DB::rollBack();
+        } catch (ModelNotFoundException $exception) {
+            Log::warning($exception->getMessage());
+            $this->warn($exception->getMessage());
+            DB::rollBack();
         } catch (Exception $exception) {
-
+            Log::error($exception->getMessage() . $exception->getFile());
+            $this->error($exception->getMessage() . $exception->getFile());
             DB::rollBack();
         }
     }

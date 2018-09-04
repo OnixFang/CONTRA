@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Ciclo whereIdPensum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Ciclo whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $pensum_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Ciclo wherePensumId($value)
  */
 class Ciclo extends Model
 {
