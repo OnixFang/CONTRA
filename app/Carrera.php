@@ -27,11 +27,13 @@ class Carrera extends Model
 
     protected $fillable = ['descripcion'];
 
-    public function pensums () {
-        return $this->hasMany(Pensum::class,'carrera_id');
+    public function pensums ()
+    {
+        return $this->hasMany(Pensum::class);
     }
 
-    public function users () {
+    public function users ()
+    {
         return $this->belongsToMany(User::class);
     }
 }

@@ -15,14 +15,16 @@ class CreateInscripcionCicloTable extends Migration
     {
         Schema::create('inscripcion_ciclo', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('nota')->nullable();
-            $table->string('clave_ciclo');
-            
+
+            $table->string('clave')->index();
+
             $table->unsignedInteger('grupo_id');
             $table->foreign('grupo_id')->references('id')->on('grupos');
-            
+
             $table->unsignedInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('users');
+
+            $table->integer('nota')->nullable();
 
             $table->timestamps();
         });

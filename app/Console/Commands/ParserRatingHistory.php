@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Carrera;
+use App\InscripcionCiclo;
 use App\Services\HTTPRequestService;
+use App\Services\InscripcionCicloService;
 use App\Services\UserService;
 use App\User;
 use DB;
@@ -38,21 +40,27 @@ class ParserRatingHistory extends Command
     /**
      * @var Carrera
      */
-    private $carrera;
+    private $career;
+    /**
+     * @var InscripcionCiclo
+     */
+    private $inscripcionCiclo;
 
     /**
      * Create a new command instance.
      *
+     * @param InscripcionCicloService $inscripcionCicloService
      * @param UserService $user
      * @param HTTPRequestService $HTTPRequestService
-     * @param Carrera $carrera
+     * @param Carrera $career
      */
-    public function __construct(UserService $user, HTTPRequestService $HTTPRequestService, Carrera $carrera)
+    public function __construct(InscripcionCicloService $inscripcionCicloService, UserService $user, HTTPRequestService $HTTPRequestService, Carrera $career)
     {
         parent::__construct();
         $this->user = $user;
+        $this->career = $career;
         $this->HTTPRequestService = $HTTPRequestService;
-        $this->carrera = $carrera;
+        $this->inscripcionCicloService = $inscripcionCicloService;
     }
 
     /**
@@ -72,10 +80,13 @@ class ParserRatingHistory extends Command
 
             $results = $this->HTTPRequestService->extractRatingHistory();
 
-            $carrera = $this->carrera->where('descripcion', 'like', "%{$results['carrera']}%")->first();
-            var_dump($carrera);
-            if($carrera !== null)
-                $this->user->registerInscription($user, $carrera);
+            $career = $this->career->where('descripcion', 'like', "%{$results->get('career')}%")->first();
+            if($career !== null)
+                $this->user->registerInscription($user, $career);
+
+            $results->get('cycles')->each(function ($cycle) {
+                $this->inscripcionCicloService->register($cycle['key'], $cycle['subjects']);
+            });
 
             DB::rollBack();
         } catch (ModelNotFoundException $exception) {

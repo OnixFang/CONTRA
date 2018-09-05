@@ -11,5 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Inscripcion extends Model
 {
-    //
+    public $table = 'inscripciones';
+
+    protected $fillable = ['carrera_id', 'pensum_id'];
 }

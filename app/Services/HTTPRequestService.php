@@ -80,7 +80,7 @@ class HTTPRequestService
     public function extractRatingHistory()
     {
         $params = ['__EVENTARGUMENT' => '', '__EVENTTARGET' => 'ConHist'];
-        $results = Collection::make(['carrera' => null, 'ciclos' => null]);
+        $results = Collection::make(['career' => null, 'cycles' => collect([])]);
         try{
             $url_default = config('parsers.platform.domain') . config('parsers.platform.services.default');
 
@@ -102,13 +102,13 @@ class HTTPRequestService
 
             $career = strip_tags(trim(Collection::make(parse_array($html, '<td class="ColNormal" colspan="8">', '</td>'))->first()));
 
-            $results->put('carrera', $career);
+            $results->put('career', $career);
 
             Collection::make(parse_array($response['FILE'], '<tr>(\W+)<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<td class="ColHead">'))->each(function ($block) use($results) {
-                $data = ['clave' => null, 'asignaturas' => []];
-                $data['clave'] = strip_tags(trim(Collection::make(parse_array($block, '<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<'))->first()));
+                $data = ['key' => null, 'subjects' => []];
+                $data['key'] = strip_tags(trim(Collection::make(parse_array($block, '<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<'))->first()));
 
-                $data['asignaturas'] = Collection::make(parse_array($block, '<tr', '</tr>'))->map(function ($tr) {
+                $data['subjects'] = Collection::make(parse_array($block, '<tr', '</tr>'))->map(function ($tr) {
                     $tds = Collection::make(parse_array($tr, '<td', '</td>'));
                     if($tds->count() == 9)
                         return $tds->map(function ($td, $key) {
@@ -117,7 +117,7 @@ class HTTPRequestService
                         });
                 });
 
-                $results->push($data);
+                $results->get('cycles')->push($data);
             });
 
         } catch (Exception $exception){

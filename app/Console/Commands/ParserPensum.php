@@ -111,7 +111,7 @@ class ParserPensum extends Command
                 $pensum_description = ucwords(str_replace(['>', '<', '/'], ['', '', ''], trim(collect($pensum_description)->first())));
                 $pensum_description = (empty($pensum_description)) ? 'Version inicial' : $pensum_description;
 
-                $cicle_type_id = 0;
+                $cicle_type_id = CicloTipo::CUATRIMESTRAL;
                 foreach ($cicle_types as $key => $value)
                     if (stripos($dom, $key) !== false) {
                         $cicle_type_id = $cicle_types[$key];
@@ -145,10 +145,10 @@ class ParserPensum extends Command
                                 return trim(html_entity_decode(strip_tags(preg_replace(['/\s+/', '/\ /'], [' ', ''], $element))));
                             });
 
-                            $clave = $this->formatKey($data[0]);
+                            $clave = format_subject_key($data[0]);
                             if((empty($data[1]) == false or (bool)strlen($data[1]) == true) and strlen($data[0]) >= Asignatura::KEY_LEN)
                             {
-                                $subject = Asignatura::updateOrCreate(['clave' => $this->formatKey($data[0])], [
+                                $subject = Asignatura::updateOrCreate(['clave' => format_subject_key($data[0])], [
                                     'descripcion' => preg_replace('/\s+/', ' ', (trim($data[1]))),
                                     'clave' => $clave,
                                     'hp' => (integer)str_replace(['', '–', '-'], 0, (trim($data[3]))),
@@ -161,7 +161,8 @@ class ParserPensum extends Command
                                 $pensum->asignaturas()->attach($subject->id);
 
                                 $requirements = collect(explode(',', html_entity_decode(trim($data[7]))))->map(function ($requirement) use ($subject) {
-                                    $clave = $this->formatKey($requirement);
+                                    //$clave = $this->formatKey($requirement);
+                                    $clave = format_subject_key($requirement);
                                     $subject_requirement = Asignatura::where('clave', $clave)->first();
                                     if ($subject_requirement !== null)
                                         $subject->requisitos()->attach($subject_requirement->id);
@@ -181,12 +182,12 @@ class ParserPensum extends Command
         }
     }
 
-    private function formatKey($key)
-    {
-        $key = preg_replace('/\W/', '', $key);
-        $key = substr($key, 0, 3) . "-" . substr($key, 3, strlen($key));
-        return trim($key);
-    }
+//    private function formatKey($key)
+//    {
+//        $key = preg_replace('/\W/', '', $key);
+//        $key = substr($key, 0, 3) . "-" . substr($key, 3, strlen($key));
+//        return trim($key);
+//    }
 
     private function exception($message)
     {

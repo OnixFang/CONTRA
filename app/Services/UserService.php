@@ -1,6 +1,7 @@
 <?php namespace App\Services;
 
 use App\Carrera;
+use App\Inscripcion;
 use App\InscripcionCiclo;
 use App\User;
 use Exception;
@@ -84,8 +85,7 @@ class UserService
 
     public function registerInscription(User $user, Carrera $carrera)
     {
-        $pensum = $carrera->pensums;//()->orderBy('id', 'desc')->first();
-        var_dump($pensum);
-        $user->inscripciones()->save(new InscripcionCiclo(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]));
+        $pensum = $carrera->pensums()->orderBy('id', 'desc')->first();
+        $user->inscripciones()->save(new Inscripcion(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]));
     }
 }
