@@ -45,7 +45,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Asignatura extends Model
 {
-    const KEY_LEN = 7;
+    const KEY_LEN = 6;
 
     protected $table ="asignaturas";
 

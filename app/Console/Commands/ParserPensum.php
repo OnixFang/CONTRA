@@ -97,6 +97,9 @@ class ParserPensum extends Command
 
             $pensums_url->map(function ($element) use($client, $cicle_types)
             {
+//                if($element['url'] !== "https://www.uapa.edu.do/estudia/grado/ingenieria-de-software/")
+//                    return false;
+
                 $response = $client->request('get', $element['url']);
 
                 if($response->getStatusCode() !== 200 and $response->getReasonPhrase() !== 'OK')
@@ -139,29 +142,24 @@ class ParserPensum extends Command
                     $subjects->each(function ($subject) use($key, $pensum) {
                         $data = collect(parse_array($subject, '<td', '</td>'));
 
-                        if($data->count() == 8)
+                        if($data->count() == 8 or $data->count() == 6)
                         {
                             $data = $data->map(function ($element) {
                                 return trim(html_entity_decode(strip_tags(preg_replace(['/\s+/', '/\ /'], [' ', ''], $element))));
                             });
 
-                            $clave = format_subject_key($data[0]);
                             if((empty($data[1]) == false or (bool)strlen($data[1]) == true) and strlen($data[0]) >= Asignatura::KEY_LEN)
                             {
-                                $subject = Asignatura::updateOrCreate(['clave' => format_subject_key($data[0])], [
-                                    'descripcion' => preg_replace('/\s+/', ' ', (trim($data[1]))),
-                                    'clave' => $clave,
-                                    'hp' => (integer)str_replace(['', '–', '-'], 0, (trim($data[3]))),
-                                    'ht' => (integer)str_replace(['', '–', '-'], 0, (trim($data[2]))),
-                                    'cr' => (integer)str_replace(['', '–', '-'], 0, (trim($data[6]))),
-                                    'cuatrimestre' => ++$key,
-                                    'propedeutico' => (stripos($data[1], 'propedéutico') !== false) ? 1 : 0,
-                                ]);
+                                $clave = format_subject_key($data[0]);
+
+                                if($data->count() == 8)
+                                    $subject = $this->populateEightLength($clave, $data, $key);
+                                elseif($data->count() == 6)
+                                    $subject = $this->populateSixLength($clave, $data, $key);
 
                                 $pensum->asignaturas()->attach($subject->id);
 
-                                $requirements = collect(explode(',', html_entity_decode(trim($data[7]))))->map(function ($requirement) use ($subject) {
-                                    //$clave = $this->formatKey($requirement);
+                                collect(explode(',', html_entity_decode(trim($data[count($data)-1]))))->map(function ($requirement) use ($subject) {
                                     $clave = format_subject_key($requirement);
                                     $subject_requirement = Asignatura::where('clave', $clave)->first();
                                     if ($subject_requirement !== null)
@@ -182,12 +180,31 @@ class ParserPensum extends Command
         }
     }
 
-//    private function formatKey($key)
-//    {
-//        $key = preg_replace('/\W/', '', $key);
-//        $key = substr($key, 0, 3) . "-" . substr($key, 3, strlen($key));
-//        return trim($key);
-//    }
+    public function populateEightLength($clave, $data, $key)
+    {
+        return Asignatura::updateOrCreate(['clave' => format_subject_key($data[0])], [
+            'descripcion' => preg_replace('/\s+/', ' ', (trim($data[1]))),
+            'clave' => $clave,
+            'hp' => (integer)str_replace(['', '–', '-'], 0, (trim($data[3]))),
+            'ht' => (integer)str_replace(['', '–', '-'], 0, (trim($data[2]))),
+            'cr' => (integer)str_replace(['', '–', '-'], 0, (trim($data[6]))),
+            'cuatrimestre' => $key,
+            'propedeutico' => (stripos($data[1], 'propedéutico') !== false) ? 1 : 0,
+        ]);
+    }
+
+    public function populateSixLength($clave, $data, $key)
+    {
+        return Asignatura::updateOrCreate(['clave' => format_subject_key($data[0])], [
+            'descripcion' => preg_replace('/\s+/', ' ', (trim($data[1]))),
+            'clave' => $clave,
+            'hp' => (integer)str_replace(['', '–', '-'], 0, (trim($data[3]))),
+            'ht' => (integer)str_replace(['', '–', '-'], 0, (trim($data[2]))),
+            'cr' => (integer)str_replace(['', '–', '-'], 0, (trim($data[4]))),
+            'cuatrimestre' => $key,
+            'propedeutico' => (stripos($data[1], 'propedéutico') !== false) ? 1 : 0,
+        ]);
+    }
 
     private function exception($message)
     {
