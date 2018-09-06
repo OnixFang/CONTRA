@@ -139,6 +139,7 @@ class ParserPensum extends Command
                     if($subjects->count() == 0)
                         return false;
 
+                    $key++;
                     $subjects->each(function ($subject) use($key, $pensum) {
                         $data = collect(parse_array($subject, '<td', '</td>'));
 
