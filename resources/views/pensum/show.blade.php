@@ -27,7 +27,7 @@
 				
     @if(count($collection) > 0)
     @foreach($collection as $cuatrimestre => $asignaturas)
-     <h4>{{"Cuatrimestre ". ($cuatrimestre+1)}}</h4>
+     <h4>{{"Cuatrimestre ". $cuatrimestre}}</h4>
      <table class="table table-bordered table-dark">
   <thead>
     <tr>

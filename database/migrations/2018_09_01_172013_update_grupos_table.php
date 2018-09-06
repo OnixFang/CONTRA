@@ -17,6 +17,8 @@ class UpdateGruposTable extends Migration
             $table->dropColumn('clave');
             $table->dropForeign(['facilitador_id']);
             $table->dropColumn('facilitador_id');
+            $table->dropForeign(['ciclo_id']);
+            $table->dropColumn('ciclo_id');
             $table->string('seccion')->after('id');
         });
     }

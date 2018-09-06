@@ -20,9 +20,9 @@ class GrupoController extends Controller
     public function index()
     {
         $grupos = Grupo::all();
-        $facilitadores = Facilitador::pluck('nombre','id');
+        //$facilitadores = Facilitador::pluck('nombre','id');
         $asignaturas = Asignatura::pluck('descripcion','id');
-        return view('grupos.addGrupos',compact('grupos','facilitadores','asignaturas'));
+        return view('grupos.addGrupos',compact('grupos','asignaturas'));
     }
 
     public function asignatura_api()

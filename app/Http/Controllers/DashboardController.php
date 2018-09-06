@@ -6,6 +6,7 @@ use App\Services\HTTPRequestService;
 use App\Grupo;
 use App\Asignatura;
 use App\Ciclo;
+use App\InscripcionCiclo;
 
 class DashboardController extends Controller
 {
@@ -19,13 +20,13 @@ class DashboardController extends Controller
     public function index(){
         
         $asignaturas = Asignatura::all();
-        $ciclos = Ciclo::all();
+        $ciclos = InscripcionCiclo::all();
         $aprobadas = Asignatura::all()->where('aprovado',1);
         $pendientes = Asignatura::all()->where('aprovado',0);
-        $actuales = new Ciclo;
-        $actuales = $actuales->cicloAbiertos()->get();
-        $actualess= Grupo::where('id_ciclo',$actuales);
-        return view('dashboard',compact('asignaturas','ciclos','aprobadas','pendientes','actuales'));
+        $actuales = new InscripcionCiclo;
+        // $actuales = $actuales->cicloAbiertos()->get();
+        // $actualess= Grupo::where('id_ciclo',$actuales);
+        return view('dashboard',compact('asignaturas','ciclos','aprobadas','pendientes'));
 
     }
 }
