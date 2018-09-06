@@ -35,27 +35,27 @@ class Grupo extends Model
 {
     protected $table = "grupos";
 
-    protected $fillable = ['descripcion','clave','horario','bimestre','id_ciclo','id_asignatura','id_facilitador'];
+    protected $fillable = ['seccion', 'horario', 'bimestre', 'asignatura_id'];
 
     public function asignatura(){
 
-    	return $this->belongsTo('App\Asignatura','id_asignatura');
+        return $this->belongsTo('App\Asignatura','id_asignatura');
     }
 
-    public function facilitadores(){
-
-    	return $this->belongsTo('App\Facilitador','id_facilitador');
-    }
-
-    public function ciclo(){
-
-    	return $this->belongsTo('App\Ciclo','id_ciclo');
-    }
+//    public function facilitadores(){
+//
+//        return $this->belongsTo('App\Facilitador','id_facilitador');
+//    }
+//
+//    public function ciclo(){
+//
+//        return $this->belongsTo('App\Ciclo','id_ciclo');
+//    }
 
     public function calificacion(){
 
         return $this->hasOne('App\Calificacion','id_grupo');
     }
 
-    
+
 }

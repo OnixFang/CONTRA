@@ -84,11 +84,11 @@ class ParserRatingHistory extends Command
             if($career !== null)
                 $this->user->registerInscription($user, $career);
 
-            $results->get('cycles')->each(function ($cycle) {
-                $this->inscripcionCicloService->register($cycle['key'], $cycle['subjects']);
+            $results->get('cycles')->each(function ($cycle) use($user) {
+                $this->inscripcionCicloService->register($user, $cycle['key'], $cycle['subjects']);
             });
 
-            DB::rollBack();
+            DB::commit();
         } catch (ModelNotFoundException $exception) {
             Log::warning($exception->getMessage());
             $this->warn($exception->getMessage());

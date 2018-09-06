@@ -12,6 +12,7 @@ namespace App\Services;
 use App\Asignatura;
 use App\Grupo;
 use App\InscripcionCiclo;
+use App\User;
 use Illuminate\Support\Collection;
 
 class InscripcionCicloService
@@ -26,14 +27,27 @@ class InscripcionCicloService
         $this->inscripcionCiclo = $inscripcionCiclo;
     }
 
-    public function register($key, Collection $subjects)
+    public function register(User $user, $key, Collection $subjects)
     {
-        $subjects->each(function ($subject) use($key) {
+        $subjects->each(function ($subject) use($key, $user)
+        {
             $subject_key = (format_subject_key($subject[1]));
-            $subject = Asignatura::whereClave($subject_key)->first();
-            var_dump($subject->descripcion);
-            //$group = Grupo::updateOrCreate(['asi'])
-            //var_dump(['clave' => $key, 'grupo_id' => ])
+            $subject_model = Asignatura::whereClave($subject_key)->first();
+            if($subject_model !== null)
+            {
+                $group = Grupo::updateOrCreate(
+                    ['seccion' => (string)$subject[3], 'asignatura_id' => $subject_model->id],
+                    ['seccion' => (string)$subject[3], 'asignatura_id' => $subject_model->id]
+                );
+
+                $this->inscripcionCiclo->updateOrCreate(
+                    ['grupo_id' => $group->id, 'usuario_id' => $user->id, 'clave' => $key,],
+                    [
+                        'grupo_id' => $group->id, 'usuario_id' => $user->id,
+                        'clave' => $key, 'nota' => $subject[6], 'estado' => $subject[8]
+                    ]
+                );
+            }
         });
     }
 }
