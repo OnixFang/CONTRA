@@ -86,6 +86,7 @@ class UserService
     public function registerInscription(User $user, Carrera $carrera)
     {
         $pensum = $carrera->pensums()->orderBy('id', 'desc')->first();
-        $user->inscripciones()->save(new Inscripcion(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]));
+        $user->inscripciones()->updateOrCreate(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id], ['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]);
+//        $user->inscripciones()->save(new Inscripcion(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]));
     }
 }
