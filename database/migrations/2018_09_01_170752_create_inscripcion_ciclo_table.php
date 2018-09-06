@@ -26,6 +26,8 @@ class CreateInscripcionCicloTable extends Migration
 
             $table->integer('nota')->nullable();
 
+            $table->string('estado')->default('n');
+
             $table->timestamps();
         });
     }
