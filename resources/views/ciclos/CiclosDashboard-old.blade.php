@@ -52,10 +52,7 @@
           </thead>
 
           <tbody>
-            @php $totalPuntos = 0 @endphp
-            @php $totalCreditos = 0 @endphp
             @foreach($calificaciones as $calificacion)
-            @php $totalPuntos += (integer)$calificacionService->calcularPuntos($calificacionService->calcularLiteral($calificacion->estado, $calificacion->nota), $calificacion->grupo->asignatura->cr) @endphp
             <tr>
               <td> {{ $calificacion->grupo->asignatura->clave }}</td>
               <td> {{ $calificacion->grupo->asignatura->descripcion }}</td>
@@ -67,9 +64,6 @@
               <td> {{ $calificacion->estado }}</td>
             </tr>
               @endforeach
-            <tr>
-              <td>{{ $totalPuntos }}</td>
-            </tr>
           </tbody>
         </table>
         @endforeach {{ link_to_route('grupo.index','Añadir',null,['class'=>'btn btn-primary']) }}
