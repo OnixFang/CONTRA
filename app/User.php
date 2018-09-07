@@ -87,6 +87,12 @@ class User extends Authenticatable
 
     public function inscripciones()
     {
-        return $this->hasMany(Inscripcion::class);
+        return $this->hasMany(Inscripcion::class, "user_id");
     }
+
+    public function inscripcionCiclo(){
+
+        return $this->hasMany(InscripcionCiclo::class,'usuario_id');
+    }
+   
 }

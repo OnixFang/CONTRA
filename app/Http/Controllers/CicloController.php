@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Ciclo;
+use App\InscripcionCiclo;
 use App\Grupo;
 use App\Asignatura;
 use App\Facilitador;
 use App\Calificacion;
+use Auth;
 
 class CicloController extends Controller
 {
@@ -18,8 +19,9 @@ class CicloController extends Controller
      */
     public function index()
     {
-        $ciclos = Ciclo::all()->where('cerrado',1);
-        return view('ciclos.CiclosDashboard',compact('ciclos'));
+        $ciclos = Auth::user()->inscripcionCiclo;
+        $collection = $ciclos->groupBy('clave');
+        return view('ciclos.CiclosDashboard-old',compact('collection'));
     }
 
     public function actual()
@@ -34,20 +36,20 @@ class CicloController extends Controller
 
     public function ciclo_api()
     {
-        $ciclos = Ciclo::all()->where('cerrado',1);
+        $ciclos = Auth::user()->inscripcionCiclo()->groupBy('clave');
 
-        foreach($ciclos as $ciclo)
-        {
-            $ciclo->grupos = Grupo::all()->where('id_ciclo', $ciclo->id);
+        // foreach($ciclos as $ciclo)
+        // {
+        //     $ciclo->grupos = Grupo::all()->where('id_ciclo', $ciclo->id);
 
-            foreach($ciclo->grupos as $grupo)
-            {
-                $grupo->asignatura = Asignatura::where('id', $grupo->id_asignatura)->value('descripcion');
-                $grupo->calificacion = Calificacion::where('id_grupo', $grupo->id)->value('calificacion');
-                $grupo->facilitador = Facilitador::where('id', $grupo->id_facilitador)->value('nombre');
-                $grupo->credito = Asignatura::where('id', $grupo->id_asignatura)->value('cr');
-            }
-        }
+        //     foreach($ciclo->grupos as $grupo)
+        //     {
+        //         $grupo->asignatura = Asignatura::where('id', $grupo->id_asignatura)->value('descripcion');
+        //         $grupo->calificacion = Calificacion::where('id_grupo', $grupo->id)->value('calificacion');
+        //         $grupo->facilitador = Facilitador::where('id', $grupo->id_facilitador)->value('nombre');
+        //         $grupo->credito = Asignatura::where('id', $grupo->id_asignatura)->value('cr');
+        //     }
+        // }
 
         return $ciclos;
     }

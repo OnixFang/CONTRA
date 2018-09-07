@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pensum;
+use Auth;
 
 class PensumController extends Controller
 {
@@ -14,8 +15,11 @@ class PensumController extends Controller
      */
     public function index()
     {
-       $pensumes = Pensum::all();
-       return view('pensum.index')->withPensumes($pensumes);
+       $inscripcion = Auth::user()->inscripciones()->first();
+       $pensum = $inscripcion->pensum;
+       $asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
+       $collection = $asignaturas;
+       return view('pensum.show',compact('asignaturas', 'collection','pensum'));
     }
 
     /**
