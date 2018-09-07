@@ -38,4 +38,8 @@ class Pensum extends Model
 
         return $this->belongsTo(Carrera::class);
     }
+
+    public function getUserPensum(){
+        
+    }
 }

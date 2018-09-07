@@ -38,7 +38,7 @@ class InscripcionCiclo extends Model
 
     public function grupo(){
 
-        return $this->hasMany('App\Grupo','grupo_id');
+        return $this->belongsTo(Grupo::class,'grupo_id');
     }
 
     public function usuario(){
@@ -50,4 +50,5 @@ class InscripcionCiclo extends Model
         return $this->attributes['nota'];
     }
 
+    
 }

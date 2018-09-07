@@ -32,7 +32,7 @@ class Grupo extends Model
 
     public function asignatura(){
 
-        return $this->belongsTo('App\Asignatura','id_asignatura');
+        return $this->belongsTo('App\Asignatura','asignatura_id');
     }
 
 //    public function facilitadores(){
