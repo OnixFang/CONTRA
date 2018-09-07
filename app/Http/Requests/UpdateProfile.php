@@ -27,6 +27,8 @@ class UpdateProfile extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
+            'inscripcion.carrera_id' => 'required',
+            'inscripcion.pensum_id' => 'required',
         ];
     }
 }

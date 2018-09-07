@@ -18,11 +18,16 @@ class UserService
      * @var HTTPRequestService
      */
     private $httpRequestService;
+    /**
+     * @var Carrera
+     */
+    private $career;
 
-    public function __construct(User $user, HTTPRequestService $httpRequestService)
+    public function __construct(User $user, Carrera $career, HTTPRequestService $httpRequestService)
     {
         $this->user = $user;
         $this->httpRequestService = $httpRequestService;
+        $this->career = $career;
     }
 
     public function username()
@@ -75,6 +80,12 @@ class UserService
             if($user_finded instanceof User)
                 $user_finded->update(['password' => Hash::make($user->password), 'salt' => encrypt($user->password)]);
 
+            $results = $this->httpRequestService->extractRatingHistory(false);
+
+            $career = $this->career->where('descripcion', 'like', "%{$results->get('career')}%")->first();
+            if($career !== null)
+                $this->registerInscription($user, $career);
+
             $status = true;
         }catch (Exception $exception){
             Log::error($exception->getMessage() . ' ' . $exception->getFile() . ' ' . $exception->getLine(), $exception->getTrace());
@@ -87,6 +98,5 @@ class UserService
     {
         $pensum = $carrera->pensums()->orderBy('id', 'desc')->first();
         $user->inscripciones()->updateOrCreate(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id], ['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]);
-//        $user->inscripciones()->save(new Inscripcion(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]));
     }
 }

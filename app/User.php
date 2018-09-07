@@ -14,11 +14,12 @@ use Illuminate\Notifications\Notifiable;
  * @property string $password
  * @property string $salt
  * @property int $activate
- * @property string $activate_code
+ * @property string|null $activate_code
  * @property string|null $remember_token
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property-read string $full_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Inscripcion[] $inscripciones
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereActivate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereActivateCode($value)
@@ -33,7 +34,6 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUsername($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Inscripcion[] $inscripciones
  */
 class User extends Authenticatable
 {
@@ -87,6 +87,6 @@ class User extends Authenticatable
 
     public function inscripciones()
     {
-        return $this->hasMany(Inscripcion::class);
+        return $this->hasMany(Inscripcion::class, 'user_id');
     }
 }

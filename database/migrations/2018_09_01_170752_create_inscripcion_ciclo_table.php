@@ -18,6 +18,9 @@ class CreateInscripcionCicloTable extends Migration
 
             $table->string('clave')->index();
 
+            $table->unsignedInteger('inscripcion_id');
+            $table->foreign('inscripcion_id')->references('id')->on('inscripciones');
+
             $table->unsignedInteger('grupo_id');
             $table->foreign('grupo_id')->references('id')->on('grupos');
 

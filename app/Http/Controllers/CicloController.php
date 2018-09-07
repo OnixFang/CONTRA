@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Ciclo;
 use App\Grupo;
 use App\Asignatura;
-use App\Facilitador;
-use App\Calificacion;
 
 class CicloController extends Controller
 {

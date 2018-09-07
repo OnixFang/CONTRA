@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Carrera;
 use App\Http\Requests\UpdateProfile;
 use App\Mail\UserRegistered;
 use App\User;
@@ -61,7 +62,17 @@ class ProfilesController extends Controller
      */
     public function edit($user)
     {
-        return view('profiles.edit', ['user' => User::findOrFail($user)]);
+        $user = User::findOrFail($user);
+        $inscripcion = $user->inscripciones()->first();
+        $careers = Carrera::all()->pluck('descripcion', 'id')->prepend('Seleccione...', '');
+        $pensums = $inscripcion->carrera->pensums->pluck('descripcion', 'id')->prepend('Seleccione...', '');
+
+        return view('profiles.edit', [
+            'user' => $user,
+            'inscripcion' => $inscripcion,
+            'careers' => $careers,
+            'pensums' => $pensums,
+        ]);
     }
 
     /**

@@ -74,10 +74,10 @@ class HTTPRequestService
     }
 
     /**
-     * @param User $user
+     * @param bool $return_rating
      * @return Collection
      */
-    public function extractRatingHistory()
+    public function extractRatingHistory($return_rating = true)
     {
         $params = ['__EVENTARGUMENT' => '', '__EVENTTARGET' => 'ConHist'];
         $results = Collection::make(['career' => null, 'cycles' => collect([])]);
@@ -104,21 +104,22 @@ class HTTPRequestService
 
             $results->put('career', $career);
 
-            Collection::make(parse_array($response['FILE'], '<tr>(\W+)<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<td class="ColHead">'))->each(function ($block) use($results) {
-                $data = ['key' => null, 'subjects' => []];
-                $data['key'] = strip_tags(trim(Collection::make(parse_array($block, '<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<'))->first()));
+            if($return_rating)
+                Collection::make(parse_array($response['FILE'], '<tr>(\W+)<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<td class="ColHead">'))->each(function ($block) use($results) {
+                    $data = ['key' => null, 'subjects' => []];
+                    $data['key'] = strip_tags(trim(Collection::make(parse_array($block, '<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<'))->first()));
 
-                $data['subjects'] = Collection::make(parse_array($block, '<tr', '</tr>'))->map(function ($tr) {
-                    $tds = Collection::make(parse_array($tr, '<td', '</td>'));
-                    if($tds->count() == 9)
-                        return $tds->map(function ($td, $key) {
-                            if($key > 0)
-                                return trim(strip_tags($td));
-                        });
+                    $data['subjects'] = Collection::make(parse_array($block, '<tr', '</tr>'))->map(function ($tr) {
+                        $tds = Collection::make(parse_array($tr, '<td', '</td>'));
+                        if($tds->count() == 9)
+                            return $tds->map(function ($td, $key) {
+                                if($key > 0)
+                                    return trim(strip_tags($td));
+                            });
+                    });
+
+                    $results->get('cycles')->push($data);
                 });
-
-                $results->get('cycles')->push($data);
-            });
 
         } catch (Exception $exception){
             Log::error($exception->getMessage());

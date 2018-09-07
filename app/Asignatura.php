@@ -16,32 +16,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $cuatrimestre
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property int $id_pensum
- * @property int|null $pre_requisito1
- * @property int|null $pre_requisito2
- * @property int $aprovado
+ * @property string|null $deleted_at
  * @property int $propedeutico
  * @property-read \App\Grupo $grupos
- * @property-read \App\Pensum $pensum
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereAprovado($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Pensum[] $pensums
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Asignatura[] $requisitos
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereClave($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereCr($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereCuatrimestre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereDescripcion($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereHp($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereHt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereIdPensum($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura wherePreRequisito1($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura wherePreRequisito2($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura wherePropedeutico($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property string|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Pensum[] $pensums
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Asignatura[] $requisitos
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Asignatura whereDeletedAt($value)
  */
 class Asignatura extends Model
 {
