@@ -27,9 +27,6 @@ class CreateInscripcionCicloTable extends Migration
             $table->unsignedInteger('usuario_id');
             $table->foreign('usuario_id')->references('id')->on('users');
 
-            $table->string('literal')->nullable();
-            $table->boolean('aprobado');
-            
             $table->integer('nota')->nullable();
 
             $table->string('estado')->default('n');

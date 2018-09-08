@@ -110,6 +110,6 @@ class UserService
         //   DB::enableQueryLog();
           $asignaturas_historico = Auth::user()->inscripcionCiclo;
         //   dd(DB::getQueryLog());
-          //dd($asignaturas_historico);
+          dd($asignaturas_historico);
     }
 }
