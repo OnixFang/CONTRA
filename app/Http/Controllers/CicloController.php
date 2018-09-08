@@ -1,11 +1,8 @@
-
+<?php
 
 namespace App\Http\Controllers;
 
 use App\Asignatura;
-use App\Facilitador;
-use App\Calificacion;
-use Auth;
 use App\Grupo;
 use App\InscripcionCiclo;
 use App\User;
@@ -48,7 +45,7 @@ class CicloController extends Controller
                 'seccionGrupo' => $ciclo->grupo->seccion,
                 'creditoAsignatura' => $ciclo->grupo->asignatura->cr,
                 'nota' => $ciclo->nota,
-                'estado' => $ciclo->estado
+                'estado' => $ciclo->estado,
             ];
         });
 
