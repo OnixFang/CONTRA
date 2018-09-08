@@ -43,7 +43,8 @@ class CicloController extends Controller
                     'seccionGrupo' => $ciclo->grupo->seccion,
                     'creditoAsignatura' => $ciclo->grupo->asignatura->cr,
                     'nota' => $ciclo->nota,
-                    'estado' => $ciclo->estado
+                    'estado' => $ciclo->estado,
+                    'literal' => $ciclo->literal
                 ];
         });
 
