@@ -44,7 +44,7 @@ class Asignatura extends Model
 
     public function pensums()
     {
-        return $this->belongsToMany(Pensum::class, 'asignaturas_pensums');
+        return $this->belongsToMany(Pensum::class, 'asignaturas_pensums','asignatura_id','pensum_id');
     }
 
     public function grupos()

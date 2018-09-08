@@ -4,9 +4,13 @@ use App\Carrera;
 use App\Inscripcion;
 use App\InscripcionCiclo;
 use App\User;
+use App\Asignatura;
 use Exception;
+use App\Pensum;
 use Hash;
 use Log;
+use Auth;
+use DB;
 
 class UserService
 {
@@ -98,5 +102,14 @@ class UserService
     {
         $pensum = $carrera->pensums()->orderBy('id', 'desc')->first();
         $user->inscripciones()->updateOrCreate(['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id], ['carrera_id' => $carrera->id, 'pensum_id' => $pensum->id]);
+    }
+
+    public function countPendingSubject(){
+          $asignaturas_pensum = Auth::user()->inscripcion()->pensum->asignaturas;
+
+          DB::enableQueryLog();
+          $asignaturas_historico = Auth::user()->inscripcionCiclo;
+          dd(DB::getQueryLog());
+          dd($asignaturas_historico);
     }
 }

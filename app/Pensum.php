@@ -31,7 +31,7 @@ class Pensum extends Model
 
     public function asignaturas()
     {
-        return $this->belongsToMany(Asignatura::class, 'asignaturas_pensums');
+        return $this->belongsToMany(Asignatura::class, 'asignaturas_pensums','pensum_id','asignatura_id');
     }
 
     public function carrera(){

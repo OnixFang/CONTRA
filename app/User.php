@@ -89,4 +89,17 @@ class User extends Authenticatable
     {
         return $this->hasMany(Inscripcion::class, 'user_id');
     }
+
+    public function scopeInscripcion()
+    {
+        return $this->inscripciones()->first();
+    }
+
+    public function pensum(){
+        return $this->hasOne(Inscripcion::class,'pensum_id');
+    }
+
+    public function inscripcionCiclo(){
+        return $this->hasMany(InscripcionCiclo::class,'usuario_id');
+    }
 }
