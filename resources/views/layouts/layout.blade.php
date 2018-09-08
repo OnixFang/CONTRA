@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>CONTRA - CONTROL de ASIGNATURA</title>
+	<title>Sistema de Control de Asignatura</title>
 	<link href="https://medialoot.com/preview/lumino/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://medialoot.com/preview/lumino/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://medialoot.com/preview/lumino/css/datepicker3.css" rel="stylesheet">
@@ -38,9 +38,7 @@
 	</div>
 	<!-- /.col-->
 	<div class="col-sm-12">
-		<p class="back-link">CONTRA - Systema de Control de Asignatura
-			<a href="https://www.medialoot.com"></a>
-		</p>
+		<p class="back-link">Sistema de Control de Asignatura</p>
 	</div>
 	</div>
 	<!--/.row-->

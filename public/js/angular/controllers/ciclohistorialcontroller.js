@@ -14,8 +14,6 @@
                 $scope.noCiclos = true;
                 $scope.noIndice = true;
             }
-
-            console.log($scope.ciclos);
         });
 
         // Calcula el literal de la calificacion
