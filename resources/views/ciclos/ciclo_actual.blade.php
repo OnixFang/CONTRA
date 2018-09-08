@@ -33,7 +33,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Ciclo</h4>
+                <h4>Ciclo {{ $cicloactual[0]->clave }}</h4>
             </div>
             <div class="panel-body">
                 @if($cicloactual !== null)
