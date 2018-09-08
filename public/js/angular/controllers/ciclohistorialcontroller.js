@@ -63,8 +63,8 @@
 
         $scope.calcularIndice = function calcularIndice(puntos, creditos) {
             let indice = puntos / creditos;
-            $scope.puntosAcumulados = $scope.puntosAcumulados + puntos;
-            $scope.creditosAcumulados = $scope.creditosAcumulados + creditos;
+            $scope.puntosAcumulados += puntos;
+            $scope.creditosAcumulados += creditos;
             $scope.indices.push(indice);
             return indice;
         }
