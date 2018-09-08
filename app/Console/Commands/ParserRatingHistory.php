@@ -90,8 +90,8 @@ class ParserRatingHistory extends Command
 
             DB::commit();
         } catch (ModelNotFoundException $exception) {
-            Log::warning($exception->getMessage());
-            $this->warn($exception->getMessage());
+            Log::warning($exception->getMessage() . $exception->getFile());
+            $this->warn($exception->getMessage() . $exception->getFile());
             DB::rollBack();
         } catch (Exception $exception) {
             Log::error($exception->getMessage() . $exception->getFile());

@@ -34,21 +34,15 @@ class InscripcionCiclo extends Model
 {
     protected $table = 'inscripcion_ciclo';
 
-    protected $fillable = ['inscripcion_id', 'nota','clave','grupo_id','usuario_id', 'estado'];
+    protected $fillable = ['inscripcion_id', 'nota','clave','grupo_id','usuario_id', 'estado', 'literal','aprovado'];
 
-    public function grupo(){
-
+    public function grupo()
+    {
         return $this->belongsTo(Grupo::class,'grupo_id');
     }
 
-    public function usuario(){
+    public function usuario()
+    {
         return $this->hasMany('App\User','usuario_id');
     }
-
-    public function getNotasAttribute(){
-
-        return $this->attributes['nota'];
-    }
-
-    
 }
