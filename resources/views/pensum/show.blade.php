@@ -1,4 +1,6 @@
 @extends('layouts.layout');
+@inject('aprobado', 'App\Services\InscripcionCicloService');
+
 
 @section('content')
     <div class="row">
@@ -41,7 +43,7 @@
                                 @foreach($asignaturas as $asignatura)
 
                                     <tbody>
-                                    <tr>
+                                    <tr @if($aprobado->checkIfApproved(Auth::user(),$asignatura->clave)) {{ 'class= alert-success' }} @endif>
                                         <td >{{  $asignatura->clave}}</td>
                                         <td > {{ $asignatura->descripcion }}</td>
                                         <td > {{ $asignatura->ht }}</td>

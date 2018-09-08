@@ -45,4 +45,6 @@ class InscripcionCiclo extends Model
     {
         return $this->hasMany('App\User','usuario_id');
     }
+
+    
 }

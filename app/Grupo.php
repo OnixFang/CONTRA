@@ -35,6 +35,11 @@ class Grupo extends Model
         return $this->belongsTo('App\Asignatura','asignatura_id');
     }
 
+    public function inscripcionCiclo(){
+
+        return $this->hasMany(InscripcionCiclo::class,'grupo_id');
+    }
+
 //    public function facilitadores(){
 //
 //        return $this->belongsTo('App\Facilitador','id_facilitador');
