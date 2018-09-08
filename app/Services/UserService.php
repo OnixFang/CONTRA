@@ -107,9 +107,9 @@ class UserService
     public function countPendingSubject(){
           $asignaturas_pensum = Auth::user()->inscripcion()->pensum->asignaturas;
 
-          DB::enableQueryLog();
+        //   DB::enableQueryLog();
           $asignaturas_historico = Auth::user()->inscripcionCiclo;
-          dd(DB::getQueryLog());
+        //   dd(DB::getQueryLog());
           dd($asignaturas_historico);
     }
 }
