@@ -14,22 +14,27 @@
             return $http.get('api/facilitador_api').then(returnData);
         }
 
-        function saveCiclo(ciclo) {
-            $http.post('api/ciclo_api', ciclo).then(function (data, status) {
-                console.log(data);
-                window.location.href = data.data;
-            });
+        function getInscripcionCiclos(userId) {
+            return $http.get('api/ciclo_api/' + userId).then(returnData);
         }
 
-        function getCiclosCerrados() {
-            return $http.get('api/ciclo_api').then(returnData);
-        }
+        // Obsolete
+        // function saveCiclo(ciclo) {
+        //     $http.post('api/ciclo_api', ciclo).then(function (data, status) {
+        //         console.log(data);
+        //         window.location.href = data.data;
+        //     });
+        // }
+
+        // Obsolete
+        // function getCiclosCerrados() {
+        //     return $http.get('api/ciclo_api').then(returnData);
+        // }
 
         return {
             getAsignaturas: getAsignaturas,
             getFacilitadores: getFacilitadores,
-            saveCiclo: saveCiclo,
-            getCiclosCerrados: getCiclosCerrados,
+            getInscripcionCiclos: getInscripcionCiclos
         }
     }
 

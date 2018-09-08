@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>CONTRA - CONTROL de ASIGNATURA</title>
+	<title>Sistema de Control de Asignatura</title>
 	<link href="https://medialoot.com/preview/lumino/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://medialoot.com/preview/lumino/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://medialoot.com/preview/lumino/css/datepicker3.css" rel="stylesheet">
@@ -36,17 +36,15 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	@yield('content')
 
-</div>
-<!-- /.col-->
-<div class="col-sm-12">
-	<p class="back-link">CONTRA - Systema de Control de Asignatura
-		<a href="https://www.medialoot.com"></a>
-	</p>
-</div>
-</div>
-<!--/.row-->
-</div>
-<!--/.main-->
+	</div>
+	<!-- /.col-->
+	<div class="col-sm-12">
+		<p class="back-link">Sistema de Control de Asignatura</p>
+	</div>
+	</div>
+	<!--/.row-->
+	</div>
+	<!--/.main-->
 
 <script src="https://medialoot.com/preview/lumino/js/jquery-1.11.1.min.js"></script>
 <script src="https://medialoot.com/preview/lumino/js/bootstrap.min.js"></script>

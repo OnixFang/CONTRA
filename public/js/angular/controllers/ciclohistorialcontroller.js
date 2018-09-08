@@ -7,7 +7,7 @@
         $scope.indices = [];
 
         // Obtiene toda la data de los ciclos y sus grupos
-        contraData.getCiclosCerrados().then(function (response) {
+        contraData.getInscripcionCiclos(1).then(function (response) {
             $scope.ciclos = response;
 
             if ($scope.ciclos.length < 1) {
@@ -27,8 +27,10 @@
                 literal = 'C';
             } else if (calificacion >= 60 && calificacion <= 69) {
                 literal = 'D';
-            } else if (calificacion <= 59) {
+            } else if (calificacion >= 1 && calificacion <= 59) {
                 literal = 'F';
+            } else if (calificacion == 0) {
+                literal = '-';
             }
 
             return literal;
@@ -65,14 +67,23 @@
 
         $scope.indiceAcumulado = function indiceAcumulado() {
             let indiceAcumulado = 0;
-            
-            angular.forEach($scope.indices, function(indice) {
+
+            angular.forEach($scope.indices, function (indice) {
                 indiceAcumulado += indice;
             });
 
             indiceAcumulado = indiceAcumulado / $scope.indices.length;
             $scope.noIndice = false;
-            return indiceAcumulado
+            return indiceAcumulado;
+        }
+
+        $scope.sumarCredito = function sumarCredito(credito, estado) {
+            if (estado == 'N') {
+                return credito;
+            }
+            else {
+                return 0;
+            }
         }
     }
 
