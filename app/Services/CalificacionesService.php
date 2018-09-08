@@ -51,8 +51,6 @@ class CalificacionesService
                 break;
         }
 
-        $totalPuntos += $puntos + $credito;
-
         return $puntos * $credito;
     }
 }
