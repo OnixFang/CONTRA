@@ -7,13 +7,15 @@
         $scope.indices = [];
 
         // Obtiene toda la data de los ciclos y sus grupos
-        contraData.getCiclosCerrados().then(function (response) {
+        contraData.getInscripcionCiclos(1).then(function (response) {
             $scope.ciclos = response;
 
             if ($scope.ciclos.length < 1) {
                 $scope.noCiclos = true;
                 $scope.noIndice = true;
             }
+
+            console.log($scope.ciclos);
         });
 
         // Calcula el literal de la calificacion

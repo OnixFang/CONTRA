@@ -38,16 +38,14 @@
                 <div class="panel-body">
                     <div ng-repeat="ciclo in ciclos">
                         <h4>Ciclo
-                            <span ng-bind="ciclo.clave"></span>
+                            <span ng-bind="ciclo[0].cicloClave"></span>
                         </h4>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="col-md-2">Clave</th>
+                                    <th class="col-md-2">Código</th>
                                     <th class="col-md-2">Asignatura</th>
-                                    <th class="col-md-2">Facilitador</th>
-                                    <th class="col-md-1">Bimestre</th>
-                                    <!-- <th class="col-md-2">Horario</th> -->
+                                    <th class="col-md-2">Sección</th>
                                     <th class="col-md-1">Créditos</th>
                                     <th class="col-md-2">Puntos</th>
                                     <th class="col-md-1">Nota</th>
@@ -55,25 +53,23 @@
                                 </tr>
                             </thead>
                             <tbody ng-init="totalCreditos = 0; totalPuntos = 0">
-                                <tr ng-repeat="grupo in ciclo.grupos">
-                                    <td ng-bind="grupo.clave"></td>
-                                    <td ng-bind="grupo.asignatura"></td>
-                                    <td ng-bind="grupo.facilitador"></td>
-                                    <td ng-bind="grupo.bimestre"></td>
-                                    <!-- <td ng-bind="grupo.horario"></td> -->
-                                    <td ng-bind="grupo.credito" ng-init="$parent.totalCreditos = $parent.totalCreditos + grupo.credito"></td>
-                                    <td ng-bind="calcularPuntos(calcularLiteral(grupo.calificacion), grupo.credito)" ng-init="$parent.totalPuntos = $parent.totalPuntos + calcularPuntos(calcularLiteral(grupo.calificacion), grupo.credito)"></td>
-                                    <td ng-bind="grupo.calificacion"></td>
-                                    <td ng-bind="calcularLiteral(grupo.calificacion)"></td>
+                                <tr ng-repeat="grupo in ciclo">
+                                    <td ng-bind="grupo.claveAsignatura"></td>
+                                    <td ng-bind="grupo.nombreAsignatura"></td>
+                                    <td ng-bind="grupo.seccionGrupo"></td>
+                                    <td ng-bind="grupo.creditoAsignatura" ng-init="$parent.totalCreditos = $parent.totalCreditos + grupo.creditoAsignatura"></td>
+                                    <td ng-bind="calcularPuntos(calcularLiteral(grupo.nota), grupo.creditoAsignatura)" ng-init="$parent.totalPuntos = $parent.totalPuntos + calcularPuntos(calcularLiteral(grupo.nota), grupo.creditoAsignatura)"></td>
+                                    <td ng-bind="grupo.nota"></td>
+                                    <td ng-bind="calcularLiteral(grupo.nota)"></td>
                                 </tr>
                                 <tr>
-                                    <th colspan="4">Total del cuatrimestre</th>
+                                    <th colspan="3">Total del cuatrimestre</th>
                                     <td ng-bind="totalCreditos"></td>
                                     <td ng-bind="totalPuntos"></td>
                                     <td rowspan="2" colspan="2"></td>
                                 </tr>
                                 <tr>
-                                    <th colspan="4">Índice del cuatrimestre</th>
+                                    <th colspan="3">Índice del cuatrimestre</th>
                                     <td class="text-center" colspan="2" ng-bind="calcularIndice(totalPuntos, totalCreditos) | number:2"></td>
                                 </tr>
                             </tbody>
