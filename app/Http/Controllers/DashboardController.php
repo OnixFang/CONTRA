@@ -1,35 +1,40 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
-use App\Services\UserService;
-use App\Grupo;
-use App\Asignatura;
-use App\Ciclo;
-use App\InscripcionCiclo;
+use App\Services\InscripcionCicloService;
 use Auth;
 
 class DashboardController extends Controller
 {
-    private $userService;
 
-    public function __construct(UserService $userService)
+    /**
+     * @var InscripcionCicloService
+     */
+    private $inscripcionCicloService;
+
+    /**
+     * DashboardController constructor.
+     * @param InscripcionCicloService $inscripcionCicloService
+     */
+    public function __construct(InscripcionCicloService $inscripcionCicloService)
     {
-        $this->userService = $userService;
+        $this->inscripcionCicloService = $inscripcionCicloService;
     }
 
-    public function index(){
-
-//        dd($this->userService->countPendingSubject());
+    public function index()
+    {
         $pensum = Auth::user()->pensum;
-        $asignaturas = Asignatura::all()->where('id_pensum',$pensum);
-        $ciclos = InscripcionCiclo::all();
-        $aprobadas = Asignatura::all()->where('aprovado',1);
-        $pendientes = Asignatura::all()->where('aprovado',0);
+        $asignaturas = Auth::user()->inscripcion()->pensum->asignaturas;
 
-//        $actuales = new InscripcionCiclo;
-        // $actuales = $actuales->cicloAbiertos()->get();
-        // $actualess= Grupo::where('id_ciclo',$actuales);
+        $ciclos = $this->inscripcionCicloService->getCyclesCompleted(Auth::user());
+        $aprobadas = $this->inscripcionCicloService->getSubjectsApproved(Auth::user());
+
+        $pendientes = collect([]);
+        $asignaturas->map(function ($asignatura) use($aprobadas, &$pendientes) {
+            $element = $aprobadas->where('clave', $asignatura->clave)->first();
+            if($element == null)
+                $pendientes->push($asignatura);
+        });
+
         return view('dashboard',compact('asignaturas','ciclos','aprobadas','pendientes'));
 
     }

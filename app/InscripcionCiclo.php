@@ -34,7 +34,7 @@ class InscripcionCiclo extends Model
 {
     protected $table = 'inscripcion_ciclo';
 
-    protected $fillable = ['inscripcion_id', 'nota','clave','grupo_id','usuario_id', 'estado', 'literal','aprovado'];
+    protected $fillable = ['inscripcion_id', 'nota','clave','grupo_id','usuario_id', 'estado', 'literal','aprobado'];
 
     public function grupo()
     {

@@ -5,6 +5,7 @@ use App\Inscripcion;
 use App\InscripcionCiclo;
 use App\User;
 use App\Asignatura;
+use Artisan;
 use Exception;
 use App\Pensum;
 use Hash;
@@ -90,6 +91,8 @@ class UserService
             if($career !== null)
                 $this->registerInscription($user, $career);
 
+            Artisan::call('parser:rating_history', ['user' => $user->id]);
+
             $status = true;
         }catch (Exception $exception){
             Log::error($exception->getMessage() . ' ' . $exception->getFile() . ' ' . $exception->getLine(), $exception->getTrace());
@@ -105,11 +108,11 @@ class UserService
     }
 
     public function countPendingSubject(){
-          $asignaturas_pensum = Auth::user()->inscripcion()->pensum->asignaturas;
+        $asignaturas_pensum = Auth::user()->inscripcion()->pensum->asignaturas;
 
         //   DB::enableQueryLog();
-          $asignaturas_historico = Auth::user()->inscripcionCiclo;
+        $asignaturas_historico = Auth::user()->inscripcionCiclo;
         //   dd(DB::getQueryLog());
-          dd($asignaturas_historico);
+        dd($asignaturas_historico);
     }
 }

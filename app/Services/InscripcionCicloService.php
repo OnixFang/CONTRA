@@ -9,6 +9,7 @@
 namespace App\Services;
 
 use App\Asignatura;
+use App\AsignaturaCondicion;
 use App\Grupo;
 use App\InscripcionCiclo;
 use App\User;
@@ -44,14 +45,40 @@ class InscripcionCicloService
                         'inscripcion_id' => $inscripcion->id,
                         'grupo_id' => $group->id, 'usuario_id' => $user->id,
                         'clave' => $key, 'nota' => $subject[6], 'estado' => $subject[8],
+                        'literal' => $subject[7],
+                        'aprobado' => $this->isApproved($subject),
                     ]
                 );
             }
         });
     }
 
+    private function isApproved($subject)
+    {
+        $approved = false;
+
+        if($subject[8] == AsignaturaCondicion::COVALIDADA and (integer)$subject[6] == 0)
+            $approved = true;
+
+        if($subject[8] == AsignaturaCondicion::EXONERADO and (integer)$subject[6] == 0)
+            $approved = true;
+
+        if($subject[8] == AsignaturaCondicion::NORMAL and (integer)$subject[6] >= 70)
+            $approved = true;
+
+        return $approved;
+    }
+
     public function getSubjectsApproved(User $user)
     {
-        return $user->inscripcionCiclo->groupBy('inscripcion_ciclo.');
+        return $user->inscripcionCiclo()->select('asignaturas.*')
+            ->join('grupos', 'inscripcion_ciclo.grupo_id', '=', 'grupos.id')
+            ->join('asignaturas', 'grupos.asignatura_id', '=', 'asignaturas.id')
+            ->where('inscripcion_ciclo.aprobado', true)->get();
+    }
+
+    public function getCyclesCompleted(User $user)
+    {
+        return $user->inscripcionCiclo()->select('clave')->groupBy('clave')->get();
     }
 }

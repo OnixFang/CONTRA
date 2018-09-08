@@ -1,15 +1,10 @@
+<?php namespace App\Http\Controllers;
 
-
-namespace App\Http\Controllers;
-
-use App\Asignatura;
 use App\Facilitador;
 use App\Calificacion;
 use Auth;
-use App\Grupo;
 use App\InscripcionCiclo;
 use App\User;
-use Auth;
 use Illuminate\Http\Request;
 
 class CicloController extends Controller
@@ -42,14 +37,14 @@ class CicloController extends Controller
         $ciclos = User::find($userId)->inscripcionCiclo->map(function (InscripcionCiclo $ciclo) {
             return
                 [
-                'claveCiclo' => $ciclo->clave,
-                'claveAsignatura' => $ciclo->grupo->asignatura->clave,
-                'nombreAsignatura' => $ciclo->grupo->asignatura->descripcion,
-                'seccionGrupo' => $ciclo->grupo->seccion,
-                'creditoAsignatura' => $ciclo->grupo->asignatura->cr,
-                'nota' => $ciclo->nota,
-                'estado' => $ciclo->estado
-            ];
+                    'claveCiclo' => $ciclo->clave,
+                    'claveAsignatura' => $ciclo->grupo->asignatura->clave,
+                    'nombreAsignatura' => $ciclo->grupo->asignatura->descripcion,
+                    'seccionGrupo' => $ciclo->grupo->seccion,
+                    'creditoAsignatura' => $ciclo->grupo->asignatura->cr,
+                    'nota' => $ciclo->nota,
+                    'estado' => $ciclo->estado
+                ];
         });
 
         $collection = $ciclos->groupBy('claveCiclo');
