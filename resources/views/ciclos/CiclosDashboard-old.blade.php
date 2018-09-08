@@ -52,6 +52,7 @@
           </thead>
 
           <tbody>
+            @php $totalCreditos = 0 @endphp
             @foreach($calificaciones as $calificacion)
             <tr>
               <td> {{ $calificacion->grupo->asignatura->clave }}</td>
@@ -64,6 +65,9 @@
               <td> {{ $calificacion->estado }}</td>
             </tr>
               @endforeach
+            <tr>
+              <td> </td>
+            </tr>
           </tbody>
         </table>
         @endforeach {{ link_to_route('grupo.index','Añadir',null,['class'=>'btn btn-primary']) }}
