@@ -2,18 +2,19 @@
 @extends('layouts/layout')
 
 @section('content')
+<div ng-controller="dashboardController">
 <div class="row">
 	<ol class="breadcrumb">
 		<li><a href="#">
 			<em class="fa fa-home"></em>
 		</a></li>
-		<li class="active">Contra</li>
+		<li class="active">Dashboard</li>
 	</ol>
 </div><!--/.row-->
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Control de Asignaturas</h1>
+		<h1 class="page-header">Progreso actual</h1>
 	</div>
 </div><!--/.row-->
 
@@ -21,7 +22,7 @@
 	<div class="row">
 		<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 			<div class="panel panel-teal panel-widget border-right">
-				<div class="row no-padding"><em class="fa fa-xl fa-shopping-cart color-blue"></em>
+				<div class="row no-padding"><!-- <em class="fa fa-xl fa-shopping-cart color-blue"></em> -->
 					<div class="large">{{ count($pendientes) }}</div>
 					<div class="text-muted">Asignaturas pendientes</div>
 				</div>
@@ -29,7 +30,7 @@
 		</div>
 		<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 			<div class="panel panel-blue panel-widget border-right">
-				<div class="row no-padding"><em class="fa fa-xl fa-comments color-orange"></em>
+				<div class="row no-padding"><!-- <em class="fa fa-xl fa-comments color-orange"></em> -->
 					<div class="large">{{ count($aprobadas)}}</div>
 					<div class="text-muted">Asignaturas aprobadas</div>
 				</div>
@@ -38,7 +39,7 @@
 		<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 			<a href="/ciclo" style="text-decoration:none;">
 				<div class="panel panel-orange panel-widget border-right">
-					<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
+					<div class="row no-padding"><!-- <em class="fa fa-xl fa-users color-teal"></em> -->
 						<div class="large">{{ count($ciclos) }}</div>
 						<div class="text-muted">Ciclos cursados</div>
 					</div>
@@ -48,7 +49,7 @@
 		<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 			<a href="/pensum" style="text-decoration:none;">
 				<div class="panel panel-red panel-widget ">
-					<div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
+					<div class="row no-padding"><!-- <em class="fa fa-xl fa-search color-red"></em> -->
 						<div class="large">{{ count($asignaturas) }}</div>
 						<div class="text-muted">total de asignaturas</div>
 					</div>
@@ -89,6 +90,18 @@
 			<div class="panel-body easypiechart-panel">
 				<h4>Completado</h4>
 				<div class="easypiechart" id="easypiechart-red" data-percent="{{ ($asignaturas->count() > 0) ? ((count($aprobadas) / count($asignaturas))*100) : 0}}%" ><span class="percent">{{ ($asignaturas->count() > 0) ?  number_format((count($aprobadas) / count($asignaturas))*100) : 0 }}%</span></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-9 col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-body easypiechart-panel">
+				<h4>Índice acumulado</h4>
+				<div class="easypiechart" style="padding-top: 10px">
+					<div ng-hide="noIndice"><h1><strong><span ng-bind="indiceAcumulado | number:2"></span></strong></h1></div>
+					<div ng-show="noIndice" class="text-center">Aún no tiene un índice acumulado</div>
+					<div ng-show="noCiclos" class="text-center">No hay ningún ciclo en el historial</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -222,5 +235,6 @@
 				@endif --}}
 			</ul>
 		</div>
+	</div>
 	</div>
 	@endsection
