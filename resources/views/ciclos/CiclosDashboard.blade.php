@@ -39,7 +39,7 @@
                 <div class="panel-body">
                     <div ng-repeat="ciclo in ciclos">
                         <h4>
-                            <strong>Ciclo<span ng-bind="ciclo[0].claveCiclo"></span></strong>
+                            <strong>Ciclo <span ng-bind="ciclo[0].claveCiclo"></span></strong>
                         </h4>
                         <table class="table table-bordered">
                             <thead>

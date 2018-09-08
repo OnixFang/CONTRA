@@ -5,6 +5,8 @@
         $scope.noCiclos = false;
         $scope.noIndice = true;
         $scope.indices = [];
+        $scope.puntosAcumulados = 0;
+        $scope.creditosAcumulados = 0;
 
         // Obtiene toda la data de los ciclos y sus grupos
         contraData.getInscripcionCiclos(1).then(function (response) {
@@ -61,6 +63,8 @@
 
         $scope.calcularIndice = function calcularIndice(puntos, creditos) {
             let indice = puntos / creditos;
+            $scope.puntosAcumulados = $scope.puntosAcumulados + puntos;
+            $scope.creditosAcumulados = $scope.creditosAcumulados + creditos;
             $scope.indices.push(indice);
             return indice;
         }
@@ -68,12 +72,16 @@
         $scope.indiceAcumulado = function indiceAcumulado() {
             let indiceAcumulado = 0;
 
-            angular.forEach($scope.indices, function (indice) {
-                indiceAcumulado += indice;
-            });
+            // Forma erronea: promedio de índices
+            // angular.forEach($scope.indices, function (indice) {
+            //     indiceAcumulado += indice;
+            // });
 
-            indiceAcumulado = indiceAcumulado / $scope.indices.length;
+            // indiceAcumulado = indiceAcumulado / $scope.indices.length;
+
+            indiceAcumulado = $scope.puntosAcumulados / $scope.creditosAcumulados;
             $scope.noIndice = false;
+
             return indiceAcumulado;
         }
 
