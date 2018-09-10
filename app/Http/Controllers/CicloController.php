@@ -23,7 +23,7 @@ class CicloController extends Controller
 
     public function actual()
     {
-        $ciclos = Auth::user()->inscripcionCiclo;
+        $ciclos = Auth::user()->inscripcionCiclo()->orderBy('clave', 'asc')->get();
 
         $collection = $ciclos->groupBy('clave');
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="angularApp">
+<html ng-app="angularApp" lang="{{ app()->getLocale() }}">
 
 <head>
 	<meta charset="utf-8">
@@ -7,11 +7,9 @@
 	<title>Sistema de Control de Asignatura</title>
 	<link href="https://medialoot.com/preview/lumino/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://medialoot.com/preview/lumino/css/font-awesome.min.css" rel="stylesheet">
-	<link href="https://medialoot.com/preview/lumino/css/datepicker3.css" rel="stylesheet">
+	{{--<link href="https://medialoot.com/preview/lumino/css/datepicker3.css" rel="stylesheet">--}}
 	<link href="https://medialoot.com/preview/lumino/css/styles.css" rel="stylesheet">
-	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
-			crossorigin="anonymous"></script>
-
+	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 
 	<!--Custom Font-->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -37,15 +35,15 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 	@yield('content')
 
-	</div>
-	<!-- /.col-->
-	<div class="col-sm-12">
-		<p class="back-link">Sistema de Control de Asignatura</p>
-	</div>
-	</div>
-	<!--/.row-->
-	</div>
-	<!--/.main-->
+</div>
+<!-- /.col-->
+<div class="col-sm-12">
+	<p class="back-link">Sistema de Control de Asignatura</p>
+</div>
+</div>
+<!--/.row-->
+</div>
+<!--/.main-->
 
 <script src="https://medialoot.com/preview/lumino/js/jquery-1.11.1.min.js"></script>
 <script src="https://medialoot.com/preview/lumino/js/bootstrap.min.js"></script>
