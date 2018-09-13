@@ -31,7 +31,13 @@ class InscripcionCicloService
     {
         $subjects->each(function ($subject) use ($key, $user) {
             $subject_key = (format_subject_key($subject[1]));
-            $subject_model = Asignatura::whereClave($subject_key)->first();
+            $subject_descripcion = preg_replace('/\s+/', ' ', (strtolower(trim($subject[2]))));
+            $subject_model = Asignatura::whereClave($subject_key)->orWhereRaw("LOWER(descripcion) = '{$subject_descripcion}'")->first();
+
+            if($subject_model == null)
+                $subject_model = Asignatura::create([]);
+
+
             $inscripcion = $user->inscripcion();
             if ($subject_model !== null and  $inscripcion !== null) {
                 $group = Grupo::updateOrCreate(
