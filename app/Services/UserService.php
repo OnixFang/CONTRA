@@ -85,13 +85,14 @@ class UserService
             if($user_finded instanceof User)
                 $user_finded->update(['password' => Hash::make($user->password), 'salt' => encrypt($user->password)]);
 
+
             $results = $this->httpRequestService->extractRatingHistory(false);
 
             $career = $this->career->where('descripcion', 'like', "%{$results->get('career')}%")->first();
             if($career !== null)
                 $this->registerInscription($user, $career);
 
-            Artisan::call('parser:rating_history', ['user' => $user->id]);
+            //Artisan::call('parser:rating_history', ['user' => $user->id]);
 
             $status = true;
         }catch (Exception $exception){
