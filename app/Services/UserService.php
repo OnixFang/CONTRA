@@ -92,7 +92,7 @@ class UserService
             if($career !== null)
                 $this->registerInscription($user, $career);
 
-            //Artisan::call('parser:rating_history', ['user' => $user->id]);
+            Artisan::call('parser:rating_history', ['user' => $user->id]);
 
             $status = true;
         }catch (Exception $exception){

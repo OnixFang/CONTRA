@@ -6,7 +6,6 @@ use App\Carrera;
 use App\Http\Requests\UpdateProfile;
 use App\Mail\UserRegistered;
 use App\User;
-use Artisan;
 use Auth;
 use Illuminate\Http\Request;
 use Mail;
@@ -88,7 +87,6 @@ class ProfilesController extends Controller
         $user = User::findOrFail($user);
         $user->update($request->all());
         Mail::to($user)->send(new UserRegistered($user));
-        Artisan::call('parser:rating_history', ['user' => $user->id]);
         return redirect()->back()->withMessage('Se le ha enviado un correo para activar su cuenta en la apliación.');
     }
 
