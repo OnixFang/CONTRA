@@ -31,7 +31,7 @@ class InscripcionCicloService
     {
         $subjects->each(function ($subject) use ($key, $user) {
             $subject_key = (format_subject_key($subject[1]));
-            $subject_descripcion = (preg_replace('/\s+/', ' ', (strtolower(trim($subject[2])))));
+            $subject_descripcion = (preg_replace('/\s+/', ' ', (mb_strtolower(trim($subject[2])))));
             $subject_model = $user->inscripcion()->pensum->asignaturas()->where('clave', $subject_key)->orWhereRaw("LOWER(descripcion) = '{$subject_descripcion}'")->first();
 
             if($subject_model == null && $subject[4]!== null)
