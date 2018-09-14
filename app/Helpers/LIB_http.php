@@ -302,6 +302,8 @@ function http($target, $ref, $method, $data_array, $incl_head)
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);     // Follow redirects
     curl_setopt($ch, CURLOPT_MAXREDIRS, 4);             // Limit redirections to four
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);     // Return in string
+    curl_setopt($ch, CURLOPT_ACCEPT_ENCODING, 'UTF-8');     // Return in string
+
 
     # Create return array
     $return_array['FILE']   = curl_exec($ch);

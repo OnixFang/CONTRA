@@ -37,14 +37,17 @@ class InscripcionCicloService
             if($subject_model == null && $subject[4]!== null)
             {
                 $pensum = $user->inscripcion()->pensum;
-                $pensum->asignaturas()->save(new Asignatura(
-                    ['descripcion'=>$subject_descripcion,
+
+                $subject_model = Asignatura::create(
+                    ['descripcion'=>ucwords($subject_descripcion),
                         'clave'=>$subject_key,
                         'hp'=>0,
                         'ht'=>0,
                         'cr'=>$subject[4],
                         'cuatrimestre'=>9,
-                    ]));
+                    ]);
+
+                $pensum->asignaturas()->attach($subject_model);
             }
 
 
