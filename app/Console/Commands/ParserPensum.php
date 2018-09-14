@@ -158,6 +158,11 @@ class ParserPensum extends Command
                                 elseif($data->count() == 6)
                                     $subject = $this->populateSixLength($clave, $data, $key);
 
+
+                                if($subject->clave == Asignatura::SOC500)
+                                
+                                    $subject = Asignatura::whereClave(Asignatura::SOC600)->first();
+                                    
                                 $pensum->asignaturas()->attach($subject->id);
 
                                 collect(explode(',', html_entity_decode(trim($data[count($data)-1]))))->map(function ($requirement) use ($subject) {

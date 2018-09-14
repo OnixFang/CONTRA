@@ -37,10 +37,12 @@ use Illuminate\Database\Eloquent\Model;
 class Asignatura extends Model
 {
     const KEY_LEN = 6;
+    const SOC500 = "SOC-500";
+    const SOC600 = "SOC-600";
 
     protected $table ="asignaturas";
 
-    protected $fillable =['descripcion','clave','hp','ht','cr','cuatrimestre','id_pensum','pre_requisito1','pre_requisito2','propedeutico'];
+    protected $fillable =['descripcion','clave','hp','ht','cr','cuatrimestre','id_pensum','propedeutico'];
 
     public function pensums()
     {

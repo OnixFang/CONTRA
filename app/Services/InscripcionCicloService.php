@@ -34,8 +34,32 @@ class InscripcionCicloService
             $subject_descripcion = preg_replace('/\s+/', ' ', (strtolower(trim($subject[2]))));
             $subject_model = Asignatura::whereClave($subject_key)->orWhereRaw("LOWER(descripcion) = '{$subject_descripcion}'")->first();
 
-//            if($subject_model == null)
-//                $subject_model = Asignatura::create([]);
+            if($subject_model == null && $subject[4]!== null) 
+            {
+            $pensum = $user->inscripcion()->pensum;
+
+                // $subject_model = Asignatura::create(
+                //     ['descripcion'=>$subject_descripcion,
+                //     'clave'=>$subject_key,
+                //     'hp'=>0,
+                //     'ht'=>0,
+                //     'cr'=>$subject[4],
+                //     'cuatrimestre'=>9,
+                //     'propedeutico'=>null
+                //     ]
+                
+                // );
+                $pensum->asignaturas()->save(new Asignatura(
+                    ['descripcion'=>$subject_descripcion,
+                'clave'=>$subject_key,
+                'hp'=>0,
+                'ht'=>0,
+                'cr'=>$subject[4],
+                'cuatrimestre'=>9,
+                'propedeutico'=>null
+                ]));
+
+            }
 
 
             $inscripcion = $user->inscripcion();
