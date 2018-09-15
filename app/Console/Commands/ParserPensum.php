@@ -97,8 +97,6 @@ class ParserPensum extends Command
 
             $pensums_url->map(function ($element) use($client, $cicle_types)
             {
-//                if($element['url'] !== "https://www.uapa.edu.do/estudia/grado/ingenieria-de-software/")
-//                    return false;
 
                 $response = $client->request('get', $element['url']);
 
@@ -160,9 +158,9 @@ class ParserPensum extends Command
 
 
                                 if($subject->clave == Asignatura::SOC500)
-                                
+
                                     $subject = Asignatura::whereClave(Asignatura::SOC600)->first();
-                                    
+
                                 $pensum->asignaturas()->attach($subject->id);
 
                                 collect(explode(',', html_entity_decode(trim($data[count($data)-1]))))->map(function ($requirement) use ($subject) {
@@ -175,6 +173,8 @@ class ParserPensum extends Command
                         }
                     });
                 });
+
+                sleep(3);
             });
 
         } catch (RequestException $exception) {
