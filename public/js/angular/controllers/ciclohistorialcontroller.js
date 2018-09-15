@@ -9,7 +9,7 @@
         $scope.creditosAcumulados = 0;
 
         // Obtiene toda la data de los ciclos y sus grupos
-        contraData.getInscripcionCiclos(1).then(function (response) {
+        contraData.getInscripcionCiclos($scope.userId).then(function (response) {
             $scope.ciclos = response;
 
             if ($scope.ciclos.length < 1) {
