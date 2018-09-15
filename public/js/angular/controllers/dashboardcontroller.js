@@ -5,7 +5,6 @@
         $scope.message = 'AngularJS has been integrated in this app. A variable is binded to this span element.';
         $scope.noCiclos = false;
         $scope.noIndice = true;
-        $scope.indices = [];
 
         function calcularPuntos(literal, credito) {
             let puntos = 0;

@@ -59,7 +59,7 @@
                                     <td class="text-center" ng-bind="grupo.claveAsignatura"></td>
                                     <td ng-bind="grupo.nombreAsignatura"></td>
                                     <td class="text-center" ng-bind="grupo.seccionGrupo"></td>
-                                    <td class="text-right" ng-bind="grupo.creditoAsignatura" ng-init="$parent.totalCreditos = $parent.totalCreditos + sumarCredito(grupo.creditoAsignatura, grupo.estado)"></td>
+                                    <td class="text-right" ng-bind="grupo.creditoAsignatura" ng-init="$parent.totalCreditos = $parent.totalCreditos + sumarCredito(grupo.creditoAsignatura, grupo.estado, grupo.nota)"></td>
                                     <td class="text-right" ng-bind="calcularPuntos(calcularLiteral(grupo.nota), grupo.creditoAsignatura)"
                                         ng-init="$parent.totalPuntos = $parent.totalPuntos + calcularPuntos(calcularLiteral(grupo.nota), grupo.creditoAsignatura)"></td>
                                     <td class="text-center" ng-bind="grupo.nota"></td>
