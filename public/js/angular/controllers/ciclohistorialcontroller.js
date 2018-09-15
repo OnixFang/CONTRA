@@ -4,7 +4,6 @@
     function cicloHistorialController($scope, contraData) {
         $scope.noCiclos = false;
         $scope.noIndice = true;
-        $scope.indices = [];
         let puntosAcumulados = 0;
         let creditosAcumulados = 0;
 
@@ -65,7 +64,6 @@
             let indice = puntos / creditos;
             puntosAcumulados += puntos;
             creditosAcumulados += creditos;
-            $scope.indices.push(indice);
             return indice;
         }
 
