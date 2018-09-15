@@ -42,7 +42,7 @@ class Asignatura extends Model
 
     protected $table ="asignaturas";
 
-    protected $fillable =['descripcion','clave','hp','ht','cr','cuatrimestre','id_pensum','propedeutico'];
+    protected $fillable =['descripcion','clave','hp','ht','cr','cuatrimestre','propedeutico'];
 
     public function pensums()
     {
