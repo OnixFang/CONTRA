@@ -105,7 +105,8 @@ class HTTPRequestService
             $results->put('career', $career);
 
             if($return_rating)
-                Collection::make(parse_array($response['FILE'], '<tr>(\W+)<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<td class="ColHead">'))->each(function ($block) use($results) {
+//                Collection::make(parse_array($response['FILE'], '<tr>(\W+)<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<td class="ColHead">'))->each(function ($block) use($results) {
+                Collection::make(parse_array($response['FILE'], '<tr>(\W+)<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<td class="ColNormal" align="right"'))->each(function ($block) use($results) {
                     $data = ['key' => null, 'subjects' => []];
                     $data['key'] = strip_tags(trim(Collection::make(parse_array($block, '<td align="center" style="white-space:nowrap;">\w{4}\-\w', '<'))->first()));
 

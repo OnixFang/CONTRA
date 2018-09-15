@@ -50,7 +50,6 @@ class InscripcionCicloService
                 $pensum->asignaturas()->attach($subject_model);
             }
 
-
             $inscripcion = $user->inscripcion();
 
             if ($subject_model !== null and  $inscripcion !== null) {
