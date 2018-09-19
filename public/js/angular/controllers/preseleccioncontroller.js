@@ -11,7 +11,7 @@
         let aprovadas = []; // Arreglo de asignaturas aprovadas
 
         // Obtiene un array de objetos asignaturas y las asigna a la variable asignaturas
-        contraData.getAsignaturas().then(function (response) {
+        contraData.getGrupos().then(function (response) {
             $scope.asignaturas = response;
         });
 
@@ -188,7 +188,6 @@
                     let grupo = {};
                     grupo.clave = asignatura.grupo;
                     grupo.horario = $filter('date')(asignatura.horario, "yyyy-MM-dd HH:mm:ss"); // Dar formato apropiado al horario del grupo
-                    grupo.facilitador = asignatura.facilitador;
                     grupo.bimestre = asignatura.bimestre;
                     grupo.asignatura = asignatura.id;
                     $scope.ciclo.grupos.push(grupo);
@@ -198,7 +197,7 @@
                 $scope.ciclo.fecha = $filter('date')($scope.ciclo.fecha, "yyyy-MM-dd");
 
                 // Mandar el request para guardar el ciclo en la base de datos
-                contraData.saveCiclo($scope.ciclo);
+                // contraData.saveCiclo($scope.ciclo);
             }
         }
 

@@ -93,20 +93,18 @@
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Descripción</th>
 								<th>Clave</th>
-								<th>HP</th>
-								<th>HT</th>
+								<th>Descripción</th>
 								<th>CR</th>
+								<th>Horario</th>
 								<th class="text-center">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="asignatura in asignaturas | orderBy: 'cuatrimestre'" ng-hide="asignatura.hidden">
-								<td ng-bind="asignatura.descripcion"></td>
 								<td ng-bind="asignatura.clave"></td>
-								<td ng-bind="asignatura.hp"></td>
-								<td ng-bind="asignatura.ht"></td>
+								<td ng-bind="asignatura.descripcion"></td>
+								<td ng-bind="asignatura.cr"></td>
 								<td ng-bind="asignatura.cr"></td>
 								<td class="text-right">
 									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura)">Agregar</button>

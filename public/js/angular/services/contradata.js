@@ -6,12 +6,12 @@
             return response.data;
         }
 
-        function getAsignaturas() {
-            return $http.get('api/asignatura_api').then(returnData);
-        }
+        // function getAsignaturas() {
+        //     return $http.get('api/asignatura_api').then(returnData);
+        // }
 
-        function getFacilitadores() {
-            return $http.get('api/facilitador_api').then(returnData);
+        function getGrupos() {
+            return $http.get('api/grupo_api').then(returnData);
         }
 
         function getInscripcionCiclos(userId) {
@@ -32,8 +32,7 @@
         // }
 
         return {
-            getAsignaturas: getAsignaturas,
-            getFacilitadores: getFacilitadores,
+            getGrupos: getGrupos,
             getInscripcionCiclos: getInscripcionCiclos
         }
     }
