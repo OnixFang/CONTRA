@@ -1,7 +1,7 @@
 (function (params) {
     const app = angular.module('angularApp');
 
-    function cicloController($scope, contraData, $filter) {
+    function preseleccionController($scope, contraData, $filter) {
         $scope.ciclo = { "clave": '', "fecha": '', "grupos": [], };
         $scope.seleccionadas = [];
         $scope.prerrequisitos = [];
@@ -13,17 +13,6 @@
         // Obtiene un array de objetos asignaturas y las asigna a la variable asignaturas
         contraData.getAsignaturas().then(function (response) {
             $scope.asignaturas = response;
-        });
-
-        // Obtiene un array de objetos facilitadores y las asigna a la variable facilitadores
-        contraData.getFacilitadores().then(function (response) {
-            $scope.facilitadores = response;
-
-            angular.forEach($scope.asignaturas, function (asignatura) {
-                if (asignatura.aprovado === 1) {
-                    aprovadas.push(asignatura);
-                }
-            });
         });
 
         // Funcion para agregar asignatura desde el modal
@@ -226,5 +215,5 @@
         }
     }
 
-    app.controller('cicloController', cicloController);
+    app.controller('preseleccionController', preseleccionController);
 }());
