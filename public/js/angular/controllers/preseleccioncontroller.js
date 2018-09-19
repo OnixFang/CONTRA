@@ -40,11 +40,6 @@
             $scope.seleccionadas.splice(index, 1); // Remueve la asignatura de las asignaturas seleccionadas para el ciclo
         }
 
-        // Asigna el ID del facilitador a la asignatura seleccionada para el grupo del ciclo
-        $scope.asignarFacilitador = function asignarFacilitador(id, asignatura) {
-            asignatura.facilitador = id;
-        }
-
         // Actualiza la clave del grupo cuando hay un cambio en la clave del ciclo
         $scope.actualizarGrupoClaveAll = function actualizarGrupoClaveAll() {
             angular.forEach($scope.seleccionadas, function (asignatura) {

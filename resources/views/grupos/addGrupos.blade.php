@@ -47,11 +47,10 @@
 									</tr>
 									<tr>
 										<th class="col-md-6">Clave</th>
-										<th class="col-md">Horario</th>
-										<th class="col-md">Facilitador</th>
-										<th class="col-md">Sección</th>
-										<th class="col-md">Bimestre</th>
-										<th class="col-md">Acciones</th>
+										<th class="col-md-2">Horario</th>
+										<th class="col-md-1">Sección</th>
+										<th class="col-md-1">Bimestre</th>
+										<th class="col-md-2 text-center">Acciones</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -62,11 +61,6 @@
 										</td>
 										<td>
 											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
-										</td>
-										<td>
-											<select ng-change="asignarFacilitador(facilitador.id, asignatura)" ng-model="facilitador.id">
-												<option ng-repeat="facilitador in facilitadores" ng-value="facilitador.id" ng-bind="facilitador.nombre"></option>
-											</select>
 										</td>
 										<td>
 											<input class="form-control" type="number" min="1" ng-model="asignatura.seccion" ng-change="actualizarGrupoClave(asignatura)">
