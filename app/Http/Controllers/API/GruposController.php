@@ -26,12 +26,13 @@ class GruposController extends Controller
         $grupos = collect([]);
 
         if($asignaturas instanceof Collection)
-            $asignaturas->each(function (Asignatura $asignatura) use(&$grupos)
+            $asignaturas->each(function (Asignatura $asignatura) use(&$grupos, $user)
             {
-                $asignatura->grupos()->where('cerrado', 0)->get()->each(function (Grupo $grupo) use(&$grupos, $asignatura)
+                $asignatura->grupos()->where('cerrado', 0)->get()->each(function (Grupo $grupo) use(&$grupos, $user, $asignatura)
                 {
                     $prerequisitos = $asignatura->requisitos;
-                    $aprobado = $grupo->inscripcionCiclo()->where('aprobado', true)->exists();
+                    $aprobado = $user->inscripcionCiclo()->where('grupo_id', $grupo->id)->where('aprobado', true)->exists();
+//                    $aprobado = $grupo->inscripcionCiclo()->where()->where('aprobado', true)->exists();
 
                     $grupos->push([
                         "id" => $grupo->asignatura->id,
@@ -44,7 +45,7 @@ class GruposController extends Controller
                         "seccion" => $grupo->seccion,
                         "bimestre" => $grupo->bimestre,
                         "horario" => $grupo->horario,
-                        "aprovado" => $aprobado,
+                        "aprobado" => $aprobado,
                     ]);
                 });
             });
