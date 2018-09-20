@@ -6,12 +6,12 @@
             return response.data;
         }
 
-        // function getAsignaturas() {
-        //     return $http.get('api/asignatura_api').then(returnData);
-        // }
+        function getAsignaturasAprobadas(userId) {
+            return $http.get('api/aprobadas/' + userId).then(returnData);
+        }
 
-        function getGrupos() {
-            return $http.get('api/grupo_api').then(returnData);
+        function getGrupos(userId) {
+            return $http.get('api/grupos/' + userId).then(returnData);
         }
 
         function getInscripcionCiclos(userId) {
@@ -26,14 +26,10 @@
         //     });
         // }
 
-        // Obsolete
-        // function getCiclosCerrados() {
-        //     return $http.get('api/ciclo_api').then(returnData);
-        // }
-
         return {
             getGrupos: getGrupos,
-            getInscripcionCiclos: getInscripcionCiclos
+            getInscripcionCiclos: getInscripcionCiclos,
+            getAsignaturasAprobadas: getAsignaturasAprobadas
         }
     }
 
