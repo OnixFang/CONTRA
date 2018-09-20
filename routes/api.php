@@ -23,4 +23,4 @@ Route::get('grupo_api','GrupoController@grupo_api');
 Route::post('ciclo_api','GrupoController@store');
 Route::get('ciclo_api/{userId}','CicloController@ciclo_api');
 Route::get('grupos/{userid}', '\App\Http\Controllers\API\GruposController@index');
-Route::get('asignaturas/{userid}', '\App\Http\Controllers\API\AsignaturasController@index');
+Route::get('aprobadas/{userid}', '\App\Http\Controllers\API\AsignaturasController@index');
