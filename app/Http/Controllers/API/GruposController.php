@@ -8,15 +8,23 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
+use App\Services\InscripcionCicloService;
 
 class GruposController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @var InscripcionCicloService
+     * @param InscripcionCicloService $inscripcionCicloService
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(InscripcionCicloService $inscripcionCicloService)
+    {
+        $this->inscripcionCicloService = $inscripcionCicloService;
+    }
+
     public function index($userid)
     {
         $user = User::findOrFail($userid);
@@ -25,14 +33,12 @@ class GruposController extends Controller
 
         $grupos = collect([]);
 
-        if($asignaturas instanceof Collection)
-            $asignaturas->each(function (Asignatura $asignatura) use(&$grupos, $user)
-            {
-                $asignatura->grupos()->where('cerrado', 0)->get()->each(function (Grupo $grupo) use(&$grupos, $user, $asignatura)
-                {
+        if ($asignaturas instanceof Collection) {
+            $asignaturas->each(function (Asignatura $asignatura) use (&$grupos, $user) {
+                $asignatura->grupos()->where('cerrado', 0)->get()->each(function (Grupo $grupo) use (&$grupos, $user, $asignatura) {
                     $prerequisitos = $asignatura->requisitos;
-                    $aprobado = $user->inscripcionCiclo()->where('grupo_id', $grupo->id)->where('aprobado', true)->exists();
-//                    $aprobado = $grupo->inscripcionCiclo()->where()->where('aprobado', true)->exists();
+
+                    $aprobado = $this->inscripcionCicloService->checkIfApproved($user, $grupo->asignatura->clave);
 
                     $grupos->push([
                         "id" => $grupo->asignatura->id,
@@ -49,6 +55,7 @@ class GruposController extends Controller
                     ]);
                 });
             });
+        }
 
         return response()->json($grupos);
     }
