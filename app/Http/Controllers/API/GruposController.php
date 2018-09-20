@@ -42,6 +42,7 @@ class GruposController extends Controller
 
                     $grupos->push([
                         "id" => $grupo->asignatura->id,
+                        "grupoId" => $grupo->id,
                         "clave" => $grupo->asignatura->clave,
                         "descripcion" => $grupo->asignatura->descripcion,
                         "cr" => $grupo->asignatura->cr,
