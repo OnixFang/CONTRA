@@ -105,7 +105,7 @@
 								<td ng-bind="asignatura.clave"></td>
 								<td ng-bind="asignatura.descripcion"></td>
 								<td ng-bind="asignatura.cr"></td>
-								<td ng-bind="asignatura.cr"></td>
+								<td ng-bind="asignatura.horario"></td>
 								<td class="text-right">
 									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura)">Agregar</button>
 								</td>
