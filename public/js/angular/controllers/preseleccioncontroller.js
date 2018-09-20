@@ -215,13 +215,15 @@
                     let grupo = {};
                     grupo.clave = $scope.ciclo.clave;
                     grupo.id = asignatura.grupoId;
-                    grupo.usuarioId = $scope.userId;
                     prematricula.push(grupo);
                 });
 
                 // Mandar el request para guardar el ciclo en la base de datos
-                console.log(prematricula);
-                // contraData.saveCiclo($scope.ciclo);
+                let request = {};
+                request.userId = $scope.userId;
+                request.prematriculas = prematricula;
+                console.log(request);
+                contraData.savePrematricula(request);
             }
         }
 

@@ -18,18 +18,18 @@
             return $http.get('api/ciclo_api/' + userId).then(returnData);
         }
 
-        // Obsolete
-        // function saveCiclo(ciclo) {
-        //     $http.post('api/ciclo_api', ciclo).then(function (data, status) {
-        //         console.log(data);
-        //         window.location.href = data.data;
-        //     });
-        // }
+        function savePrematricula(request) {
+            $http.post('api/prematricula', request).then(function (data, status) {
+                console.log(data);
+                window.location.href = data.data;
+            });
+        }
 
         return {
             getGrupos: getGrupos,
             getInscripcionCiclos: getInscripcionCiclos,
-            getAsignaturasAprobadas: getAsignaturasAprobadas
+            getAsignaturasAprobadas: getAsignaturasAprobadas,
+            savePrematricula: savePrematricula
         }
     }
 
