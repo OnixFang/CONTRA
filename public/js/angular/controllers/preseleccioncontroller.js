@@ -1,4 +1,4 @@
-(function (params) {
+(function () {
     const app = angular.module('angularApp');
 
     function preseleccionController($scope, contraData, $filter) {
