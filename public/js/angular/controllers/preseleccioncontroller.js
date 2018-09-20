@@ -2,12 +2,15 @@
     const app = angular.module('angularApp');
 
     function preseleccionController($scope, contraData, $filter) {
-        $scope.ciclo = { "clave": '', "fecha": '', "grupos": [], };
+        $scope.ciclo = {};
+        $scope.ciclo.clave = calcularCicloClave();
         $scope.asignaturas = [];
         $scope.seleccionadas = [];
         $scope.prerrequisitos = [];
         $scope.tempAsignatura = null;
         $scope.showAgregar = false;
+
+        let prematricula = [];
 
         let aprobadas = []; // Arreglo de asignaturas aprobadas
 
@@ -23,6 +26,21 @@
                 }
             });
         });
+
+        function calcularCicloClave() {
+            const currentDate = new Date();
+            const month = currentDate.getMonth();
+            const year = currentDate.getFullYear();
+            let yearThird = 1;
+
+            if (month <= 4) {
+                return year + '-' + 1;
+            } else if (month <= 8) {
+                return year + '-' + 2;
+            } else if (month <= 12) {
+                return year + '-' + 3;
+            }
+        }
 
         // Funcion para agregar asignatura desde el modal
         $scope.agregarTempAsignatura = function agregarTempAsignatura(tempAsignatura) {
@@ -52,13 +70,13 @@
         // Actualiza la clave del grupo cuando hay un cambio en la clave del ciclo
         $scope.actualizarGrupoClaveAll = function actualizarGrupoClaveAll() {
             angular.forEach($scope.seleccionadas, function (asignatura) {
-                asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre;
+                asignatura.grupo = asignatura.clave + '-' + asignatura.descripcion;
             })
         }
 
         // Actualiza la clave del grupo cuando hay un cambio en la seccion y el bimestre
         $scope.actualizarGrupoClave = function actualizarGrupoClave(asignatura) {
-            asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre;
+            asignatura.grupo = asignatura.clave + '-' + asignatura.descripcion;
         }
 
         // Lógica exaustiva para confirmar si la asignatura puede ser cursada sin restricciones o prerrequisitos pendiendes
@@ -195,17 +213,14 @@
             } else {
                 angular.forEach($scope.seleccionadas, function (asignatura) {
                     let grupo = {};
-                    grupo.clave = asignatura.grupo;
-                    grupo.horario = $filter('date')(asignatura.horario, "yyyy-MM-dd HH:mm:ss"); // Dar formato apropiado al horario del grupo
-                    grupo.bimestre = asignatura.bimestre;
-                    grupo.asignatura = asignatura.id;
-                    $scope.ciclo.grupos.push(grupo);
+                    grupo.clave = $scope.ciclo.clave;
+                    grupo.id = asignatura.grupoId;
+                    grupo.usuarioId = $scope.userId;
+                    prematricula.push(grupo);
                 });
 
-                // Dar formato apropiado a la fecha del ciclo
-                $scope.ciclo.fecha = $filter('date')($scope.ciclo.fecha, "yyyy-MM-dd");
-
                 // Mandar el request para guardar el ciclo en la base de datos
+                console.log(prematricula);
                 // contraData.saveCiclo($scope.ciclo);
             }
         }

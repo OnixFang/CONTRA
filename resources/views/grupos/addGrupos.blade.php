@@ -26,19 +26,9 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Ciclo</div>
+				<div class="panel-heading">Ciclo <span ng-bind="ciclo.clave"></span></div>
 				<form>
 					<div class="panel-body">
-						<div class="col-md">
-							<div class="form-group col-md-9">
-								<label>Clave</label>
-								<input type="text" name="clave" id="clave" class="form-control" ng-model="ciclo.clave" ng-change="actualizarGrupoClaveAll()">
-							</div>
-							<div class="form-group col-md-3">
-								<label>Fecha</label>
-								<input type="date" name="fecha" id="fecha" class="form-control" ng-model="ciclo.fecha">
-							</div>
-						</div>
 						<div class="col-md-12">
 							<table class="table table-striped table-hover">
 								<thead>
@@ -46,7 +36,7 @@
 										<th>Grupos</th>
 									</tr>
 									<tr>
-										<th class="col-md-6">Clave</th>
+										<th class="col-md-6">Asignatura</th>
 										<th class="col-md-2">Horario</th>
 										<th class="col-md-1">Sección</th>
 										<th class="col-md-1">Bimestre</th>
@@ -55,20 +45,11 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="asignatura in seleccionadas">
-										<td>
-											<input class="form-control" id="claveGrupo" ng-change="actualizarGrupoClave(asignatura)" ng-model="asignatura.grupo" ng-value="ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre"
-											 readonly>
-										</td>
-										<td>
-											<input class="form-control" type="datetime-local" ng-model="asignatura.horario">
-										</td>
-										<td>
-											<input class="form-control" type="number" min="1" ng-model="asignatura.seccion" ng-change="actualizarGrupoClave(asignatura)">
-										</td>
-										<td>
-											<input class="form-control" type="number" min="1" max="2" ng-model="asignatura.bimestre" ng-change="actualizarGrupoClave(asignatura)">
-										</td>
-										<td class="text-right">
+										<td ng-bind="asignatura.clave + '-' + asignatura.descripcion"></td>
+										<td ng-bind="asignatura.horario"></td>
+										<td ng-bind="asignatura.seccion"></td>
+										<td ng-bind="asignatura.bimestre"></td>
+										<td class="text-center">
 											<button class="btn btn-danger" ng-click="removerAsignatura(asignatura, $index)">Remover</button>
 										</td>
 									</tr>
@@ -88,16 +69,16 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Asignaturas</div>
+				<div class="panel-heading">Grupos disponibles</div>
 				<div class="panel-body">
 					<table class="table table-striped table-hover">
 						<thead>
 							<tr>
-								<th>Clave</th>
-								<th>Descripción</th>
-								<th>CR</th>
-								<th>Horario</th>
-								<th class="text-center">Acciones</th>
+								<th class="col-md-2">Clave</th>
+								<th class="col-md-6">Descripción</th>
+								<th class="col-md-1">Creditos</th>
+								<th class="col-md-2">Horario</th>
+								<th class="col-md-1 text-center">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -106,7 +87,7 @@
 								<td ng-bind="asignatura.descripcion"></td>
 								<td ng-bind="asignatura.cr"></td>
 								<td ng-bind="asignatura.horario"></td>
-								<td class="text-right">
+								<td class="text-center">
 									<button class="btn btn-primary" ng-click="validarAsignatura(asignatura)">Agregar</button>
 								</td>
 							</tr>
