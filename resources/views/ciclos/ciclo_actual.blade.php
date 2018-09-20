@@ -14,7 +14,7 @@
         <li><a href="/">
                 <em class="fa fa-home"></em>
             </a></li>
-        <li class="active">Ciclos</li>
+        <li class="active">Ciclo en curso</li>
     </ol>
 </div>
 <!--/.row-->

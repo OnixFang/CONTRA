@@ -23,14 +23,14 @@
 			</a>
 			<ul class="children collapse" id="sub-item-3">
 				<li><a class="" href="/grupo">
-						<span class="fa fa-arrow-right">&nbsp;</span> Inscribir Nuevo
+						<span class="fa fa-arrow-right">&nbsp;</span> Preselección de asignaturas
 					</a></li>
 				<li><a class="" href="/ciclo">
-						<span class="fa fa-arrow-right">&nbsp;</span> Historial
+						<span class="fa fa-arrow-right">&nbsp;</span> Historial de ciclos
 					</a></li>
 
 				<li><a class="" href="/cicloactual">
-						<span class="fa fa-arrow-right">&nbsp;</span> Actual
+						<span class="fa fa-arrow-right">&nbsp;</span> Ciclo en curso
 					</a></li>
 			</ul>
 		<li>

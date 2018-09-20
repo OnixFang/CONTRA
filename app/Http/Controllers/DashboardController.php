@@ -35,8 +35,8 @@ class DashboardController extends Controller
                 $pendientes->push($asignatura);
         });
 
-        $ciclos = Auth::user()->inscripcionCiclo()->orderBy('clave', 'asc')->get();
-        $collection = $ciclos->groupBy('clave');
+        $ciclosa = Auth::user()->inscripcionCiclo()->orderBy('clave', 'asc')->get();
+        $collection = $ciclosa->groupBy('clave');
         $cicloactual = $collection->last();
 
         return view('dashboard',compact('asignaturas','ciclos','aprobadas','pendientes','cicloactual'));
