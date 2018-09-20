@@ -51,7 +51,7 @@ class Asignatura extends Model
 
     public function grupos()
     {
-        return $this->belongsTo('App\Grupo','id_asignatura');
+        return $this->hasMany('App\Grupo','asignatura_id');
     }
 
     public function requisitos ()
@@ -59,4 +59,8 @@ class Asignatura extends Model
         return $this->belongsToMany(Asignatura::class, 'asignaturas_requisitos', 'asignatura_id', 'requisito_id');
     }
 
+    public function inscripcion_ciclo ()
+    {
+        return $this->hasMany(InscripcionCiclo::class);
+    }
 }
