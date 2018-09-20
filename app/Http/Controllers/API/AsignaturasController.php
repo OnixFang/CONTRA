@@ -6,18 +6,26 @@ use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\InscripcionCicloService;
 
 class AsignaturasController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * @var InscripcionCicloService
+     * @param InscripcionCicloService $inscripcionCicloService
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(InscripcionCicloService $inscripcionCicloService)
+    {
+        $this->inscripcionCicloService = $inscripcionCicloService;
+    }
+
     public function index($userid)
     {
         $user = User::findOrFail($userid);
-        return response()->json($user->inscripcion()->pensum->asignaturas);
+        return response()->json($this->inscripcionCicloService->getSubjectsApproved($user));
     }
 
     /**
