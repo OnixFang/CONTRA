@@ -20,7 +20,7 @@
 			<a href="/"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a>
 		</li>
 		<li class="{{ request()->is('pensum') ? 'active' : '' }}">
-			<a href="/pensum"><em class="fa fa-calendar ">&nbsp;</em>Pensum</a>
+			<a href="/pensum"><em class="fa fa-calendar ">&nbsp;</em> Pensum</a>
 		</li>
 		<li><a class="" href="/grupo">
 				<span class="fa fa-calendar">&nbsp;</span> Simulación de preselección
