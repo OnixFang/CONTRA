@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Prematricula;
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use App\Grupo;
-use App\Facilitador;
-use App\Asignatura;
-use App\Ciclo;
+use Illuminate\Support\Collection;
 
-class GrupoController extends Controller
+class PrematriculasApi extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,29 +17,8 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        $grupos = Grupo::all();
-        //$facilitadores = Facilitador::pluck('nombre','id');
-        $asignaturas = Asignatura::pluck('descripcion', 'id');
-        return view('grupos.addGrupos', compact('grupos', 'asignaturas'));
+        
     }
-
-    public function asignatura_api()
-    {
-        $asignatura = Asignatura::all();
-        return $asignatura;
-    }
-
-    public function grupo_api()
-    {
-        $asignatura = Asignatura::all();
-        return $asignatura;
-    }
-
-    // public function facilitador_api()
-    // {
-    //     $facilitador = Facilitador::all();
-    //     return $facilitador;
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -53,10 +30,6 @@ class GrupoController extends Controller
         //
     }
 
-    public function return_view()
-    {
-
-    }
     /**
      * Store a newly created resource in storage.
      *
@@ -65,19 +38,15 @@ class GrupoController extends Controller
      */
     public function store(Request $request)
     {
-        $ciclo = Ciclo::create($request->all());
-        $ciclo_id = $ciclo->id;
-        $grupos = $request->grupos;
-        //return response (count($grupos));
-        //return response($grupos[0]['clave']);
-        foreach ($grupos as $grupo) {
-            Grupo::create([
-                'clave' => $grupo['clave'],
-                'id_asignatura' => $grupo['asignatura'],
-                'bimestre' => $grupo['bimestre'],
-                'id_facilitador' => $grupo['facilitador'],
-                'horario' => $grupo['horario'],
-                'id_ciclo' => $ciclo_id,
+        $user = User::findOrFail($request->userId);
+        $prematriculas = $request->prematriculas;
+
+        foreach ($prematriculas as $prematricula) {
+            Prematricula::create([
+                'clave' => $prematricula['clave'],
+                'inscripcion_id' => $user->inscripcion()->id,
+                'grupo_id' => $prematricula['id'],
+                'usuario_id' => $request->userId
             ]);
         }
         return Response(action('CicloController@actual'), 200);

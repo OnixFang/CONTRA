@@ -1,30 +1,46 @@
-(function (params) {
+(function () {
     const app = angular.module('angularApp');
 
-    function cicloController($scope, contraData, $filter) {
-        $scope.ciclo = { "clave": '', "fecha": '', "grupos": [], };
+    function preseleccionController($scope, contraData, $filter) {
+        $scope.ciclo = {};
+        $scope.ciclo.clave = calcularCicloClave();
+        $scope.asignaturas = [];
         $scope.seleccionadas = [];
         $scope.prerrequisitos = [];
         $scope.tempAsignatura = null;
         $scope.showAgregar = false;
 
-        let aprovadas = []; // Arreglo de asignaturas aprovadas
+        let prematricula = [];
+
+        let aprobadas = []; // Arreglo de asignaturas aprobadas
+
+        contraData.getAsignaturasAprobadas($scope.userId).then(function (response) {
+            aprobadas = response; // Arreglo de asignaturas aprobadas
+        })
 
         // Obtiene un array de objetos asignaturas y las asigna a la variable asignaturas
-        contraData.getAsignaturas().then(function (response) {
-            $scope.asignaturas = response;
-        });
-
-        // Obtiene un array de objetos facilitadores y las asigna a la variable facilitadores
-        contraData.getFacilitadores().then(function (response) {
-            $scope.facilitadores = response;
-
-            angular.forEach($scope.asignaturas, function (asignatura) {
-                if (asignatura.aprovado === 1) {
-                    aprovadas.push(asignatura);
+        contraData.getGrupos($scope.userId).then(function (response) {
+            angular.forEach(response, function (asignatura) {
+                if (asignatura.aprobado === false) {
+                    $scope.asignaturas.push(asignatura);
                 }
             });
         });
+
+        function calcularCicloClave() {
+            const currentDate = new Date();
+            const month = currentDate.getMonth();
+            const year = currentDate.getFullYear();
+            let yearThird = 1;
+
+            if (month <= 4) {
+                return year + '-' + 1;
+            } else if (month <= 8) {
+                return year + '-' + 2;
+            } else if (month <= 12) {
+                return year + '-' + 3;
+            }
+        }
 
         // Funcion para agregar asignatura desde el modal
         $scope.agregarTempAsignatura = function agregarTempAsignatura(tempAsignatura) {
@@ -32,7 +48,7 @@
             $('#cicloModal').modal('hide');
             $scope.clearModalMessage();
         }
-        
+
         // Agrega la asignatura seleccionada para el grupo del ciclo
         function agregarAsignatura(asignatura) {
             $scope.seleccionadas.push(asignatura);
@@ -51,21 +67,16 @@
             $scope.seleccionadas.splice(index, 1); // Remueve la asignatura de las asignaturas seleccionadas para el ciclo
         }
 
-        // Asigna el ID del facilitador a la asignatura seleccionada para el grupo del ciclo
-        $scope.asignarFacilitador = function asignarFacilitador(id, asignatura) {
-            asignatura.facilitador = id;
-        }
-
         // Actualiza la clave del grupo cuando hay un cambio en la clave del ciclo
         $scope.actualizarGrupoClaveAll = function actualizarGrupoClaveAll() {
             angular.forEach($scope.seleccionadas, function (asignatura) {
-                asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre;
+                asignatura.grupo = asignatura.clave + '-' + asignatura.descripcion;
             })
         }
 
         // Actualiza la clave del grupo cuando hay un cambio en la seccion y el bimestre
         $scope.actualizarGrupoClave = function actualizarGrupoClave(asignatura) {
-            asignatura.grupo = $scope.ciclo.clave + '-' + asignatura.clave + '-' + asignatura.descripcion + '-' + asignatura.seccion + '-' + asignatura.bimestre;
+            asignatura.grupo = asignatura.clave + '-' + asignatura.descripcion;
         }
 
         // Lógica exaustiva para confirmar si la asignatura puede ser cursada sin restricciones o prerrequisitos pendiendes
@@ -73,7 +84,7 @@
             // Agregar la asignatura a una variable temporal
             $scope.tempAsignatura = asignatura;
             // Confirmar si la asignatura es propedéutico
-            if (!asignatura.aprovado) {
+            if (!asignatura.aprobado) {
                 if (!asignatura.propedeutico) {
                     var noPropedeutico = 0; // Inicializacion de numero de asignaturas seleccionadas
 
@@ -98,13 +109,13 @@
 
                         // Confirmar si el prerrequisito 1 ya se ha cumplido
                         if (asignatura.pre_requisito1 !== null) {
-                            for (let i = 0; i < aprovadas.length; i += 1) {
-                                if (asignatura.pre_requisito1 === aprovadas[i].id) {
-                                    console.log('Prerrequisito 1 aprovado! ' + aprovadas[i].descripcion);
+                            for (let i = 0; i < aprobadas.length; i += 1) {
+                                if (asignatura.pre_requisito1 === aprobadas[i].id) {
+                                    console.log('Prerrequisito 1 aprobado! ' + aprobadas[i].descripcion);
                                     prerrequisito1 = true;
                                     break;
                                 } else {
-                                    console.log('Prerrequisito 1 no coincide: ' + aprovadas[i].descripcion);
+                                    console.log('Prerrequisito 1 no coincide: ' + aprobadas[i].descripcion);
                                 }
                             }
                         } else {
@@ -113,13 +124,13 @@
 
                         // Confirmar si el prerrequisito 2 ya se ha cumplido
                         if (asignatura.pre_requisito2 !== null) {
-                            for (let i = 0; i < aprovadas.length; i += 1) {
-                                if (asignatura.pre_requisito2 === aprovadas[i].id) {
-                                    console.log('Prerrequisito 2 aprovado! ' + aprovadas[i].descripcion);
+                            for (let i = 0; i < aprobadas.length; i += 1) {
+                                if (asignatura.pre_requisito2 === aprobadas[i].id) {
+                                    console.log('Prerrequisito 2 aprobado! ' + aprobadas[i].descripcion);
                                     prerrequisito2 = true;
                                     break;
                                 } else {
-                                    console.log('Prerrequisito 2 no coincide: ' + aprovadas[i].descripcion);
+                                    console.log('Prerrequisito 2 no coincide: ' + aprobadas[i].descripcion);
                                 }
                             }
                         } else {
@@ -134,7 +145,7 @@
                             if (!prerrequisito1) {
                                 for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                                     if (asignatura.pre_requisito1 === $scope.asignaturas[i].id) {
-                                        console.log('Prerrequisito 1 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        console.log('Prerrequisito 1 no aprobado: ' + $scope.asignaturas[i].descripcion);
                                         $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
                                         break;
                                     }
@@ -144,7 +155,7 @@
                             if (!prerrequisito2) {
                                 for (let i = 0; i < $scope.asignaturas.length; i += 1) {
                                     if (asignatura.pre_requisito2 === $scope.asignaturas[i].id) {
-                                        console.log('Prerrequisito 2 no aprovado: ' + $scope.asignaturas[i].descripcion);
+                                        console.log('Prerrequisito 2 no aprobado: ' + $scope.asignaturas[i].descripcion);
                                         $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
                                         break;
                                     }
@@ -155,9 +166,9 @@
                             $scope.showAgregar = true;
                             $('#cicloModal').modal('show');
                         }
-                        // En caso de que ambos prerrequisitos estén aprovados
+                        // En caso de que ambos prerrequisitos estén aprobados
                         else {
-                            console.log('Prerrequisitos aprovados');
+                            console.log('Prerrequisitos aprobados');
                             agregarAsignatura(asignatura);
                             console.log('Asignatura no propedeutico agregado.');
                         }
@@ -177,11 +188,11 @@
                 }
             }
 
-            // En caso de que la asignatura ya esté aprovada
+            // En caso de que la asignatura ya esté aprobada
             else {
-                $scope.modalMessage = 'Esta asignatura ya fue aprovada.';
+                $scope.modalMessage = 'Esta asignatura ya fue aprobada.';
                 $('#cicloModal').modal('show');
-                console.log('Esta asignatura ya fue aprovada.');
+                console.log('Esta asignatura ya fue aprobada.');
             }
         } // Fin de la validación
 
@@ -202,19 +213,17 @@
             } else {
                 angular.forEach($scope.seleccionadas, function (asignatura) {
                     let grupo = {};
-                    grupo.clave = asignatura.grupo;
-                    grupo.horario = $filter('date')(asignatura.horario, "yyyy-MM-dd HH:mm:ss"); // Dar formato apropiado al horario del grupo
-                    grupo.facilitador = asignatura.facilitador;
-                    grupo.bimestre = asignatura.bimestre;
-                    grupo.asignatura = asignatura.id;
-                    $scope.ciclo.grupos.push(grupo);
+                    grupo.clave = $scope.ciclo.clave;
+                    grupo.id = asignatura.grupoId;
+                    prematricula.push(grupo);
                 });
 
-                // Dar formato apropiado a la fecha del ciclo
-                $scope.ciclo.fecha = $filter('date')($scope.ciclo.fecha, "yyyy-MM-dd");
-
                 // Mandar el request para guardar el ciclo en la base de datos
-                contraData.saveCiclo($scope.ciclo);
+                let request = {};
+                request.userId = $scope.userId;
+                request.prematriculas = prematricula;
+                console.log(request);
+                contraData.savePrematricula(request);
             }
         }
 
@@ -226,5 +235,5 @@
         }
     }
 
-    app.controller('cicloController', cicloController);
+    app.controller('preseleccionController', preseleccionController);
 }());

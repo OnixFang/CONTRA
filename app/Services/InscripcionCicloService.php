@@ -102,10 +102,11 @@ class InscripcionCicloService
         $subjectsApproved = $this->getSubjectsApproved($user);
         foreach ($subjectsApproved as $subject)
         {
-            if($subject->clave == $asignaturaId){
+            if($subject->clave == $asignaturaId) {
                 return true;
             }
         }
+        return false;
     }
 
     public function getCyclesCompleted(User $user)

@@ -40,14 +40,4 @@ class Grupo extends Model
         return $this->hasMany(InscripcionCiclo::class,'grupo_id');
     }
 
-//    public function facilitadores(){
-//
-//        return $this->belongsTo('App\Facilitador','id_facilitador');
-//    }
-//
-//    public function ciclo(){
-//
-//        return $this->belongsTo('App\Ciclo','id_ciclo');
-//    }
-
 }
