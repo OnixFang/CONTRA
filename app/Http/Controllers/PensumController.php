@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Pensum;
 use Auth;
+use App\Pensum;
+use Illuminate\Http\Request;
 
 class PensumController extends Controller
 {
@@ -15,11 +15,25 @@ class PensumController extends Controller
      */
     public function index()
     {
-       $inscripcion = Auth::user()->inscripciones()->first();
-       $pensum = $inscripcion->pensum;
-       $asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
-       $collection = $asignaturas;
-       return view('pensum.show',compact('asignaturas', 'collection','pensum'));
+        $inscripcion = Auth::user()->inscripciones()->first();
+        $pensum = $inscripcion->pensum;
+        $asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
+        $collection = $asignaturas;
+        return view('pensum.show', compact('asignaturas', 'collection', 'pensum'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function aprobadas()
+    {
+        $inscripcion = Auth::user()->inscripciones()->first();
+        $pensum = $inscripcion->pensum;
+        $asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
+        $collection = $asignaturas;
+        return view('pensum.aprobadas', compact('asignaturas', 'collection', 'pensum'));
     }
 
     /**
@@ -40,10 +54,10 @@ class PensumController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         Pensum::create([
-                        'descripcion'=> $request->descripcion
-                    ]);
+            'descripcion' => $request->descripcion,
+        ]);
         return redirect()->route('pensum.index')->withMessage("El pensum fue creado exitosamente");
     }
 
@@ -79,9 +93,9 @@ class PensumController extends Controller
      */
     public function update(Request $request, $id)
     {
-       Pensum::find($id)->update($request->all());
+        Pensum::find($id)->update($request->all());
 
-       return redirect()->route('pensum.index')->withMessage("pensum Editado");
+        return redirect()->route('pensum.index')->withMessage("pensum Editado");
     }
 
     /**
@@ -94,7 +108,6 @@ class PensumController extends Controller
     {
         Pensum::destroy($id);
         return redirect()->route('pensum.index')->withMessage('El pensum ha sido borrado correctamente');
-
 
     }
 }

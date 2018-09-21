@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function ()
         Route::resource('ciclo','CicloController');
         Route::resource('prematricula','PrematriculasController');
         Route::get('cicloactual','CicloController@actual');
+        Route::get('pensum/aprobadas','PensumController@aprobadas');
     });
 });
 

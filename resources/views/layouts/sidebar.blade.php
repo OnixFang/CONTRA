@@ -24,6 +24,9 @@
 		<li class="{{ request()->is('pensum') ? 'active' : '' }}">
 			<a href="/pensum"><em class="fa fa-file">&nbsp;</em> Pensum</a>
 		</li>
+		<li class="{{ request()->is('pensum') ? 'active' : '' }}">
+			<a href="/pensum/aprobadas"><em class="fa fa-file">&nbsp;</em> Asignaturas aprobadas</a>
+		</li>
 		<li><a class="" href="/prematricula">
 				<span class="fa fa-check">&nbsp;</span> Consulta de simulación
 			</a></li>
