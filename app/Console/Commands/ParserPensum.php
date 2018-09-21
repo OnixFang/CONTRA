@@ -166,8 +166,10 @@ class ParserPensum extends Command
                                 if(stripos($data[count($data)-1],','))
                                     $requirements = collect(explode(',', html_entity_decode(trim($data[count($data)-1]))));
 
-                                if(stripos($data[count($data)-1],'/'))
+                                elseif(stripos($data[count($data)-1],'/'))
                                     $requirements = collect(explode('/', html_entity_decode(trim($data[count($data)-1]))));
+                                else
+                                    $requirements = collect(html_entity_decode(trim($data[count($data)-1])));
 
 //                                collect(explode(',', html_entity_decode(trim($data[count($data)-1]))))->map(function ($requirement) use ($subject, $pensum) {
                                 $requirements->map(function ($requirement) use ($subject, $pensum) {
