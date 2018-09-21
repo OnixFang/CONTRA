@@ -113,4 +113,19 @@ class InscripcionCicloService
     {
         return $user->inscripcionCiclo()->select('clave')->groupBy('clave')->get();
     }
+
+    public function getSubjectGrade(User $user, $asignaturaId)
+    {
+        return $user->inscripcionCiclo()->select('nota')
+        ->join('grupos','inscripcion_ciclo.grupo_id','=','grupos.id')
+        ->where('grupos.asignatura_id','=',$asignaturaId)->first()->nota;
+    }
+
+    public function getSubjectLiteral(User $user, $asignaturaId)
+    {
+        return $user->inscripcionCiclo()->select('literal')
+        ->join('grupos','inscripcion_ciclo.grupo_id','=','grupos.id')
+        ->where('grupos.asignatura_id','=',$asignaturaId)->first()->literal;
+    }
+    
 }

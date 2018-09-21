@@ -44,8 +44,6 @@ class PensumController extends Controller
     {
         $inscripcion = Auth::user()->inscripciones()->first();
         $pensum = $inscripcion->pensum;
-
-        //$asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
         $user = Auth::user();
         $asignaturas = $this->inscripcionCicloService->getSubjectsApproved($user);
         $collection = $asignaturas->groupBy('cuatrimestre');
