@@ -158,12 +158,19 @@ class ParserPensum extends Command
 
 
                                 if($subject->clave == Asignatura::SOC500)
-
                                     $subject = Asignatura::whereClave(Asignatura::SOC600)->first();
 
                                 $pensum->asignaturas()->attach($subject->id);
 
-                                collect(explode(',', html_entity_decode(trim($data[count($data)-1]))))->map(function ($requirement) use ($subject, $pensum) {
+                                $requirements = collect([]);
+                                if(stripos($data[count($data)-1],','))
+                                    $requirements = collect(explode(',', html_entity_decode(trim($data[count($data)-1]))));
+
+                                if(stripos($data[count($data)-1],'/'))
+                                    $requirements = collect(explode('/', html_entity_decode(trim($data[count($data)-1]))));
+
+//                                collect(explode(',', html_entity_decode(trim($data[count($data)-1]))))->map(function ($requirement) use ($subject, $pensum) {
+                                $requirements->map(function ($requirement) use ($subject, $pensum) {
                                     $clave = format_subject_key($requirement);
                                     $subject_requirement = Asignatura::where('clave', $clave)->first();
                                     if ($subject_requirement !== null)
