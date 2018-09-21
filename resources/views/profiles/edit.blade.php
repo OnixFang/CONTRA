@@ -56,7 +56,7 @@
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         @if((bool)Auth::user()->activate == true)
-                            <button type="reset" class="btn btn-default">Cancelar</button>
+                            <a href="{{ url('/') }}" class="btn btn-default">Cancelar</a>
                         @endif
                     </div>
                     {{--</div>--}}
