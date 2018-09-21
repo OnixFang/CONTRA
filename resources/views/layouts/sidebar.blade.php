@@ -19,20 +19,20 @@
 	</form> --}}
 	<ul class="nav menu">
 		<li class="{{ request()->is('/') ? 'active' : '' }}">
-			<a href="/"><em class="fa fa-dashboard">&nbsp;</em> Dashboard</a>
+			<a href="/"><em class="fa fa-address-card">&nbsp;</em> Dashboard</a>
 		</li>
 		<li class="{{ request()->is('pensum') ? 'active' : '' }}">
-			<a href="/pensum"><em class="fa fa-calendar">&nbsp;</em> Pensum</a>
+			<a href="/pensum"><em class="fa fa-file">&nbsp;</em> Pensum</a>
 		</li>
-		<li><a class="" href="/grupo">
-				<span class="fa fa-calendar">&nbsp;</span> Simulación de preselección
-			</a></li>
 		<li><a class="" href="/prematricula">
-				<span class="fa fa-calendar">&nbsp;</span> Consulta de simulación
+				<span class="fa fa-check">&nbsp;</span> Consulta de simulación
+			</a></li>
+		<li><a class="" href="/grupo">
+				<span class="fa fa-circle-notch">&nbsp;</span> Simulación de preselección
 			</a></li>
 		<li class="{{ request()->is('grupo') ? 'active' : '' }} {{ request()->is('ciclo') ? 'active' : '' }} {{ request()->is('cicloactual') ? 'active' : '' }} parent ">
 			<a data-toggle="collapse" href="#sub-item-3">
-				<em class="fab fa-cloudscale">&nbsp;</em>
+				<em class="fa fa-history">&nbsp;</em>
 				Ciclos
 				<span data-toggle="collapse" href="#sub-item-1" class="icon pull-right">
 					<em class="fa fa-plus"></em>
@@ -49,8 +49,7 @@
 			</ul>
 		<li>
 
-			<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+			<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 				{{ __('Salir') }}
 			</a>
 			<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
