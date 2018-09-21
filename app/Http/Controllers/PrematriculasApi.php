@@ -49,7 +49,7 @@ class PrematriculasApi extends Controller
                 'usuario_id' => $request->userId
             ]);
         }
-        return Response(action('CicloController@actual'), 200);
+        return Response(action('PrematriculasController@index'), 200);
     }
 
     /**

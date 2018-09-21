@@ -16,13 +16,9 @@ class PrematriculasController extends Controller
      */
     public function index()
     {
-        $ciclos = Auth::user()->inscripcionCiclo()->orderBy('clave', 'asc')->get();
+        $collection = Auth::user()->prematricula()->orderBy('clave', 'asc')->get();
 
-        $collection = $ciclos->groupBy('clave');
-
-        $cicloactual = $collection->last();
-
-        return view('prematricula.prematricula', compact('cicloactual'));
+        return view('prematricula.prematricula', compact('collection'));
     }
 
     /**

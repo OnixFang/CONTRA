@@ -32,35 +32,41 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
+            @if($collection->count() !== 0)
             <div class="panel-heading">
-                <h4>Ciclo {{ $cicloactual[0]->clave }}</h4>
+                <h4>Ciclo {{ $collection[0]->clave }}</h4>
             </div>
             <div class="panel-body">
-                @if($cicloactual !== null)
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th class="col-md-1 text-center">Código</th>
-                            <th class="col-md-5 text-center">Asignatura</th>
-                            <th class="col-md-1 text-center">Sección</th>
+                            <th class="col-md-6 text-center">Asignatura</th>
                             <th class="col-md-1 text-center">Créditos</th>
+                            <th class="col-md-1 text-center">Sección</th>
+                            <th class="col-md-2 text-center">Horario</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        @foreach($cicloactual as $grupociclo)
+                        @foreach($collection as $prematricula)
                         <tr>
-                            <td class="text-center"> {{$grupociclo->grupo->asignatura->clave}}</td>
-                            <td> {{$grupociclo->grupo->asignatura->descripcion}}</td>
-                            <td class="text-center"> {{$grupociclo->grupo->seccion}}</td>
-                            <td class="text-right"> {{$grupociclo->grupo->asignatura->cr}}</td>
+                            <td class="text-center"> {{ $prematricula->grupo->asignatura->clave }}</td>
+                            <td> {{ $prematricula->grupo->asignatura->descripcion }}</td>
+                            <td class="text-center"> {{ $prematricula->grupo->asignatura->cr }}</td>
+                            <td class="text-center"> {{ $prematricula->grupo->seccion }}</td>
+                            <td class="text-center"> {{ $prematricula->grupo->horario }}</td>
                         </tr>
                         @endforeach
 
                     </tbody>
                 </table>
                 @else
-                <div class="text-center">{{ "No tiene ningún ciclo en curso" }}</div>
+                <div>
+                    <div class="panel-heading">
+                        <div class="text-center">{{ "No tiene ninguna simulación de preselección." }}</div>
+                    </div>
+                </div>
                 @endif
             </div>
         </div>
