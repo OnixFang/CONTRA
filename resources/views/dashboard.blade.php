@@ -1,4 +1,4 @@
-@extends('layouts/layout')
+@extends('layouts.layout')
 
 @section('content')
 <div ng-controller="dashboardController">

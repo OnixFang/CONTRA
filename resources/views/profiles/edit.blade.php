@@ -1,6 +1,29 @@
 @extends(((bool)Auth::user()->activate == false ? 'layouts.profile':'layouts.layout'))
 
 @section('content')
+    @if((bool)Auth::user()->activate == true)
+        <div class="row">
+            <ol class="breadcrumb">
+                <li><a href="#">
+                        <em class="fa fa-home"></em>
+                    </a></li>
+                <li class="active">Perfil</li>
+                <li class="active">Editar</li>
+            </ol>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Editar Perfil</h1>
+            </div>
+        </div>
+        @if(Session::has('message'))
+            <div class="alert alert-success">
+                {{ Session::get('message') }}
+            </div>
+        @endif
+    @endif
+
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">

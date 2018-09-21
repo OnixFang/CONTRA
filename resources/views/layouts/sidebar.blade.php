@@ -4,7 +4,9 @@
 			<img src="http://placehold.it/50/30a5ff/fff" class="img-responsive" alt="">
 		</div> --}}
 		<div class="profile-usertitle">
-			<div class="profile-usertitle-name"> {{ Auth::user()->first_name." ".Auth::user()->last_name}}</div>
+			<div class="profile-usertitle-name">
+				<a href="{{ route('profiles.edit', Auth::user()) }}">{{ Auth::user()->first_name." ".Auth::user()->last_name}}</a>
+			</div>
 			<div class="profile-usertitle-status"><span class="indicator label-success"></span>Online</div>
 		</div>
 		<div class="clear"></div>
