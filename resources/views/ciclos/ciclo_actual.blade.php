@@ -72,7 +72,7 @@
                     </tbody>
                 </table>
                 @else
-                <div class="text-center">{{ "No tiene ningún ciclo en curso" }}</div>
+                <div class="text-center">{{ "No tiene ningún ciclo en curso." }}</div>
                 @endif
             </div>
         </div>

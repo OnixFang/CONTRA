@@ -58,7 +58,7 @@
 						</div>
 					</div>
 					<div class="panel-footer">
-						<button class="btn btn-primary" ng-click="fillGrupos()">Inscribir Ciclo</button>
+						<button class="btn btn-primary" ng-click="fillGrupos()">Realizar preselección</button>
 					</div>
 				</form>
 			</div>
