@@ -6,30 +6,30 @@
             return response.data;
         }
 
-        function getAsignaturas() {
-            return $http.get('api/asignatura_api').then(returnData);
+        function getAsignaturasAprobadas(userId) {
+            return $http.get('api/aprobadas/' + userId).then(returnData);
         }
 
-        function getFacilitadores() {
-            return $http.get('api/facilitador_api').then(returnData);
+        function getGrupos(userId) {
+            return $http.get('api/grupos/' + userId).then(returnData);
         }
 
-        function saveCiclo(ciclo) {
-            $http.post('api/ciclo_api', ciclo).then(function (data, status) {
+        function getInscripcionCiclos(userId) {
+            return $http.get('api/ciclo_api/' + userId).then(returnData);
+        }
+
+        function savePrematricula(request) {
+            $http.post('api/prematricula', request).then(function (data, status) {
                 console.log(data);
                 window.location.href = data.data;
             });
         }
 
-        function getCiclosCerrados() {
-            return $http.get('api/ciclo_api').then(returnData);
-        }
-
         return {
-            getAsignaturas: getAsignaturas,
-            getFacilitadores: getFacilitadores,
-            saveCiclo: saveCiclo,
-            getCiclosCerrados: getCiclosCerrados,
+            getGrupos: getGrupos,
+            getInscripcionCiclos: getInscripcionCiclos,
+            getAsignaturasAprobadas: getAsignaturasAprobadas,
+            savePrematricula: savePrematricula
         }
     }
 

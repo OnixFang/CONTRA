@@ -17,7 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('asignatura_api','GrupoController@asignatura_api');
-Route::get('facilitador_api','GrupoController@facilitador_api');
+// Route::get('asignatura_api','GrupoController@asignatura_api');
+// Route::get('facilitador_api','GrupoController@facilitador_api');
+Route::get('grupo_api','GrupoController@grupo_api');
 Route::post('ciclo_api','GrupoController@store');
-Route::get('ciclo_api','CicloController@ciclo_api');
+Route::get('ciclo_api/{userId}','CicloController@ciclo_api');
+Route::get('grupos/{userid}', '\App\Http\Controllers\API\GruposController@index');
+Route::get('aprobadas/{userid}', '\App\Http\Controllers\API\AsignaturasController@index');
+Route::post('prematricula', 'PrematriculasApi@store');

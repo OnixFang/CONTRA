@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Pensum;
+use Auth;
 
 class PensumController extends Controller
 {
@@ -14,8 +15,11 @@ class PensumController extends Controller
      */
     public function index()
     {
-       $pensumes = Pensum::all();
-       return view('pensum.pensumDashboard')->withPensumes($pensumes);
+       $inscripcion = Auth::user()->inscripciones()->first();
+       $pensum = $inscripcion->pensum;
+       $asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
+       $collection = $asignaturas;
+       return view('pensum.show',compact('asignaturas', 'collection','pensum'));
     }
 
     /**
@@ -25,7 +29,7 @@ class PensumController extends Controller
      */
     public function create()
     {
-        return view('Pensum.CreatePensum');
+        return view('pensum.CreatePensum');
     }
 
     /**
@@ -77,7 +81,7 @@ class PensumController extends Controller
     {
        Pensum::find($id)->update($request->all());
 
-       return redirect()->route('pensum.index')->withMessage("Pensum Editado");
+       return redirect()->route('pensum.index')->withMessage("pensum Editado");
     }
 
     /**

@@ -4,10 +4,11 @@
     function cicloHistorialController($scope, contraData) {
         $scope.noCiclos = false;
         $scope.noIndice = true;
-        $scope.indices = [];
+        let puntosAcumulados = 0;
+        let creditosAcumulados = 0;
 
         // Obtiene toda la data de los ciclos y sus grupos
-        contraData.getCiclosCerrados().then(function (response) {
+        contraData.getInscripcionCiclos($scope.userId).then(function (response) {
             $scope.ciclos = response;
 
             if ($scope.ciclos.length < 1) {
@@ -27,8 +28,10 @@
                 literal = 'C';
             } else if (calificacion >= 60 && calificacion <= 69) {
                 literal = 'D';
-            } else if (calificacion <= 59) {
+            } else if (calificacion >= 1 && calificacion <= 59) {
                 literal = 'F';
+            } else if (calificacion == 0) {
+                literal = '-';
             }
 
             return literal;
@@ -59,20 +62,27 @@
 
         $scope.calcularIndice = function calcularIndice(puntos, creditos) {
             let indice = puntos / creditos;
-            $scope.indices.push(indice);
+            puntosAcumulados += puntos;
+            creditosAcumulados += creditos;
             return indice;
         }
 
         $scope.indiceAcumulado = function indiceAcumulado() {
             let indiceAcumulado = 0;
-            
-            angular.forEach($scope.indices, function(indice) {
-                indiceAcumulado += indice;
-            });
 
-            indiceAcumulado = indiceAcumulado / $scope.indices.length;
+            indiceAcumulado = puntosAcumulados / creditosAcumulados;
             $scope.noIndice = false;
-            return indiceAcumulado
+
+            return indiceAcumulado;
+        }
+
+        $scope.sumarCredito = function sumarCredito(credito, estado, nota) {
+            if (estado == 'N' && nota != 0) {
+                return credito;
+            }
+            else {
+                return 0;
+            }
         }
     }
 

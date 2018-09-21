@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" class="full-height">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,17 +12,23 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/loginStyle.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  <!-- Bootstrap core CSS -->
+  <!-- Material Design Bootstrap -->
+  <link href="{{ asset('css/mdb.min.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <!--Main Navigation-->
+        <header id="app">
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -42,7 +48,6 @@
                         <!-- Authentication Links -->
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -67,9 +72,17 @@
             </div>
         </nav>
 
-        <main class="py-4">
             @yield('content')
-        </main>
-    </div>
-</body>
+
+<!-- JQuery -->
+<script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>        
+<!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{{ asset('js/mdb.min.js') }}"></script>
+
+
+        </body>
 </html>
+
+

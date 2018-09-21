@@ -13,9 +13,9 @@ class UpdateAsignaturaTable extends Migration
      */
     public function up()
     {
-        Schema::table('asignatura', function (Blueprint $table) {
-            $table->unsignedInteger('id_pensum');
-        });
+//        Schema::table('asignaturas', function (Blueprint $table) {
+//            $table->unsignedInteger('id_pensum');
+//        });
     }
 
     /**
@@ -25,8 +25,8 @@ class UpdateAsignaturaTable extends Migration
      */
     public function down()
     {
-        Schema::table('asignatura', function (Blueprint $table) {
-           $table->dropColumn('id_pensum');
-        });
+//        Schema::table('asignaturas', function (Blueprint $table) {
+//            $table->dropColumn('id_pensum');
+//        });
     }
 }

@@ -13,10 +13,9 @@ class ModifyColumIdPemsumToNullableTableCiclo extends Migration
      */
     public function up()
     {
-        Schema::table('ciclo', function (Blueprint $table) {
-            $table->unsignedInteger('id_pensum')->nullable()->change();
-
-        });
+//        Schema::table('ciclo', function (Blueprint $table) {
+//            $table->unsignedInteger('id_pensum')->nullable()->change();
+//        });
     }
 
     /**
@@ -26,8 +25,8 @@ class ModifyColumIdPemsumToNullableTableCiclo extends Migration
      */
     public function down()
     {
-        Schema::table('ciclo', function (Blueprint $table) {
-            $table->unsignedInteger('id_pensum')->change();
-        });
+//        Schema::table('ciclo', function (Blueprint $table) {
+//            $table->unsignedInteger('id_pensum')->change();
+//        });
     }
 }
