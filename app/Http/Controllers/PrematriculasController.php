@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\Ciclo;
+use App\User;
 use Illuminate\Http\Request;
 
 class PrematriculasController extends Controller
@@ -13,7 +16,13 @@ class PrematriculasController extends Controller
      */
     public function index()
     {
-        //
+        $ciclos = Auth::user()->inscripcionCiclo()->orderBy('clave', 'asc')->get();
+
+        $collection = $ciclos->groupBy('clave');
+
+        $cicloactual = $collection->last();
+
+        return view('prematricula.prematricula', compact('cicloactual'));
     }
 
     /**
