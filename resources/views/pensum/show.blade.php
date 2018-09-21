@@ -8,7 +8,7 @@
             <li><a href="#">
                     <em class="fa fa-home"></em>
                 </a></li>
-            <li class="active">Pensumes</li>
+            <li class="active">Pensum</li>
         </ol>
     </div><!--/.row-->
     @if(Session::has('message'))
@@ -18,7 +18,7 @@
     @endif
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Pensum {{  $pensum->carrera->descripcion}}</h1>
+            <h1 class="page-header">Pensum: {{  $pensum->carrera->descripcion}}</h1>
         </div>
     </div><!--/.row-->
     <div class="row">
