@@ -33,13 +33,15 @@
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-				<div class="panel panel-blue panel-widget border-right">
-					<div class="row no-padding">
-						<!-- <em class="fa fa-xl fa-comments color-orange"></em> -->
-						<div class="large">{{ count($aprobadas)}}</div>
-						<div class="text-muted">Asignaturas aprobadas</div>
+				<a href="/pensum" style="text-decoration:none;">
+					<div class="panel panel-blue panel-widget border-right">
+						<div class="row no-padding">
+							<!-- <em class="fa fa-xl fa-comments color-orange"></em> -->
+							<div class="large">{{ count($aprobadas)}}</div>
+							<div class="text-muted">Asignaturas aprobadas</div>
+						</div>
 					</div>
-				</div>
+				</a>
 			</div>
 			<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
 				<a href="/pensum" style="text-decoration:none;">
@@ -54,7 +56,7 @@
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-				<a href="/ciclos" style="text-decoration:none;">
+				<a href="/ciclo" style="text-decoration:none;">
 					<div class="panel panel-red panel-widget ">
 						<div class="row no-padding">
 							<!-- <em class="fa fa-xl fa-search color-red"></em> -->
@@ -82,22 +84,6 @@
 				</div>
 			</div>
 		</div>
-		{{-- <div class="col-xs-6 col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-body easypiechart-panel">
-					<h4>Comments</h4>
-					<div class="easypiechart" id="easypiechart-orange" data-percent="65"><span class="percent">40%</span></div>
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-6 col-md-3">
-			<div class="panel panel-default">
-				<div class="panel-body easypiechart-panel">
-					<h4>New Users</h4>
-					<div class="easypiechart" id="easypiechart-teal" data-percent="56"><span class="percent">56%</span></div>
-				</div>
-			</div>
-		</div> --}}
 		<div class="col-xs-6 col-md-3 ">
 			<div class="panel panel-default ">
 				<div class="panel-body easypiechart-panel white-text bg-success">
@@ -113,13 +99,18 @@
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel bg-warning">
 					<h4 style="color:#ffff !important">Índice acumulado</h4>
-					<div class="easypiechart" style="padding-top: 10px">
+					<div class="" style="padding-top: 10px">
 						<div ng-hide="noIndice">
-							<h1><strong><span style="color:#ffff !important; font-size:2em" ng-bind="indiceAcumulado | number:2"></span></strong></h1>
+							<h1><strong><span style="color:#ffff !important; font-size:1em" ng-bind="indiceAcumulado | number:2"></span></strong></h1>
 						</div>
 						<div ng-show="noIndice" class="text-center">Aún no tiene un índice acumulado</div>
 						<div ng-show="noCiclos" class="text-center">No hay ningún ciclo en el historial</div>
 					</div>
+					<p style="color: white"><strong>
+							Este índice ha sido calculado de acuerdo al reglamento de la UAPA <a href="https://www.uapa.edu.do/docs/reglamentosAcademicos.pdf">(Cap.
+								XIX, art. 121)</a>.
+							La información oficial sobre éste índice es la que ofrece el departamento de registro.
+						</strong></p>
 				</div>
 			</div>
 		</div>
@@ -132,7 +123,7 @@
 				<div class="panel-heading">
 					Asignaturas pendientes
 					<span class="pull-right clickable panel-toggle panel-button-tab-left">
-						<em class="fa fa-toggle-up"></em>
+						<em class="fa fa-caret-down"></em>
 					</span>
 				</div>
 				<div class="panel-body">
@@ -184,7 +175,7 @@
 				<div class="panel-heading">
 					Asignaturas en curso
 					<span class="pull-right clickable panel-toggle panel-button-tab-left">
-						<em class="fa fa-toggle-up"></em></span></div>
+						<em class="fa fa-caret-down"></em></span></div>
 				<div class="panel-body">
 					<ul>
 						@if(count($cicloactual) > 0 )
