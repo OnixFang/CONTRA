@@ -56,7 +56,7 @@ class Asignatura extends Model
 
     public function requisitos ()
     {
-        return $this->belongsToMany(Asignatura::class, 'asignaturas_requisitos', 'asignatura_id', 'requisito_id');
+        return $this->belongsToMany(Asignatura::class, 'asignaturas_requisitos', 'asignatura_id', 'requisito_id')->withPivot(['requisito_id']);
     }
 
     public function inscripcion_ciclo ()

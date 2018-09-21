@@ -36,7 +36,7 @@ class GruposController extends Controller
         if ($asignaturas instanceof Collection) {
             $asignaturas->each(function (Asignatura $asignatura) use (&$grupos, $user) {
                 $asignatura->grupos()->where('cerrado', 0)->get()->each(function (Grupo $grupo) use (&$grupos, $user, $asignatura) {
-                    $prerequisitos = $asignatura->requisitos;
+                    $prerequisitos = $asignatura->requisitos()->where('pensum_id', $user->inscripcion()->pensum->id)->get();
 
                     $aprobado = $this->inscripcionCicloService->checkIfApproved($user, $grupo->asignatura->clave);
 

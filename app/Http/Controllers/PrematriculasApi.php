@@ -41,6 +41,8 @@ class PrematriculasApi extends Controller
         $user = User::findOrFail($request->userId);
         $prematriculas = $request->prematriculas;
 
+        $user->prematricula()->delete();
+
         foreach ($prematriculas as $prematricula) {
             Prematricula::create([
                 'clave' => $prematricula['clave'],
