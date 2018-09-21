@@ -13,13 +13,13 @@
 					<em class="fa fa-home"></em>
 				</a>
 			</li>
-			<li class="active">Añadir Grupos</li>
+			<li class="active">Simulación de preselección</li>
 		</ol>
 	</div>
 	<!--/.row-->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Inscribir Ciclo</h1>
+			<h1 class="page-header">Simulación de preselección</h1>
 		</div>
 	</div>
 	<!--/.row-->
