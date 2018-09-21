@@ -6,6 +6,10 @@
             return response.data;
         }
 
+        function getAllAsignaturas(userId) {
+            return $http.get('api/asignaturas/' + userId).then(returnData);
+        }
+
         function getAsignaturasAprobadas(userId) {
             return $http.get('api/aprobadas/' + userId).then(returnData);
         }
@@ -28,6 +32,7 @@
         return {
             getGrupos: getGrupos,
             getInscripcionCiclos: getInscripcionCiclos,
+            getAllAsignaturas: getAllAsignaturas,
             getAsignaturasAprobadas: getAsignaturasAprobadas,
             savePrematricula: savePrematricula
         }

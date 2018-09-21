@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Asignatura;
 use App\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -26,6 +27,12 @@ class AsignaturasController extends Controller
     {
         $user = User::findOrFail($userid);
         return response()->json($this->inscripcionCicloService->getSubjectsApproved($user));
+    }
+
+    public function all($userid)
+    {
+        $user = User::findOrFail($userid);
+        return response()->json($user->inscripcion()->pensum->asignaturas);
     }
 
     /**
