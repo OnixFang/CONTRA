@@ -1,7 +1,7 @@
 (function () {
     const app = angular.module('angularApp');
 
-    function preseleccionController($scope, contraData, $filter) {
+    function preseleccionController($scope, contraData) {
         $scope.ciclo = {};
         $scope.ciclo.clave = calcularCicloClave();
         $scope.asignaturas = [];
@@ -12,10 +12,15 @@
 
         let prematricula = [];
 
+        let allAsignaturas = []; // Arreglo de TODAS las asignaturas del pensum del usuario
         let aprobadas = []; // Arreglo de asignaturas aprobadas
 
+        contraData.getAllAsignaturas($scope.userId).then(function (response) {
+            allAsignaturas = response;
+        })
+
         contraData.getAsignaturasAprobadas($scope.userId).then(function (response) {
-            aprobadas = response; // Arreglo de asignaturas aprobadas
+            aprobadas = response;
         })
 
         // Obtiene un array de objetos asignaturas y las asigna a la variable asignaturas
@@ -31,7 +36,6 @@
             const currentDate = new Date();
             const month = currentDate.getMonth();
             const year = currentDate.getFullYear();
-            let yearThird = 1;
 
             if (month <= 4) {
                 return year + '-' + 1;
@@ -138,28 +142,37 @@
                         }
 
                         console.log('Prerrequisito1: ' + prerrequisito1);
+                        console.log('Prerrequisito1: ' + asignatura.pre_requisito1);
                         console.log('Prerrequisito2: ' + prerrequisito2);
+                        console.log('Prerrequisito2: ' + asignatura.pre_requisito2);
 
                         // Confirmar cual prerrequisito no está cumplido
                         if (!prerrequisito1 || !prerrequisito2) {
+                            console.log('Confirmar cual prerrequisito no está cumplido');
                             if (!prerrequisito1) {
-                                for (let i = 0; i < $scope.asignaturas.length; i += 1) {
-                                    if (asignatura.pre_requisito1 === $scope.asignaturas[i].id) {
-                                        console.log('Prerrequisito 1 no aprobado: ' + $scope.asignaturas[i].descripcion);
-                                        $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
+                                for (let i = 0; i < allAsignaturas.length; i += 1) {
+                                    console.log('pre 1 for iteration: ' + i);
+                                    if (asignatura.pre_requisito1 === allAsignaturas[i].id) {
+                                        console.log('Prerrequisito 1 no aprobado: ' + allAsignaturas[i].descripcion);
+                                        $scope.prerrequisitos.push(allAsignaturas[i].descripcion);
                                         break;
                                     }
                                 }
+                            } else {
+                                console.log('Prerequisito 1 : true');
                             }
 
                             if (!prerrequisito2) {
-                                for (let i = 0; i < $scope.asignaturas.length; i += 1) {
-                                    if (asignatura.pre_requisito2 === $scope.asignaturas[i].id) {
-                                        console.log('Prerrequisito 2 no aprobado: ' + $scope.asignaturas[i].descripcion);
-                                        $scope.prerrequisitos.push($scope.asignaturas[i].descripcion);
+                                for (let i = 0; i < allAsignaturas.length; i += 1) {
+                                    console.log('pre 2 for iteration: ' + i);
+                                    if (asignatura.pre_requisito2 === allAsignaturas[i].id) {
+                                        console.log('Prerrequisito 2 no aprobado: ' + allAsignaturas[i].descripcion);
+                                        $scope.prerrequisitos.push(allAsignaturas[i].descripcion);
                                         break;
                                     }
                                 }
+                            } else {
+                                console.log('Prerequisito 2 : true');
                             }
 
                             $scope.modalMessage = 'Usted aún no ha aprobado las asignaturas que esta asignatura tiene como prerrequisito:';

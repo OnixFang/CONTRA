@@ -48,7 +48,7 @@ class GruposController extends Controller
                         "cr" => $grupo->asignatura->cr,
                         "propedeutico" => (bool) $grupo->asignatura->propedeutico,
                         "pre_requisito1" => $prerequisitos->first() !== null ? $prerequisitos->first()->id : null,
-                        "pre_requisito2" => $prerequisitos->last() !== null ? $prerequisitos->last()->id : null,
+                        "pre_requisito2" => $prerequisitos->last() == $prerequisitos->first() ? null : $prerequisitos->last()->id,
                         "seccion" => $grupo->seccion,
                         "bimestre" => $grupo->bimestre,
                         "horario" => $grupo->horario,
