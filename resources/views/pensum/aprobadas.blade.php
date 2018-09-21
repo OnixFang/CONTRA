@@ -18,7 +18,10 @@
     @endif
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Pensum: {{  $pensum->carrera->descripcion}}</h1>
+                <h1 class="page-header"> Asignaturas aprobadas </h1>
+            <h5>Pensum: {{  $pensum->carrera->descripcion}}</h5>
+            <h5>Total de Asignaturas aprobadas: {{  $asignaturas->count()}}</h5>
+
         </div>
     </div><!--/.row-->
     <div class="row">
@@ -28,8 +31,7 @@
                 <div class="panel-body">
 
                     @if(count($collection) > 0)
-                        @foreach($collection as $cuatrimestre => $asignaturas)
-                            <h4>{{"Cuatrimestre ". $cuatrimestre}}</h4>
+                            {{-- <h4>{{"Cuatrimestre ". $cuatrimestre}}</h4> --}}
                             <table class="table table-bordered table-dark">
                                 <thead>
                                 <tr>
@@ -39,23 +41,19 @@
                                     <th class="col-md-1">HP</th>
                                     <th class="col-md-1">CR</th>
                                 </tr>
-                                </thead>
+                                </thead>                                                        
                                 @foreach($asignaturas as $asignatura)
-
                                     <tbody>
-                                    <tr @if($aprobado->checkIfApproved(Auth::user(),$asignatura->clave)) {{ 'class= alert-success' }} @endif>
-                                        <td >{{  $asignatura->clave}}</td>
-                                        <td > {{ $asignatura->descripcion }}</td>
-                                        <td > {{ $asignatura->ht }}</td>
-                                        <td > {{ $asignatura->hp }}</td>
-                                        <td > {{ $asignatura->cr}}</td>
+                                     <tr>
+                                        <td> {{  $asignatura['clave']}}</td>
+                                        <td> {{ $asignatura['descripcion'] }}</td>
+                                        <td> {{ $asignatura['ht'] }}</td>
+                                        <td> {{ $asignatura['hp'] }}</td>
+                                        <td> {{ $asignatura['cr']}}</td>
                                     </tr>
-                                    @endforeach
-
-
                                     </tbody>
+                                @endforeach
                             </table>
-                        @endforeach
                     @endif
                 </div>
             </div>

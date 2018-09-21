@@ -33,7 +33,7 @@
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-				<a href="/pensum" style="text-decoration:none;">
+				<a href="/aprobadas" style="text-decoration:none;">
 					<div class="panel panel-blue panel-widget border-right">
 						<div class="row no-padding">
 							<!-- <em class="fa fa-xl fa-comments color-orange"></em> -->
