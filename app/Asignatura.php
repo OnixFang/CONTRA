@@ -40,26 +40,26 @@ class Asignatura extends Model
     const SOC500 = "SOC-500";
     const SOC600 = "SOC-600";
 
-    protected $table ="asignaturas";
+    protected $table = "asignaturas";
 
-    protected $fillable =['descripcion','clave','hp','ht','cr','cuatrimestre','propedeutico'];
+    protected $fillable = ['descripcion', 'clave', 'hp', 'ht', 'cr', 'cuatrimestre', 'propedeutico'];
 
     public function pensums()
     {
-        return $this->belongsToMany(Pensum::class, 'asignaturas_pensums','asignatura_id','pensum_id');
+        return $this->belongsToMany(Pensum::class, 'asignaturas_pensums', 'asignatura_id', 'pensum_id');
     }
 
     public function grupos()
     {
-        return $this->hasMany('App\Grupo','asignatura_id');
+        return $this->hasMany('App\Grupo', 'asignatura_id');
     }
 
-    public function requisitos ()
+    public function requisitos()
     {
         return $this->belongsToMany(Asignatura::class, 'asignaturas_requisitos', 'asignatura_id', 'requisito_id')->withPivot(['requisito_id']);
     }
 
-    public function inscripcion_ciclo ()
+    public function inscripcion_ciclo()
     {
         return $this->hasMany(InscripcionCiclo::class);
     }

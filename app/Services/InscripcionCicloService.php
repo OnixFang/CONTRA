@@ -97,12 +97,12 @@ class InscripcionCicloService
             ->where('inscripcion_ciclo.aprobado', true)->get();
     }
 
-    public function checkIfApproved(User $user,  $asignaturaId){
+    public function checkIfApproved(User $user,  $asignaturaClave){
 
         $subjectsApproved = $this->getSubjectsApproved($user);
         foreach ($subjectsApproved as $subject)
         {
-            if($subject->clave == $asignaturaId) {
+            if($subject->clave == $asignaturaClave) {
                 return true;
             }
         }
