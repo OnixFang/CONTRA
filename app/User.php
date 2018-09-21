@@ -102,4 +102,8 @@ class User extends Authenticatable
     public function inscripcionCiclo(){
         return $this->hasMany(InscripcionCiclo::class, 'usuario_id');
     }
+
+    public function prematricula(){
+        return $this->hasMany(Prematricula::class, 'usuario_id');
+    }
 }

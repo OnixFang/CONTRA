@@ -25,6 +25,9 @@
 		<li><a class="" href="/grupo">
 				<span class="fa fa-calendar">&nbsp;</span> Simulación de preselección
 			</a></li>
+		<li><a class="" href="/prematricula">
+				<span class="fa fa-calendar">&nbsp;</span> Consulta de simulación
+			</a></li>
 		<li class="{{ request()->is('grupo') ? 'active' : '' }} {{ request()->is('ciclo') ? 'active' : '' }} {{ request()->is('cicloactual') ? 'active' : '' }} parent ">
 			<a data-toggle="collapse" href="#sub-item-3">
 				<em class="fab fa-cloudscale">&nbsp;</em>
