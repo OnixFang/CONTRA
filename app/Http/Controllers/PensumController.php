@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Asignatura;
 use App\Pensum;
+use App\Services\InscripcionCicloService;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -13,12 +13,23 @@ class PensumController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @var InscripcionCicloService
      */
+    private $inscripcionCicloService;
+    /**
+     * DashboardController constructor.
+     * @param InscripcionCicloService $inscripcionCicloService
+     */
+
+    public function __construct(InscripcionCicloService $inscripcionCicloService)
+    {
+        $this->inscripcionCicloService = $inscripcionCicloService;
+
+    }
     public function index()
     {
         $inscripcion = Auth::user()->inscripciones()->first();
         $pensum = $inscripcion->pensum;
-
         $asignaturasRaw = $inscripcion->pensum->asignaturas;
 
         $asignaturas = collect([]);
@@ -43,6 +54,22 @@ class PensumController extends Controller
 
         $collection = $asignaturas->groupBy('cuatrimestre');
         return view('pensum.show', compact('collection', 'pensum'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function aprobadas()
+    {
+        $inscripcion = Auth::user()->inscripciones()->first();
+        $pensum = $inscripcion->pensum;
+        $user = Auth::user();
+        $asignaturas = $this->inscripcionCicloService->getSubjectsApproved($user);
+        $collection = $asignaturas->groupBy('cuatrimestre');
+        //dd($collection);
+        return view('pensum.aprobadas', compact('asignaturas', 'pensum'));
     }
 
     /**

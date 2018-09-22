@@ -16,19 +16,13 @@
 			<div class="col-lg-12">
 				<h1 class="page-header">Dashboard</h1>
 			</div>
-		</div>
-		<!--/.row-->
-
-		<div class="panel panel-container">
-			<div class="row">
-				<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-					<a href="/pensum" style="text-decoration:none;">
-						<div class="panel panel-teal panel-widget border-right">
-							<div class="row no-padding text-red">
-								<!-- <em class="fa fa-xl fa-shopping-cart"></em> -->
-								<div class="large">{{ count($asignaturas) }}</div>
-								<div class="text-muted">Total de asignaturas</div>
-							</div>
+			<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+				<a href="/aprobadas" style="text-decoration:none;">
+					<div class="panel panel-blue panel-widget border-right">
+						<div class="row no-padding">
+							<!-- <em class="fa fa-xl fa-comments color-orange"></em> -->
+							<div class="large">{{ count($aprobadas)}}</div>
+							<div class="text-muted">Asignaturas aprobadas</div>
 						</div>
 					</a>
 				</div>
