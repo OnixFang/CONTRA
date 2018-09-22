@@ -69,6 +69,10 @@
                 </div>
                 @endif
             </div>
+            <div class="panel-footer">
+                <span>{{ link_to_action('GrupoController@create', $title = 'Realizar una prematrícula nueva', $parameters = array(), $attributes = array('class'=>'btn btn-danger')) }}
+                    </span>
+            </div>
         </div>
     </div><!-- /.panel-->
 </div>

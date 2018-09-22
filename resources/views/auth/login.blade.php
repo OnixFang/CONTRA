@@ -38,7 +38,7 @@
                                             <!--Body-->
                                             <div class="md-form">
                                                     <i class="fa fa-user prefix white-text active"></i>
-                                                        <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                                                        <input id="username" type="text" class="form-control text-white{{ $errors->has('username') ? ' is-invalid' : '' }}"
                                                             name="username" value="{{ old('username') }}" required>
                                                         @if ($errors->has('username'))
                                                         <span class="invalid-feedback">
@@ -50,7 +50,7 @@
 
                                                 <div class="md-form">
                                                         <i class="fa fa-lock prefix white-text active"></i>
-                                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                                        <input id="password" type="password" class="form-control text-white{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                                         name="password" required>
                 
                                                     @if ($errors->has('password'))
