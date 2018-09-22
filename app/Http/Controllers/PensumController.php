@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Pensum;
-use Illuminate\Http\Request;
 use App\Services\InscripcionCicloService;
+use Auth;
+use Illuminate\Http\Request;
 
 class PensumController extends Controller
 {
@@ -13,19 +13,19 @@ class PensumController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * @var InscripcionCicloService 
+     * @var InscripcionCicloService
      */
     private $inscripcionCicloService;
- /**
+    /**
      * DashboardController constructor.
      * @param InscripcionCicloService $inscripcionCicloService
      */
 
-     public function __construct(InscripcionCicloService $inscripcionCicloService)
-     {
-         $this->inscripcionCicloService = $inscripcionCicloService;
-         
-     }
+    public function __construct(InscripcionCicloService $inscripcionCicloService)
+    {
+        $this->inscripcionCicloService = $inscripcionCicloService;
+
+    }
     public function index()
     {
         $inscripcion = Auth::user()->inscripciones()->first();
@@ -47,8 +47,8 @@ class PensumController extends Controller
         $user = Auth::user();
         $asignaturas = $this->inscripcionCicloService->getSubjectsApproved($user);
         $collection = $asignaturas->groupBy('cuatrimestre');
-        //dd($asignaturas);
-        return view('pensum.aprobadas', compact('asignaturas', 'collection','pensum'));
+        //dd($collection);
+        return view('pensum.aprobadas', compact('asignaturas', 'pensum'));
     }
 
     /**
