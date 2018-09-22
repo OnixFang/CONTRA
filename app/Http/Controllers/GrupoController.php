@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
-use App\Grupo;
-use App\Facilitador;
 use App\Asignatura;
 use App\Ciclo;
+use App\Grupo;
+use App\Http\Controllers\Controller;
+use App\Prematricula;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class GrupoController extends Controller
 {
@@ -19,10 +20,15 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        $grupos = Grupo::all();
-        //$facilitadores = Facilitador::pluck('nombre','id');
-        $asignaturas = Asignatura::pluck('descripcion', 'id');
-        return view('grupos.addGrupos', compact('grupos', 'asignaturas'));
+        $prematricula = Auth::user()->prematricula()->first();       
+        if ($prematricula !== null) {
+            return redirect(action('PrematriculasController@index'));
+        } else {
+            $grupos = Grupo::all();
+            //$facilitadores = Facilitador::pluck('nombre','id');
+            $asignaturas = Asignatura::pluck('descripcion', 'id');
+            return view('grupos.addGrupos', compact('grupos', 'asignaturas'));
+        }
     }
 
     public function asignatura_api()
@@ -50,7 +56,12 @@ class GrupoController extends Controller
      */
     public function create()
     {
-        //
+        
+            $grupos = Grupo::all();
+            //$facilitadores = Facilitador::pluck('nombre','id');
+            $asignaturas = Asignatura::pluck('descripcion', 'id');
+            return view('grupos.addGrupos', compact('grupos', 'asignaturas'));
+        
     }
 
     public function return_view()

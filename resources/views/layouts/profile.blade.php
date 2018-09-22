@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CONTRA - CONTROL de ASIGNATURA</title>
+    <title>Sistema de Control de Asignatura</title>
     <link href="https://medialoot.com/preview/lumino/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://medialoot.com/preview/lumino/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://medialoot.com/preview/lumino/css/styles.css" rel="stylesheet">
