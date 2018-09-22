@@ -33,24 +33,29 @@
                     <div class="form-group col-md-6{{ $errors->first('first_name') ? ' has_error' : '' }}">
                         <label>Nombre</label>
                         {{  Form::text('first_name', old('first_name', $user->first_name), ['class'=>'form-control']) }}
+                        <p class="help-block">{{ $errors->first('first_name') }}</p>
                     </div>
                     <div class="form-group col-md-6{{ $errors->first('first_name') ? ' has_error' : '' }}">
                         <label>Apellido</label>
                         {{  Form::text('last_name', old('last_name', $user->last_name), ['class'=>'form-control']) }}
+                        <p class="help-block">{{ $errors->first('last_name') }}</p>
                     </div>
 
-                    <div class="form-group col-md-12{{ $errors->first('first_name') ? ' has_error' : '' }}">
+                    <div class="form-group col-md-12{{ $errors->first('email') ? ' has_error' : '' }}">
                         <label>Correo Electronico</label>
                         {{  Form::email('email', old('email', $user->email), ['class'=>'form-control']) }}
+                        <p class="help-block">{{ $errors->first('email') }}</p>
                     </div>
 
                     <div class="form-group col-md-6{{ $errors->first('first_name') ? ' has_error' : '' }}">
                         <label>Carrera </label>
-                        {{  Form::select('inscripcion[carrera_id]', $careers, old('inscripcion.carrera_id', $inscripcion->carrera_id), ['class'=>'form-control']) }}
+                        {{  Form::select('inscripcion[carrera_id]', $careers, old('inscripcion.carrera_id', optional($inscripcion)->carrera_id), ['class'=>'form-control']) }}
+                        <p class="help-block">{{ $errors->first('inscripcion.carrera_id') }}</p>
                     </div>
                     <div class="form-group col-md-6{{ $errors->first('first_name') ? ' has_error' : '' }}">
                         <label>Pensum</label>
-                        {{  Form::select('inscripcion[pensum_id]', $pensums, old('inscripcion.pensum_id', $inscripcion->pensum_id), ['class'=>'form-control']) }}
+                        {{  Form::select('inscripcion[pensum_id]', $pensums, old('inscripcion.pensum_id', optional($inscripcion)->pensum_id), ['class'=>'form-control']) }}
+                        <p class="help-block">{{ $errors->first('inscripcion.pensum_id') }}</p>
                     </div>
 
                     <div class="col-md-12">

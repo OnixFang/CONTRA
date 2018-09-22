@@ -39,16 +39,22 @@ class Install extends Command
     public function handle()
     {
         $progress = $this->output->createProgressBar(3);
+
         $progress->setMessage('Estructurando base de datos');
         Artisan::call('migrate:fresh', ['--seed'=>true]);
         $progress->advance();
+
         $progress->setMessage('Extrayendo datos del Pensum de uapa.edu.do');
         Artisan::call('parser:pensum');
         $progress->advance();
+
         $progress->setMessage('Llenando la base de datos de Grupos fictisios');
         Artisan::call('db:seed', ['--class'=>'GruposSeeder']);
         $progress->advance();
+
         $progress->finish();
-        $this->info('Installación completada');
+
+        $this->line(' ');
+        $this->info('Instalación completada');
     }
 }

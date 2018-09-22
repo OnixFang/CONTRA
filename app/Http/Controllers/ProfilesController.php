@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Carrera;
 use App\Http\Requests\UpdateProfile;
+use App\Inscripcion;
+use App\InscripcionCiclo;
 use App\Mail\UserRegistered;
 use App\User;
 use Auth;
@@ -65,7 +67,11 @@ class ProfilesController extends Controller
         $user = User::findOrFail($user);
         $inscripcion = $user->inscripciones()->first();
         $careers = Carrera::all()->pluck('descripcion', 'id')->prepend('Seleccione...', '');
-        $pensums = $inscripcion->carrera->pensums->pluck('descripcion', 'id')->prepend('Seleccione...', '');
+
+        if($inscripcion instanceof Inscripcion)
+            $pensums = $inscripcion->carrera->pensums->pluck('descripcion', 'id')->prepend('Seleccione...', '');
+        else
+            $pensums = collect(['' => 'Seleccione...']);
 
         return view('profiles.edit', [
             'user' => $user,

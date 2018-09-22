@@ -88,6 +88,8 @@ class ParserRatingHistory extends Command
                 $this->inscripcionCicloService->register($user, $cycle['key'], $cycle['subjects']);
             });
 
+            $this->HTTPRequestService->sendLogoutRequest();
+
             DB::commit();
         } catch (ModelNotFoundException $exception) {
             Log::warning($exception->getMessage() . $exception->getFile());
