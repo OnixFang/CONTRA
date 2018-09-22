@@ -107,7 +107,7 @@
 						<div ng-show="noCiclos" class="text-center">No hay ningún ciclo en el historial</div>
 					</div>
 					<p style="color: white"><strong>
-							Este índice ha sido calculado de acuerdo al reglamento de la UAPA <a href="https://www.uapa.edu.do/docs/reglamentosAcademicos.pdf">(Cap.
+							Este índice ha sido calculado de acuerdo al reglamento de la UAPA <a target="_blank" href="https://www.uapa.edu.do/docs/reglamentosAcademicos.pdf">(Cap.
 								XIX, art. 121)</a>.
 							La información oficial sobre éste índice es la que ofrece el departamento de registro.
 						</strong></p>

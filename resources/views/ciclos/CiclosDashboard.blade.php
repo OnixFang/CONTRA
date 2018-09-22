@@ -88,7 +88,7 @@
                     <div ng-hide="noIndice">
                         <h4><b>Índice acumulado: </b><span ng-bind="indiceAcumulado() | number:2"></span></h4>
                         <p><strong>
-                                Este índice ha sido calculado de acuerdo al reglamento de la UAPA <a href="https://www.uapa.edu.do/docs/reglamentosAcademicos.pdf">(Cap.XIX, art. 121)</a>.
+                                Este índice ha sido calculado de acuerdo al reglamento de la UAPA <a target="_blank" href="https://www.uapa.edu.do/docs/reglamentosAcademicos.pdf">(Cap.XIX, art. 121)</a>.
                                 La información oficial sobre éste índice es la que ofrece el departamento de registro.
                             </strong></p>
                     </div>
