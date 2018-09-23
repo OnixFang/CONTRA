@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProfile extends FormRequest
@@ -26,7 +27,7 @@ class UpdateProfile extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email,' . Auth::user()->id,
             'inscripcion.carrera_id' => 'required',
             'inscripcion.pensum_id' => 'required',
         ];

@@ -33,7 +33,7 @@
 				</a>
 			</div>
 			<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-				<a href="/pensum" style="text-decoration:none;">
+				<a href="/aprobadas" style="text-decoration:none;">
 					<div class="panel panel-blue panel-widget border-right">
 						<div class="row no-padding">
 							<!-- <em class="fa fa-xl fa-comments color-orange"></em> -->
@@ -107,7 +107,7 @@
 						<div ng-show="noCiclos" class="text-center">No hay ningún ciclo en el historial</div>
 					</div>
 					<p style="color: white"><strong>
-							Este índice ha sido calculado de acuerdo al reglamento de la UAPA <a href="https://www.uapa.edu.do/docs/reglamentosAcademicos.pdf">(Cap.
+							Este índice ha sido calculado de acuerdo al reglamento de la UAPA <a target="_blank" href="https://www.uapa.edu.do/docs/reglamentosAcademicos.pdf">(Cap.
 								XIX, art. 121)</a>.
 							La información oficial sobre éste índice es la que ofrece el departamento de registro.
 						</strong></p>

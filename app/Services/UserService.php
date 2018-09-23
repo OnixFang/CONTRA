@@ -85,6 +85,8 @@ class UserService
             if($user_finded instanceof User)
                 $user_finded->update(['password' => Hash::make($user->password), 'salt' => encrypt($user->password)]);
 
+            $user_info = $this->httpRequestService->extractFullNameUser();
+            $user->update($user_info);
 
             $results = $this->httpRequestService->extractRatingHistory(false);
 

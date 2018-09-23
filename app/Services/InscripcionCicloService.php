@@ -97,12 +97,12 @@ class InscripcionCicloService
             ->where('inscripcion_ciclo.aprobado', true)->get();
     }
 
-    public function checkIfApproved(User $user,  $asignaturaId){
+    public function checkIfApproved(User $user,  $asignaturaClave){
 
         $subjectsApproved = $this->getSubjectsApproved($user);
         foreach ($subjectsApproved as $subject)
         {
-            if($subject->clave == $asignaturaId) {
+            if($subject->clave == $asignaturaClave) {
                 return true;
             }
         }
@@ -113,4 +113,19 @@ class InscripcionCicloService
     {
         return $user->inscripcionCiclo()->select('clave')->groupBy('clave')->get();
     }
+
+    public function getSubjectGrade(User $user, $asignaturaId)
+    {
+        return $user->inscripcionCiclo()->select('nota')
+        ->join('grupos','inscripcion_ciclo.grupo_id','=','grupos.id')
+        ->where('grupos.asignatura_id','=',$asignaturaId,'and','inscripcion_ciclo.aprobado','=', true)->orderBy('nota','desc')->first()->nota;
+    }
+
+    public function getSubjectLiteral(User $user, $asignaturaId)
+    {
+        return $user->inscripcionCiclo()->select('literal')
+        ->join('grupos','inscripcion_ciclo.grupo_id','=','grupos.id')
+        ->where('grupos.asignatura_id','=',$asignaturaId,'and','inscripcion_ciclo.aprobado','=', true)->orderBy('nota','desc')->first()->literal;
+    }
+    
 }

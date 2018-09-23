@@ -73,6 +73,42 @@ class HTTPRequestService
         return $information;
     }
 
+    public function extractFullNameUser()
+    {
+        try{
+            $params = ['__EVENTARGUMENT' => '', '__EVENTTARGET' => 'ConNota'];
+            $url_default = config('parsers.platform.domain') . config('parsers.platform.services.default');
+
+            $response = http_get($url_default, null);
+
+            if($response['STATUS']['http_code'] !== 200)
+                throw new Exception(get_status_code($response['STATUS']['http_code']), $response['STATUS']['http_code']);
+
+            $inputs = parse_array($response['FILE'], '<input', '>');
+
+            $params += $this->convertInputToArray($inputs);
+
+            $response = http_post_form($url_default, $url_default, $params);
+
+            if($response['STATUS']['http_code'] !== 200)
+                throw new Exception(get_status_code($response['STATUS']['http_code']), $response['STATUS']['http_code']);
+
+            $html = $response['FILE'];
+
+            $fullname = collect(explode(' ', strip_tags(collect(parse_array($html,'<span id="lblEstudiante"','</span>'))->first())));
+            $middle = ceil($fullname->count() / 2);
+
+            return [
+                "first_name" => join(' ', $fullname->map(function ($info, $key) use($middle) { if($key < $middle) return $info; })->toArray()),
+                "last_name" => join(' ', $fullname->map(function ($info, $key) use($middle) { if($key >= $middle) return $info; })->toArray()),
+            ];
+
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
+            $this->error($exception->getMessage());
+        }
+    }
+
     /**
      * @param bool $return_rating
      * @return Collection
@@ -125,7 +161,6 @@ class HTTPRequestService
         } catch (Exception $exception){
             Log::error($exception->getMessage());
             $this->error($exception->getMessage());
-            DB::rollBack();
         }
 
         return $results;

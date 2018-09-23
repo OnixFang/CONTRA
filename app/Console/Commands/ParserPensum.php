@@ -171,7 +171,6 @@ class ParserPensum extends Command
                                 else
                                     $requirements = collect(html_entity_decode(trim($data[count($data)-1])));
 
-//                                collect(explode(',', html_entity_decode(trim($data[count($data)-1]))))->map(function ($requirement) use ($subject, $pensum) {
                                 $requirements->map(function ($requirement) use ($subject, $pensum) {
                                     $clave = format_subject_key($requirement);
                                     $subject_requirement = Asignatura::where('clave', $clave)->first();
@@ -183,7 +182,7 @@ class ParserPensum extends Command
                     });
                 });
 
-                sleep(3);
+//                sleep(3);
             });
 
         } catch (RequestException $exception) {
