@@ -19,7 +19,6 @@
                                                 serán utilizadas por el sistema para acceder periodicamente a la plataforma de UAPA.
                                         </h6>
                                         <br>
-                                        <a class="btn btn-outline-white wow fadeInLeft" data-wow-delay="0.3s">Learn more</a>
                                     </div>
                                 </div>
 
