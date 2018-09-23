@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use App\Asignatura;
 use App\Pensum;
 use App\Http\Requests\AsignaturaRequest;
+use App\Services\AsignaturaService;
 
 class AsignaturaController extends Controller
 {
+    //public $asignatura;
+
+   // public function __construct(AsignaturaService $asignatura){
+   //     $this->asignatura = $asignatura;
+   // }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +34,7 @@ class AsignaturaController extends Controller
     {        
         $pensum = $id;
         $prereq = Asignatura::pluck('descripcion','id');
-        return view('asignaturas.addsubject',compact('pensum','prereq'));
+        return view('asignaturas.create',compact('pensum','prereq'));
     }
 
     /**
@@ -54,11 +60,10 @@ class AsignaturaController extends Controller
      */
     public function show($id)
     {
-        $asignaturas = Asignatura::all()->where('id_pensum',$id)->sortBy('cuatrimestre')->groupBy('cuatrimestre');
+        $pensum = Pensum::find($id);     
+        $asignaturas = $pensum->asignaturas->groupBy('cuatrimestre');
         $collection = $asignaturas;
-        $id_pensum=$id;       
-        //dd($asignaturas);
-        return view('pensum.pensumshow',compact('asignaturas', 'collection','id_pensum'));
+        return view('pensum.show',compact('asignaturas', 'collection','pensum'));
     }
 
     /**
@@ -84,7 +89,8 @@ class AsignaturaController extends Controller
     public function update(Request $request, $id)
     {
         Asignatura::find($id)->update($request->all());
-        return redirect()->route('pensum.index')->withMessage("la Asignatura fue editada");
+        $id_pensum = $request->id_pensum;
+        return redirect()->route('asignatura.show',['id'=>$id_pensum])->withMessage("la Asignatura ".$request->descripcion." fue editada");;
     }
 
     /**

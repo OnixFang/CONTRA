@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+use App\Asignatura;
 use App\Pensum;
+use App\Services\InscripcionCicloService;
+use Auth;
+use Illuminate\Http\Request;
 
 class PensumController extends Controller
 {
@@ -11,11 +13,63 @@ class PensumController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @var InscripcionCicloService
      */
+    private $inscripcionCicloService;
+    /**
+     * DashboardController constructor.
+     * @param InscripcionCicloService $inscripcionCicloService
+     */
+
+    public function __construct(InscripcionCicloService $inscripcionCicloService)
+    {
+        $this->inscripcionCicloService = $inscripcionCicloService;
+
+    }
     public function index()
     {
-       $pensumes = Pensum::all();
-       return view('pensum.pensumDashboard')->withPensumes($pensumes);
+        $inscripcion = Auth::user()->inscripciones()->first();
+        $pensum = $inscripcion->pensum;
+        $asignaturasRaw = $inscripcion->pensum->asignaturas;
+
+        $asignaturas = collect([]);
+
+        $prerequisito = 'BR';
+
+        $asignaturasRaw->each(function (Asignatura $asignatura) use ($inscripcion, $asignaturas, $prerequisito) {
+            $prerequisitos = $asignatura->requisitos()->where('pensum_id', $inscripcion->pensum->id)->get();
+
+            if ($prerequisitos->count() !== 0) {
+                if ($prerequisitos->count() == 2) {
+                    $prerequisito = $prerequisitos->first()->clave . ' / ' . $prerequisitos->last()->clave;
+                } else {
+                    $prerequisito = $prerequisitos->first()->clave;
+                }
+            }
+
+            $asignatura->prerequisito = $prerequisito;
+
+            $asignaturas->push($asignatura);
+        });
+
+        $collection = $asignaturas->groupBy('cuatrimestre');
+        return view('pensum.show', compact('collection', 'pensum'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function aprobadas()
+    {
+        $inscripcion = Auth::user()->inscripciones()->first();
+        $pensum = $inscripcion->pensum;
+        $user = Auth::user();
+        $asignaturas = $this->inscripcionCicloService->getSubjectsApproved($user);
+        $collection = $asignaturas->groupBy('cuatrimestre');
+        //dd($collection);
+        return view('pensum.aprobadas', compact('asignaturas', 'pensum'));
     }
 
     /**
@@ -25,7 +79,7 @@ class PensumController extends Controller
      */
     public function create()
     {
-        return view('Pensum.CreatePensum');
+        return view('pensum.CreatePensum');
     }
 
     /**
@@ -36,10 +90,10 @@ class PensumController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         Pensum::create([
-                        'descripcion'=> $request->descripcion
-                    ]);
+            'descripcion' => $request->descripcion,
+        ]);
         return redirect()->route('pensum.index')->withMessage("El pensum fue creado exitosamente");
     }
 
@@ -75,9 +129,9 @@ class PensumController extends Controller
      */
     public function update(Request $request, $id)
     {
-       Pensum::find($id)->update($request->all());
+        Pensum::find($id)->update($request->all());
 
-       return redirect()->route('pensum.index')->withMessage("Pensum Editado");
+        return redirect()->route('pensum.index')->withMessage("pensum Editado");
     }
 
     /**
@@ -90,7 +144,6 @@ class PensumController extends Controller
     {
         Pensum::destroy($id);
         return redirect()->route('pensum.index')->withMessage('El pensum ha sido borrado correctamente');
-
 
     }
 }

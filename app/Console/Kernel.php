@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\ParserPensum::class,
+        Commands\ParserRatingHistory::class,
+        Commands\Install::class,
     ];
 
     /**

@@ -13,12 +13,12 @@ class CreatePrerequisitoTable extends Migration
      */
     public function up()
     {
-        Schema::create('prerequisito', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('id_asginatura');
-            $table->unsignedInteger('prerequisito');
-            $table->timestamps();
-        });
+//        Schema::create('prerequisito', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->unsignedInteger('id_asginatura');
+//            $table->unsignedInteger('prerequisito');
+//            $table->timestamps();
+//        });
     }
 
     /**
@@ -28,6 +28,6 @@ class CreatePrerequisitoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prerequisito');
+//        Schema::dropIfExists('prerequisito');
     }
 }

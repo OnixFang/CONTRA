@@ -1,9 +1,11 @@
-<?php
+<?php namespace App\Http\Controllers;
 
-namespace App\Http\Controllers;
-
+use App\Facilitador;
+use App\Calificacion;
+use Auth;
+use App\InscripcionCiclo;
+use App\User;
 use Illuminate\Http\Request;
-use App\Ciclo;
 
 class CicloController extends Controller
 {
@@ -14,8 +16,41 @@ class CicloController extends Controller
      */
     public function index()
     {
-        $ciclos = Ciclo::all();
-        return view('ciclos.CiclosDashboard',compact('ciclos'));
+        $ciclos = Auth::user()->inscripcionCiclo;
+        $collection = $ciclos->groupBy('clave');
+        return view('ciclos.CiclosDashboard', compact('collection'));
+    }
+
+    public function actual()
+    {
+        $ciclos = Auth::user()->inscripcionCiclo()->orderBy('clave', 'asc')->get();
+
+        $collection = $ciclos->groupBy('clave');
+
+        $cicloactual = $collection->last();
+
+        return view('ciclos.ciclo_actual', compact('cicloactual'));
+    }
+
+    public function ciclo_api($userId)
+    {
+        $ciclos = User::find($userId)->inscripcionCiclo->map(function (InscripcionCiclo $ciclo) {
+            return
+                [
+                    'claveCiclo' => $ciclo->clave,
+                    'claveAsignatura' => $ciclo->grupo->asignatura->clave,
+                    'nombreAsignatura' => $ciclo->grupo->asignatura->descripcion,
+                    'seccionGrupo' => $ciclo->grupo->seccion,
+                    'creditoAsignatura' => $ciclo->grupo->asignatura->cr,
+                    'nota' => $ciclo->nota,
+                    'estado' => $ciclo->estado,
+                    'literal' => $ciclo->literal
+                ];
+        });
+
+        $collection = $ciclos->groupBy('claveCiclo');
+
+        return $collection;
     }
 
     /**

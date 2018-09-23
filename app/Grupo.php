@@ -4,24 +4,40 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Grupo
+ *
+ * @property int $id
+ * @property string $seccion
+ * @property string|null $horario
+ * @property int|null $bimestre
+ * @property int $asignatura_id
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \App\Asignatura $asignatura
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Grupo whereAsignaturaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Grupo whereBimestre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Grupo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Grupo whereHorario($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Grupo whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Grupo whereSeccion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Grupo whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Grupo extends Model
 {
-    protected $table = "grupo";
+    protected $table = "grupos";
 
-    protected $fillable = ['descripcion','clave','horario','bimestre','id_ciclo','id_asignatura','id_facilitador'];
+    protected $fillable = ['seccion', 'horario', 'bimestre', 'asignatura_id'];
 
     public function asignatura(){
 
-    	return $this->belongsTo('App\Asignatura','id_asignatura');
+        return $this->belongsTo('App\Asignatura','asignatura_id');
     }
 
-    public function facilitadores(){
+    public function inscripcionCiclo(){
 
-    	return $this->belongsTo('App\facilitador','id_facilitador');
+        return $this->hasMany(InscripcionCiclo::class,'grupo_id');
     }
 
-    public function cilo(){
-
-    	return $this->belongsTo('App\cilo','id_ciclo');
-    }
 }
